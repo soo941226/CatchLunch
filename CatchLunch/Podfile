@@ -1,0 +1,15 @@
+target 'CatchLunch' do
+  use_frameworks!
+
+  pod 'SwiftLint'
+
+  target 'CatchLunchTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'CatchLunchUITests' do
+    # Pods for testing
+  end
+
+end
