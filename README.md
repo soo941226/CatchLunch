@@ -1,6 +1,7 @@
-# CatchLunch
-I'm hungry... look for 🍚 in Gyeonggi
+# CatchLunch, 맛집찾는 앱
+I'm hungry... look for 🍚
 
+[계획](https://www.notion.so/soo941226/CatchLunch-4614ba8f91844695b8cb80124b234138)
 
 ### 사용할 기술
 
