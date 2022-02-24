@@ -13,5 +13,5 @@ protocol Restaurant {
     var refinedZipCode: String? { get }
     var roadNameAddress: String? { get }
     var locationNameAddress: String? { get }
-    var mainFoodName: String? { get }
+    var mainFoodNames: [String]? { get }
 }

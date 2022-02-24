@@ -15,7 +15,7 @@ struct RestaurantInformation: Restaurant, Coordinate, Bookmarkable {
     private(set) var refinedZipCode: String?
     private(set) var roadNameAddress: String?
     private(set) var locationNameAddress: String?
-    private(set) var mainFoodName: String?
+    private(set) var mainFoodNames: [String]?
     private(set) var latitude: Double
     private(set) var longitude: Double
 }
