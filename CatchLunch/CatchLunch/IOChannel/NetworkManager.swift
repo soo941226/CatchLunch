@@ -7,17 +7,24 @@
 
 import Foundation
 
-final class NetworkManager: NetworkManagable<URLRequest> {
-    private let session: URLSession
+final class NetworkManager<
+    Request,
+    Session: Sessionable
+>: NetworkManagable where Session.Requestable == Request {
+    private(set) var session: Session
+    private(set) var request: Request?
 
-    override init() {
-        self.session = URLSession(configuration: .default)
+    init(session: Session) {
+        self.session = session
     }
 
-    override func dataTask(
+    func setUpRequest(with request: Request) {
+        self.request = request
+    }
+
+    func dataTask(
         completionHandler: @escaping (Result<Data, Error>) -> Void
     ) {
-
         guard let request = request else {
             completionHandler(.failure(NetworkError.requestIsNotExist))
             return
@@ -29,23 +36,16 @@ final class NetworkManager: NetworkManagable<URLRequest> {
                 return
             }
 
-            guard let data = data else {
-                completionHandler(.failure(NetworkError.dataIsNotExist))
-                return
-            }
-
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 400..<500:
                     completionHandler(.failure(NetworkError.clientError(
-                        code: response.statusCode,
-                        description: response.description
+                        code: response.statusCode
                     )))
                     return
                 case 500..<600:
                     completionHandler(.failure(NetworkError.serverError(
-                        code: response.statusCode,
-                        description: response.description
+                        code: response.statusCode
                     )))
                     return
                 default:
@@ -53,7 +53,11 @@ final class NetworkManager: NetworkManagable<URLRequest> {
                 }
             }
 
-            completionHandler(.success(data))
-        }
+            if let data = data {
+                completionHandler(.success(data))
+            } else {
+                completionHandler(.failure(NetworkError.dataIsNotExist))
+            }
+        }.resume()
     }
 }

@@ -7,14 +7,13 @@
 
 import Foundation
 
-class NetworkManagable<Requstable> {
-    private(set) var request: Requstable?
+protocol NetworkManagable {
+    associatedtype Session: Sessionable
 
-    func setUpRequest(with request: Requstable) {
-        self.request = request
-    }
+    var request: Session.Requestable? { get }
+    var session: Session { get }
 
-    func dataTask(
-        completionHandler: @escaping (Result<Data, Error>) -> Void
-    ) { }
+    init(session: Session)
+    func setUpRequest(with request: Session.Requestable)
+    func dataTask(completionHandler: @escaping (Result<Data, Error>) -> Void)
 }
