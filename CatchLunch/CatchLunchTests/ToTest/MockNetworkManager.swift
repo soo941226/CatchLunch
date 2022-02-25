@@ -1,5 +1,5 @@
 //
-//  NetworkManagerToTest.swift
+//  MockNetworkManager.swift
 //  CatchLunchTests
 //
 //  Created by kjs on 2022/02/25.
@@ -8,15 +8,21 @@
 import Foundation
 @testable import CatchLunch
 
-enum Status {
-    case correctRestaurantData
-    case incorrectRestaurantData
-    case error
-}
+final class MockNetworkManager: NetworkManagable {
 
-final class NetworkManagerToTest: NetworkManagable<Status> {
+    private(set) var request: MockSessionStatus?
+    private(set) var session: MockSession
+
+    init(session: MockSession = MockSession()) {
+        self.session = session
+    }
+
+    func setUpRequest(with request: MockSessionStatus) {
+        self.request = request
+    }
+
     var correctData: Data {
-        let response = IngridientsOfJsonToTest(
+        let response = StubJsonToTest(
             cityName: "가평군",
             restaurantName: "가평축협 한우명가",
             phoneNumber: "031-581-1592",
@@ -36,7 +42,7 @@ final class NetworkManagerToTest: NetworkManagable<Status> {
         return Data()
     }
     
-    override func dataTask(
+    func dataTask(
         completionHandler: @escaping (Result<Data, Error>) -> Void
     ) {
         guard let request = request else {
@@ -45,15 +51,15 @@ final class NetworkManagerToTest: NetworkManagable<Status> {
         }
 
         switch request {
-        case .correctRestaurantData:
+        case .dataIsExist:
             asyncAfter {
                 completionHandler(.success(self.correctData))
             }
-        case .incorrectRestaurantData:
+        case .dataIsNotExist:
             asyncAfter {
                 completionHandler(.success(self.incorrectData))
             }
-        case .error:
+        default:
             asyncAfter {
                 completionHandler(.failure(NetworkError.dataIsNotExist))
             }

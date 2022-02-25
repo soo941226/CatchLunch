@@ -1,11 +1,11 @@
 //
-//  IngridientsOfJsonToTest.swift
+//  StubJsonToTest.swift
 //  CatchLunchTests
 //
 //  Created by kjs on 2022/02/24.
 //
 
-struct IngridientsOfJsonToTest {
+struct StubJsonToTest {
     var cityName: String
     var restaurantName: String
     var phoneNumber: String
