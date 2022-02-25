@@ -8,8 +8,14 @@
 import UIKit
 
 protocol ImageSearchService {
+    associatedtype NetworkManager: NetworkManagable
+
+    var manager: NetworkManager { get }
+    init(manager: NetworkManager )
+
+    func setUpRequest(request: NetworkManager.Requestable)
     func fetchImage(
         about name: String,
-        then: @escaping (Result<[UIImage], Error>) -> Void
+        completionHandler: @escaping (Result<UIImage, Error>) -> Void
     )
 }
