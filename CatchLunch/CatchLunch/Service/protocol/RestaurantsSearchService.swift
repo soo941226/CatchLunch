@@ -12,7 +12,7 @@ protocol RestaurantsSearchService {
     var manager: NetworkManager { get }
     init(manager: NetworkManager )
     
-    func setUpRequest(request: NetworkManager.Session.Requestable)
+    func setUpRequest(request: NetworkManager.Requestable)
     func fetchRestaurant(
         pageIndex: Int,
         completionHandler: @escaping (Result<[Responseable], Error>) -> Void

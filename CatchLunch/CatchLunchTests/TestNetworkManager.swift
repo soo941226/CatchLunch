@@ -9,7 +9,7 @@ import XCTest
 @testable import CatchLunch
 
 final class TestNetworkManager: XCTestCase {
-    private var networkManagerUnderTest: NetworkManager<MockSessionStatus, MockSession>!
+    private var networkManagerUnderTest: NetworkManager<MockSession>!
 
     override func setUp() {
         networkManagerUnderTest = NetworkManager(session: MockSession())

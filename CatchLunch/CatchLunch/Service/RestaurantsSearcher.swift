@@ -8,7 +8,7 @@
 import Foundation
 
 final class RestaurantsSearcher<NetworkManager: NetworkManagable>: RestaurantsSearchService {
-    typealias Requestable = NetworkManager.Session.Requestable
+    typealias Requestable = NetworkManager.Requestable
     typealias completionHandler = (Result<[RestaurantInformation], Error>) -> Void
     private let decoder = JSONDecoder()
     private(set) var manager: NetworkManager
