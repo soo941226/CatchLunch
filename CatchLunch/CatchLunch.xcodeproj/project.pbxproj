@@ -13,6 +13,7 @@
 		63018DEA27C9064F00363F00 /* MockSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63018DE927C9064F00363F00 /* MockSession.swift */; };
 		63018DEC27C911B000363F00 /* TestRestaurantSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63018DEB27C911B000363F00 /* TestRestaurantSearcher.swift */; };
 		63018DEE27C9126900363F00 /* TestNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63018DED27C9126900363F00 /* TestNetworkManager.swift */; };
+		63018DF227C92B6200363F00 /* ImageSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63018DF127C92B6200363F00 /* ImageSearcher.swift */; };
 		6367CED627C7F60F007E0735 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6367CEC227C7F60F007E0735 /* Assets.xcassets */; };
 		6367CED727C7F60F007E0735 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6367CEC327C7F60F007E0735 /* AppDelegate.swift */; };
 		6367CED927C7F60F007E0735 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6367CEC527C7F60F007E0735 /* SceneDelegate.swift */; };
@@ -63,6 +64,7 @@
 		63018DE927C9064F00363F00 /* MockSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSession.swift; sourceTree = "<group>"; };
 		63018DEB27C911B000363F00 /* TestRestaurantSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRestaurantSearcher.swift; sourceTree = "<group>"; };
 		63018DED27C9126900363F00 /* TestNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkManager.swift; sourceTree = "<group>"; };
+		63018DF127C92B6200363F00 /* ImageSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearcher.swift; sourceTree = "<group>"; };
 		6367CEC227C7F60F007E0735 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6367CEC327C7F60F007E0735 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6367CEC527C7F60F007E0735 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 			children = (
 				6367CED227C7F60F007E0735 /* protocol */,
 				63DE3E3D27C8A81D00A32868 /* RestaurantsSearcher.swift */,
+				63018DF127C92B6200363F00 /* ImageSearcher.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				63DE3E3C27C8996000A32868 /* NetworkManager.swift in Sources */,
 				6367CEDE27C7F60F007E0735 /* RestaurantInformation.swift in Sources */,
 				6367CEDD27C7F60F007E0735 /* Restaurant.swift in Sources */,
+				63018DF227C92B6200363F00 /* ImageSearcher.swift in Sources */,
 				63DE3E3927C898F800A32868 /* NetworkManagable.swift in Sources */,
 				6367CEE027C7F60F007E0735 /* RestaurantsSearchService.swift in Sources */,
 				6367CED727C7F60F007E0735 /* AppDelegate.swift in Sources */,
