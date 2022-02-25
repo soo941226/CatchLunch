@@ -31,20 +31,4 @@ struct IngridientsOfJsonToTest {
 }
 """
     }
-
-    var wrongJSONString: String {
-        return """
-{
-    "SIGUN_NM": 1234,
-    "RESTRT_NM": 1234,
-    "TASTFDPLC_TELNO": 1234,
-    "REPRSNT_FOOD_NM": 1234,
-    "REFINE_ZIPNO": 1234,
-    "REFINE_ROADNM_ADDR": 1234,
-    "REFINE_LOTNO_ADDR": 1234,
-    "REFINE_WGS84_LAT": 1234,
-    "REFINE_WGS84_LOGT": 1234
-}
-"""
-    }
 }

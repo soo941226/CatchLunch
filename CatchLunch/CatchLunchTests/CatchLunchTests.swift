@@ -30,17 +30,19 @@ final class CatchLunchTests: XCTestCase {
     }
 
     func test_jsonString은_restaurant로_잘_디코딩이_된다() {
+        //given
         let jsonString = structUnderTest.jsonString
         let jsonData = jsonString.data(using: .utf8)
 
         do {
+            //when
             guard let jsonData = jsonData else {
                 XCTFail("Something wrong")
                 return
             }
-
             let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
 
+            //then
             XCTAssertEqual(result.isBookmarked, false)
             XCTAssertEqual(result.cityName, structUnderTest.cityName)
             XCTAssertEqual(result.restaurantName, structUnderTest.restaurantName)
@@ -57,18 +59,20 @@ final class CatchLunchTests: XCTestCase {
     }
 
     func test_jsonString의_메인음식이름들이없어도_잘_디코딩이_된다() {
+        //given
         structUnderTest.mainFoodNames = ""
         let jsonString = structUnderTest.jsonString
         let jsonData = jsonString.data(using: .utf8)
 
         do {
+            //when
             guard let jsonData = jsonData else {
                 XCTFail("Something wrong")
                 return
             }
-
             let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
 
+            //then
             XCTAssertEqual(result.restaurantName, structUnderTest.restaurantName)
             XCTAssertEqual(result.mainFoodNames?.count, 0)
         } catch {
@@ -77,18 +81,20 @@ final class CatchLunchTests: XCTestCase {
     }
 
     func test_jsonString의_latitude가_이상하면_latitude는_nil이다() {
+        //given
         structUnderTest.latitude = "치킨먹고싶다"
         let jsonString = structUnderTest.jsonString
         let jsonData = jsonString.data(using: .utf8)
 
         do {
+            //when
             guard let jsonData = jsonData else {
                 XCTFail("Something wrong")
                 return
             }
-
             let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
 
+            //then
             XCTAssertNil(result.latitude)
         } catch {
             XCTFail(error.localizedDescription)
@@ -96,40 +102,157 @@ final class CatchLunchTests: XCTestCase {
     }
 
     func test_jsonString의_longitude가_이상하면_latitude는_nil이다() {
+        //given
         structUnderTest.longitude = "치킨먹고싶다"
         let jsonString = structUnderTest.jsonString
         let jsonData = jsonString.data(using: .utf8)
 
         do {
+            //when
             guard let jsonData = jsonData else {
                 XCTFail("Something wrong")
                 return
             }
-
             let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
 
+            //then
             XCTAssertNil(result.longitude)
         } catch {
             XCTFail(error.localizedDescription)
         }
     }
 
-    func test_jsonString에_타입이_이상하면_decode가_되지_않는다() {
-        let jsonString = structUnderTest.wrongJSONString
-        let jsonData = jsonString.data(using: .utf8)
+    func test_jsonString에_Restaurant타입의_프로퍼티가_누락되도_decode은_된다() {
+        //given
+        let jsonStringWithoutCityName = """
+{
+    "RESTRT_NM": "\(structUnderTest.restaurantName)",
+    "TASTFDPLC_TELNO": "\(structUnderTest.phoneNumber)",
+    "REPRSNT_FOOD_NM": "\(structUnderTest.mainFoodNames)",
+    "REFINE_ZIPNO": "\(structUnderTest.refinedZipCode)",
+    "REFINE_ROADNM_ADDR": "\(structUnderTest.roadNameAddress)",
+    "REFINE_LOTNO_ADDR": "\(structUnderTest.locationNameAddress)",
+    "REFINE_WGS84_LAT": "\(structUnderTest.latitude)",
+    "REFINE_WGS84_LOGT": "\(structUnderTest.longitude)"
+}
+"""
+        let jsonData = jsonStringWithoutCityName.data(using: .utf8)
 
         do {
+            //when
             guard let jsonData = jsonData else {
                 XCTFail("Something wrong")
                 return
             }
+            let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
 
-            _ = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
-
-            XCTFail("잘되면 안됨")
+            //then
+            XCTAssertNil(result.cityName)
+            XCTAssertEqual(result.restaurantName, structUnderTest.restaurantName)
         } catch {
-            XCTAssertTrue(true, error.localizedDescription)
+            XCTFail(error.localizedDescription)
         }
     }
 
+    func test_jsonString에_Restaurant타입의_프로퍼티가_타입이달라도_디코딩은_된다() {
+        //given
+        let jsonStringWithWrongCityName = """
+{
+    "SIGUN_NM": 1234,
+    "RESTRT_NM": "\(structUnderTest.restaurantName)",
+    "TASTFDPLC_TELNO": "\(structUnderTest.phoneNumber)",
+    "REPRSNT_FOOD_NM": "\(structUnderTest.mainFoodNames)",
+    "REFINE_ZIPNO": "\(structUnderTest.refinedZipCode)",
+    "REFINE_ROADNM_ADDR": "\(structUnderTest.roadNameAddress)",
+    "REFINE_LOTNO_ADDR": "\(structUnderTest.locationNameAddress)",
+    "REFINE_WGS84_LAT": "\(structUnderTest.latitude)",
+    "REFINE_WGS84_LOGT": "\(structUnderTest.longitude)"
+}
+"""
+        let jsonData = jsonStringWithWrongCityName.data(using: .utf8)
+
+        do {
+            //when
+            guard let jsonData = jsonData else {
+                XCTFail("Something wrong")
+                return
+            }
+            let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
+
+            //then
+            XCTAssertNil(result.cityName)
+            XCTAssertEqual(result.restaurantName, structUnderTest.restaurantName)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+
+    func test_jsonString에_Coordinate타입의_longitude가_타입이달라도_디코딩이_된다() {
+        //given
+        let jsonStringWithWrongLongitude = """
+{
+    "SIGUN_NM": "\(structUnderTest.cityName)",
+    "RESTRT_NM": "\(structUnderTest.restaurantName)",
+    "TASTFDPLC_TELNO": "\(structUnderTest.phoneNumber)",
+    "REPRSNT_FOOD_NM": "\(structUnderTest.mainFoodNames)",
+    "REFINE_ZIPNO": "\(structUnderTest.refinedZipCode)",
+    "REFINE_ROADNM_ADDR": "\(structUnderTest.roadNameAddress)",
+    "REFINE_LOTNO_ADDR": "\(structUnderTest.locationNameAddress)",
+    "REFINE_WGS84_LAT": "\(structUnderTest.latitude)",
+    "REFINE_WGS84_LOGT": \(structUnderTest.longitude)
+}
+"""
+        let jsonData = jsonStringWithWrongLongitude.data(using: .utf8)
+
+        do {
+            //when
+            guard let jsonData = jsonData else {
+                XCTFail("Something wrong")
+                return
+            }
+            let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
+
+            //then
+            XCTAssertEqual(result.cityName, structUnderTest.cityName)
+            XCTAssertEqual(result.longitude?.description, structUnderTest.longitude)
+            XCTAssertEqual(result.latitude?.description, structUnderTest.latitude)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+
+    func test_jsonString에_Coordinate타입의_latitude가_타입이달라도_디코딩이_된다() {
+        //given
+        let jsonStringWithWrongLatitude = """
+{
+    "SIGUN_NM": "\(structUnderTest.cityName)",
+    "RESTRT_NM": "\(structUnderTest.restaurantName)",
+    "TASTFDPLC_TELNO": "\(structUnderTest.phoneNumber)",
+    "REPRSNT_FOOD_NM": "\(structUnderTest.mainFoodNames)",
+    "REFINE_ZIPNO": "\(structUnderTest.refinedZipCode)",
+    "REFINE_ROADNM_ADDR": "\(structUnderTest.roadNameAddress)",
+    "REFINE_LOTNO_ADDR": "\(structUnderTest.locationNameAddress)",
+    "REFINE_WGS84_LAT": \(structUnderTest.latitude),
+    "REFINE_WGS84_LOGT": "\(structUnderTest.longitude)"
+}
+"""
+        let jsonData = jsonStringWithWrongLatitude.data(using: .utf8)
+
+        do {
+            //when
+            guard let jsonData = jsonData else {
+                XCTFail("Something wrong")
+                return
+            }
+            let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
+
+            //then
+            XCTAssertEqual(result.cityName, structUnderTest.cityName)
+            XCTAssertEqual(result.longitude?.description, structUnderTest.longitude)
+            XCTAssertEqual(result.latitude?.description, structUnderTest.latitude)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
 }
