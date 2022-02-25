@@ -9,8 +9,6 @@ import XCTest
 @testable import CatchLunch
 
 final class CatchLunchTests: XCTestCase {
-    private var structUnderTest: IngridientsOfJsonToTest!
-
     override func setUp() {
         structUnderTest = IngridientsOfJsonToTest(
             cityName: "가평군",
@@ -23,11 +21,17 @@ final class CatchLunchTests: XCTestCase {
             latitude: "37.8158443",
             longitude: "127.5161283"
         )
+
+        restaurantSearcherUnderTest = RestaurantsSearcher(manager: NetworkManagerToTest())
     }
 
     override func tearDown() {
         structUnderTest = nil
+        restaurantSearcherUnderTest = nil
     }
+
+    // MARK: - RestaurantInformation
+    private var structUnderTest: IngridientsOfJsonToTest!
 
     func test_jsonString은_restaurant로_잘_디코딩이_된다() {
         //given
@@ -254,5 +258,106 @@ final class CatchLunchTests: XCTestCase {
             XCTFail(error.localizedDescription)
         }
     }
-    
+
+
+    // MARK: - RestaurantSearcher
+    private var restaurantSearcherUnderTest: RestaurantsSearcher<Status>!
+
+    func test_searcher의_setRequest를_하지_않으면_에러가_발생한다() {
+        //given
+        let expectation = XCTestExpectation(description: "expect error")
+        let targetDescription = NetworkError.requestIsNotExist.localizedDescription
+
+        //when
+        restaurantSearcherUnderTest.fetchRestaurant(pageIndex: .zero) { result in
+            switch result {
+            case .success:
+                XCTFail("error")
+            case .failure(let error):
+                guard let error = error as? NetworkError else {
+                    XCTFail(error.localizedDescription)
+                    return
+                }
+
+                //then
+                let result = error.localizedDescription
+                XCTAssertTrue(result == targetDescription)
+            }
+
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 5.0)
+    }
+
+    func test_searcher의_setRequest가_잘못되면_데이터가없는_에러가_발생한다() {
+        //given
+        restaurantSearcherUnderTest.setUpRequest(request: .error)
+        let expectation = XCTestExpectation(description: "expect error")
+        let targetDescription = NetworkError.dataIsNotExist.localizedDescription
+
+        //when
+        restaurantSearcherUnderTest.fetchRestaurant(pageIndex: .zero) { result in
+            switch result {
+            case .success:
+                XCTFail("error")
+            case .failure(let error):
+
+                //then
+                let result = error.localizedDescription
+                XCTAssertTrue(result == targetDescription)
+            }
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 5.0)
+    }
+
+    func test_searcher의_setRequest는_잘되었는데_response가_잘못되면_디코딩_에러가_발생한다() {
+        //given
+        restaurantSearcherUnderTest.setUpRequest(request: .incorrectRestaurantData)
+        let expectation = XCTestExpectation(description: "expect error")
+
+        //when
+        restaurantSearcherUnderTest.fetchRestaurant(pageIndex: .zero) { result in
+            switch result {
+            case .success:
+                XCTFail("error")
+            case .failure(let error):
+                //then
+                if error is DecodingError {
+                    XCTAssert(true, error.localizedDescription)
+                } else {
+                    XCTFail(error.localizedDescription)
+                }
+            }
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 5.0)
+    }
+
+    func test_searcher의_setRequest도_잘디고_response가_잘오면_성공한다() {
+        //given
+        restaurantSearcherUnderTest.setUpRequest(request: .correctRestaurantData)
+        let expectation = XCTestExpectation(description: "expect error")
+
+        //when
+        restaurantSearcherUnderTest.fetchRestaurant(pageIndex: .zero) { result in
+            switch result {
+            case .success(let response):
+                XCTAssertEqual(response.count, 1)
+                XCTAssertEqual(response[0].isBookmarked, false)
+                XCTAssertEqual(response[0].cityName, "가평군")
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
+            }
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 5.0)
+    }
+
 }
+
+
