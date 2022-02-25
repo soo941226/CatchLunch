@@ -22,6 +22,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configurationForConnecting connectingSceneSession: UISceneSession,
         options: UIScene.ConnectionOptions
     ) -> UISceneConfiguration {
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+        if connectingSceneSession.role == .windowApplication {
+            let config = UISceneConfiguration(
+                name: "Default Configuration",
+                sessionRole: connectingSceneSession.role
+            )
+            config.delegateClass = SceneDelegate.self
+            return config
+        }
+
+        return UISceneConfiguration(
+            name: nil,
+            sessionRole: connectingSceneSession.role
+        )
     }
 }
