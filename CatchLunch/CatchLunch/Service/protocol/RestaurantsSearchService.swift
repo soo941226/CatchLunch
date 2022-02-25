@@ -9,8 +9,7 @@ protocol RestaurantsSearchService {
     associatedtype Response = Restaurant
 
     func fetchRestaurant(
-        where location: Coordinate,
         pageIndex: Int,
-        then: @escaping (Result<[Response], Error>) -> Void
+        completionHandler: @escaping (Result<[Response], Error>) -> Void
     )
 }
