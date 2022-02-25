@@ -249,21 +249,21 @@
 		63DE3E3727C898A200A32868 /* IOChannel */ = {
 			isa = PBXGroup;
 			children = (
-				63DE3E3A27C8995200A32868 /* concept */,
+				63DE3E3A27C8995200A32868 /* protocol */,
 				63DE3E3B27C8996000A32868 /* NetworkManager.swift */,
 				6379AFBA27C8E48300F84A91 /* NetworkError.swift */,
 			);
 			path = IOChannel;
 			sourceTree = "<group>";
 		};
-		63DE3E3A27C8995200A32868 /* concept */ = {
+		63DE3E3A27C8995200A32868 /* protocol */ = {
 			isa = PBXGroup;
 			children = (
 				63018DE727C903AA00363F00 /* Taskable.swift */,
 				6379AFBF27C8FE0000F84A91 /* Sessionable.swift */,
 				63DE3E3827C898F800A32868 /* NetworkManagable.swift */,
 			);
-			path = concept;
+			path = protocol;
 			sourceTree = "<group>";
 		};
 		63DE3E4327C8C72000A32868 /* ToTest */ = {
