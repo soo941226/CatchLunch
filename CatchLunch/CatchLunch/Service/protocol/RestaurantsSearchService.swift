@@ -6,13 +6,13 @@
 //
 
 protocol RestaurantsSearchService {
-    associatedtype Requestable
     associatedtype Responseable: Restaurant
+    associatedtype NetworkManager: NetworkManagable
 
-    var manager: NetworkManagable<Requestable> { get }
-    init(manager: NetworkManagable<Requestable>)
+    var manager: NetworkManager { get }
+    init(manager: NetworkManager )
     
-    func setUpRequest(request: Requestable)
+    func setUpRequest(request: NetworkManager.Session.Requestable)
     func fetchRestaurant(
         pageIndex: Int,
         completionHandler: @escaping (Result<[Responseable], Error>) -> Void
