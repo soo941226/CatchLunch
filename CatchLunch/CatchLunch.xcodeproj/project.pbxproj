@@ -26,6 +26,9 @@
 		63C448D027C7F37300F7063B /* CatchLunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C448CF27C7F37300F7063B /* CatchLunchTests.swift */; };
 		63C448DD27C7F38800F7063B /* CatchLunchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C448DC27C7F38800F7063B /* CatchLunchUITests.swift */; };
 		63C448DF27C7F38800F7063B /* CatchLunchUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C448DE27C7F38800F7063B /* CatchLunchUITestsLaunchTests.swift */; };
+		63DE3E3927C898F800A32868 /* NetworkManagable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE3E3827C898F800A32868 /* NetworkManagable.swift */; };
+		63DE3E3C27C8996000A32868 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE3E3B27C8996000A32868 /* NetworkManager.swift */; };
+		63DE3E3E27C8A81D00A32868 /* RestaurantsSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE3E3D27C8A81D00A32868 /* RestaurantsSearcher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +71,9 @@
 		63C448DA27C7F38800F7063B /* CatchLunchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CatchLunchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C448DC27C7F38800F7063B /* CatchLunchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchLunchUITests.swift; sourceTree = "<group>"; };
 		63C448DE27C7F38800F7063B /* CatchLunchUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchLunchUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		63DE3E3827C898F800A32868 /* NetworkManagable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagable.swift; sourceTree = "<group>"; };
+		63DE3E3B27C8996000A32868 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		63DE3E3D27C8A81D00A32868 /* RestaurantsSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsSearcher.swift; sourceTree = "<group>"; };
 		63F0271A27C7F2A900680D0B /* CatchLunch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatchLunch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		777644171959F8BA17EAF3E9 /* Pods-CatchLunch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchLunch.debug.xcconfig"; path = "Target Support Files/Pods-CatchLunch/Pods-CatchLunch.debug.xcconfig"; sourceTree = "<group>"; };
 		9D42ECD857F501C57BB5CB1F /* Pods_CatchLunchTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CatchLunchTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +141,7 @@
 				6367CEC127C7F60F007E0735 /* App */,
 				6367CEC627C7F60F007E0735 /* Controller */,
 				6367CEC827C7F60F007E0735 /* Model */,
+				63DE3E3727C898A200A32868 /* IOChannel */,
 				6367CED127C7F60F007E0735 /* Service */,
 				6367CECE27C7F60F007E0735 /* View */,
 			);
@@ -190,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				6367CED227C7F60F007E0735 /* protocol */,
+				63DE3E3D27C8A81D00A32868 /* RestaurantsSearcher.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -220,6 +228,23 @@
 				63C448DE27C7F38800F7063B /* CatchLunchUITestsLaunchTests.swift */,
 			);
 			path = CatchLunchUITests;
+			sourceTree = "<group>";
+		};
+		63DE3E3727C898A200A32868 /* IOChannel */ = {
+			isa = PBXGroup;
+			children = (
+				63DE3E3A27C8995200A32868 /* protocol */,
+				63DE3E3B27C8996000A32868 /* NetworkManager.swift */,
+			);
+			path = IOChannel;
+			sourceTree = "<group>";
+		};
+		63DE3E3A27C8995200A32868 /* protocol */ = {
+			isa = PBXGroup;
+			children = (
+				63DE3E3827C898F800A32868 /* NetworkManagable.swift */,
+			);
+			path = protocol;
 			sourceTree = "<group>";
 		};
 		63F0271127C7F2A900680D0B = {
@@ -466,13 +491,16 @@
 			files = (
 				6367CEDC27C7F60F007E0735 /* Bookmarkable.swift in Sources */,
 				6367CEDA27C7F60F007E0735 /* ViewController.swift in Sources */,
+				63DE3E3C27C8996000A32868 /* NetworkManager.swift in Sources */,
 				6367CEDE27C7F60F007E0735 /* RestaurantInformation.swift in Sources */,
 				6367CEDD27C7F60F007E0735 /* Restaurant.swift in Sources */,
+				63DE3E3927C898F800A32868 /* NetworkManagable.swift in Sources */,
 				6367CEE027C7F60F007E0735 /* RestaurantsSearchService.swift in Sources */,
 				6367CED727C7F60F007E0735 /* AppDelegate.swift in Sources */,
 				6367CEE127C7F60F007E0735 /* BookmarkService.swift in Sources */,
 				6367CED927C7F60F007E0735 /* SceneDelegate.swift in Sources */,
 				6367CEDB27C7F60F007E0735 /* Coordinate.swift in Sources */,
+				63DE3E3E27C8A81D00A32868 /* RestaurantsSearcher.swift in Sources */,
 				6367CEE227C7F60F007E0735 /* ImageSearchService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
