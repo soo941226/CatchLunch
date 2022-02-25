@@ -7,8 +7,14 @@
 
 import Foundation
 
-protocol NetworkManagable {
+class NetworkManagable<Requstable> {
+    private(set) var request: Requstable?
+
+    func setUpRequest(with request: Requstable) {
+        self.request = request
+    }
+
     func dataTask(
         completionHandler: @escaping (Result<Data, Error>) -> Void
-    )
+    ) { }
 }
