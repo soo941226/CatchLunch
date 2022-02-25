@@ -7,21 +7,24 @@
 
 import Foundation
 
-final class RestaurantsSearcher: RestaurantsSearchService  {
+final class RestaurantsSearcher<Requestable>: RestaurantsSearchService {
     typealias completionHandler = (Result<[RestaurantInformation], Error>) -> Void
-    
-    private let channel: NetworkManagable
     private let decoder = JSONDecoder()
+    private(set) var manager: NetworkManagable<Requestable>
 
-    init(channel: NetworkManagable) {
-        self.channel = channel
+    init(manager: NetworkManagable<Requestable>) {
+        self.manager = manager
+    }
+
+    func setUpRequest(request: Requestable) {
+        manager.setUpRequest(with: request)
     }
 
     func fetchRestaurant(
         pageIndex: Int,
         completionHandler: @escaping completionHandler
     ) {
-        channel.dataTask { [weak self] result in
+        manager.dataTask { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):
