@@ -6,7 +6,7 @@
 //
 import UIKit
 
-final class ImageSearcher<NetworkManager: NetworkManagable>: ImageSearchService {
+final class ImageSearcher<NetworkManager: NetworkManagable>: SearchService {
     typealias Requestable = NetworkManager.Requestable
     private(set) var manager: NetworkManager
 
@@ -18,8 +18,7 @@ final class ImageSearcher<NetworkManager: NetworkManagable>: ImageSearchService 
         manager.setUpRequest(with: request)
     }
 
-    func fetchImage(
-        about name: String,
+    func fetch(
         completionHandler: @escaping (Result<UIImage, Error>) -> Void
     ) {
         manager.dataTask { result in

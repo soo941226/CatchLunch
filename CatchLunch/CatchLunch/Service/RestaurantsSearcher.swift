@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class RestaurantsSearcher<NetworkManager: NetworkManagable>: RestaurantsSearchService {
+final class RestaurantsSearcher<NetworkManager: NetworkManagable>: SearchService {
     typealias Requestable = NetworkManager.Requestable
     typealias completionHandler = (Result<[RestaurantInformation], Error>) -> Void
     private let decoder = JSONDecoder()
@@ -21,8 +21,7 @@ final class RestaurantsSearcher<NetworkManager: NetworkManagable>: RestaurantsSe
         manager.setUpRequest(with: request)
     }
 
-    func fetchRestaurant(
-        pageIndex: Int,
+    func fetch(
         completionHandler: @escaping completionHandler
     ) {
         manager.dataTask { [weak self] result in
