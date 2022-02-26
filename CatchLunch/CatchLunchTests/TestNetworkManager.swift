@@ -114,7 +114,7 @@ final class TestNetworkManager: XCTestCase {
         wait(for: [expectaion], timeout: 5.0)
     }
 
-    func test_request가_잘설정되어있어도_예기치않은상황엔_에러가발생한다() {
+    func test_request가_잘설정되어있어도_에러가넘어오면_에러를처리한다() {
         networkManagerUnderTest.setUpRequest(with: .criticalError)
         let expectaion = XCTestExpectation(description: "expect error")
         let targetDescription = DummyError.justError.localizedDescription

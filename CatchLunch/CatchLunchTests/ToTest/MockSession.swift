@@ -41,39 +41,63 @@ final class MockSession: Sessionable {
             self.completionHandler = completionHandler
         }
 
+        private func returnEmptyData() {
+            completionHandler(Data(), nil, nil)
+        }
+
+        private func returnNil() {
+            completionHandler(nil, nil, nil)
+        }
+
+        private func returnClientError() {
+            guard let url = URL(string: MockSession.dummyURL) else {
+                completionHandler(nil, nil, DummyError.canNotCreateURL)
+                return
+            }
+
+            let dummyResponse = HTTPURLResponse(url: url, statusCode: 400, httpVersion: nil, headerFields: nil)
+            completionHandler(nil, dummyResponse, nil)
+        }
+
+        private func returnServerError() {
+            guard let url = URL(string: MockSession.dummyURL) else {
+                completionHandler(nil, nil, DummyError.canNotCreateURL)
+                return
+            }
+
+            let dummyResponse = HTTPURLResponse(url: url, statusCode: 500, httpVersion: nil, headerFields: nil)
+            completionHandler(nil, dummyResponse, nil)
+        }
+
+        private func returnStrangeResponse() {
+            guard let url = URL(string: MockSession.dummyURL) else {
+                completionHandler(nil, nil, DummyError.canNotCreateURL)
+                return
+            }
+
+            let dummyResponse = HTTPURLResponse(url: url, statusCode: 999, httpVersion: nil, headerFields: nil)
+            completionHandler(nil, dummyResponse, nil)
+        }
+
+        private func returnJustError() {
+            completionHandler(nil, nil, DummyError.justError)
+        }
+
         func resume() {
             DispatchQueue.global().asyncAfter(deadline: .now() + 0.5) {
                 switch status {
                 case .dataIsExist:
-                    completionHandler(Data(), nil, nil)
+                    returnEmptyData()
                 case .dataIsNotExist:
-                    completionHandler(nil, nil, nil)
+                    returnNil()
                 case .clientError:
-                    guard let url = URL(string: MockSession.dummyURL) else {
-                        completionHandler(nil, nil, DummyError.canNotCreateURL)
-                        return
-                    }
-
-                    let dummyResponse = HTTPURLResponse(url: url, statusCode: 400, httpVersion: nil, headerFields: nil)
-                    completionHandler(nil, dummyResponse, nil)
+                    returnClientError()
                 case .serverError:
-                    guard let url = URL(string: MockSession.dummyURL) else {
-                        completionHandler(nil, nil, DummyError.canNotCreateURL)
-                        return
-                    }
-
-                    let dummyResponse = HTTPURLResponse(url: url, statusCode: 500, httpVersion: nil, headerFields: nil)
-                    completionHandler(nil, dummyResponse, nil)
+                    returnServerError()
                 case .otherResponseError:
-                    guard let url = URL(string: MockSession.dummyURL) else {
-                        completionHandler(nil, nil, DummyError.canNotCreateURL)
-                        return
-                    }
-
-                    let dummyResponse = HTTPURLResponse(url: url, statusCode: 999, httpVersion: nil, headerFields: nil)
-                    completionHandler(nil, dummyResponse, nil)
+                    returnStrangeResponse()
                 case .criticalError:
-                    completionHandler(nil, nil, DummyError.justError)
+                    returnJustError()
                 }
             }
         }
