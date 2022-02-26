@@ -28,7 +28,10 @@ final class NetworkManager<Session: Sessionable>: NetworkManagable {
             return
         }
 
-        session.dataTask(with: request) { data, response, error in
+        session.dataTask(with: request) { [weak self] data, response, error in
+            guard let self = self else { return }
+            self.request = nil
+
             if let error = error {
                 completionHandler(.failure(error))
                 return
