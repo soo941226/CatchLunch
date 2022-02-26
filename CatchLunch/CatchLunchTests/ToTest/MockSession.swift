@@ -105,10 +105,3 @@ final class MockSession: Sessionable {
         func suspend(){}
     }
 }
-
-
-/*
- 1. 목세션을 NetworkManager에 주입해서 NetworkManager를 테스트 하고 싶음
- 2. 네트워크 매니저에 completionHandler
-
- */
