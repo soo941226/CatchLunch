@@ -26,7 +26,7 @@
 		6367CEE027C7F60F007E0735 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6367CED327C7F60F007E0735 /* SearchService.swift */; };
 		6367CEE127C7F60F007E0735 /* BookmarkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6367CED427C7F60F007E0735 /* BookmarkService.swift */; };
 		6375C8BC27CA7BCC00F1D60F /* MockImageNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375C8BB27CA7BCC00F1D60F /* MockImageNetworkManager.swift */; };
-		6375C8BE27CA7D6200F1D60F /* dummyTestImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6375C8BD27CA7D6200F1D60F /* dummyTestImage.jpg */; };
+		6375C8BE27CA7D6200F1D60F /* dummyImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6375C8BD27CA7D6200F1D60F /* dummyImage.jpg */; };
 		6375C8C027CA7EDD00F1D60F /* TestImageSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375C8BF27CA7EDD00F1D60F /* TestImageSearcher.swift */; };
 		6379AFBB27C8E48300F84A91 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379AFBA27C8E48300F84A91 /* NetworkError.swift */; };
 		6379AFC027C8FE0000F84A91 /* Sessionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379AFBF27C8FE0000F84A91 /* Sessionable.swift */; };
@@ -79,7 +79,7 @@
 		6367CED327C7F60F007E0735 /* SearchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		6367CED427C7F60F007E0735 /* BookmarkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkService.swift; sourceTree = "<group>"; };
 		6375C8BB27CA7BCC00F1D60F /* MockImageNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageNetworkManager.swift; sourceTree = "<group>"; };
-		6375C8BD27CA7D6200F1D60F /* dummyTestImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dummyTestImage.jpg; sourceTree = "<group>"; };
+		6375C8BD27CA7D6200F1D60F /* dummyImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dummyImage.jpg; sourceTree = "<group>"; };
 		6375C8BF27CA7EDD00F1D60F /* TestImageSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestImageSearcher.swift; sourceTree = "<group>"; };
 		6379AFBA27C8E48300F84A91 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		6379AFBF27C8FE0000F84A91 /* Sessionable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sessionable.swift; sourceTree = "<group>"; };
@@ -276,7 +276,7 @@
 		63DE3E4327C8C72000A32868 /* ToTest */ = {
 			isa = PBXGroup;
 			children = (
-				6375C8BD27CA7D6200F1D60F /* dummyTestImage.jpg */,
+				6375C8BD27CA7D6200F1D60F /* dummyImage.jpg */,
 				63A71BC627C7FB2900820C0C /* StubJsonToTest.swift */,
 				63DE3E4127C8C71B00A32868 /* MockRestaurantNetworkManager.swift */,
 				6375C8BB27CA7BCC00F1D60F /* MockImageNetworkManager.swift */,
@@ -414,7 +414,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6375C8BE27CA7D6200F1D60F /* dummyTestImage.jpg in Resources */,
+				6375C8BE27CA7D6200F1D60F /* dummyImage.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
