@@ -9,10 +9,10 @@ import XCTest
 @testable import CatchLunch
 
 final class TestRestaurantSearcher: XCTestCase {
-    private var restaurantSearcherUnderTest: RestaurantsSearcher<MockNetworkManager>!
+    private var restaurantSearcherUnderTest: RestaurantsSearcher<MockRestaurantNetworkManager>!
 
     override func setUp() {
-        restaurantSearcherUnderTest = RestaurantsSearcher(manager: MockNetworkManager())
+        restaurantSearcherUnderTest = RestaurantsSearcher(manager: MockRestaurantNetworkManager())
     }
     override func tearDown() {
         restaurantSearcherUnderTest = nil
@@ -24,7 +24,7 @@ final class TestRestaurantSearcher: XCTestCase {
         let targetDescription = NetworkError.requestIsNotExist.localizedDescription
 
         //when
-        restaurantSearcherUnderTest.fetchRestaurant(pageIndex: .zero) { result in
+        restaurantSearcherUnderTest.fetch { result in
             switch result {
             case .success:
                 XCTFail("error")
@@ -52,7 +52,7 @@ final class TestRestaurantSearcher: XCTestCase {
         let targetDescription = NetworkError.dataIsNotExist.localizedDescription
 
         //when
-        restaurantSearcherUnderTest.fetchRestaurant(pageIndex: .zero) { result in
+        restaurantSearcherUnderTest.fetch { result in
             switch result {
             case .success:
                 XCTFail("error")
@@ -74,7 +74,7 @@ final class TestRestaurantSearcher: XCTestCase {
         let expectation = XCTestExpectation(description: "expect error")
 
         //when
-        restaurantSearcherUnderTest.fetchRestaurant(pageIndex: .zero) { result in
+        restaurantSearcherUnderTest.fetch { result in
             switch result {
             case .success:
                 XCTFail("error")
@@ -98,7 +98,7 @@ final class TestRestaurantSearcher: XCTestCase {
         let expectation = XCTestExpectation(description: "expect error")
 
         //when
-        restaurantSearcherUnderTest.fetchRestaurant(pageIndex: .zero) { result in
+        restaurantSearcherUnderTest.fetch { result in
             switch result {
             case .success(let response):
                 XCTAssertEqual(response.count, 1)
