@@ -7,9 +7,7 @@
 
 import Foundation
 
-final class NetworkManager<
-    Session: Sessionable
->: NetworkManagable{
+final class NetworkManager<Session: Sessionable>: NetworkManagable {
     typealias Request = Session.Requestable
     private(set) var session: Session
     private(set) var request: Request?
