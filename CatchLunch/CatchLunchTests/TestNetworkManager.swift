@@ -162,7 +162,9 @@ final class TestNetworkManager: XCTestCase {
     }
 
     func test_request가_잘설정되어있고_응답데이터도있으면_잘동작한다() {
-        networkManagerUnderTest.setUpRequest(with: .dataIsExist)
+        networkManagerUnderTest.setUpRequest(with: .dataIsExist(
+            flag: MockSession.just
+        ))
         let expectaion = XCTestExpectation(description: "expect error")
         let dummyDataCount = Int.zero
 

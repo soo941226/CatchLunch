@@ -9,6 +9,7 @@ import Foundation
 @testable import CatchLunch
 
 final class MockRestaurantNetworkManager: NetworkManagable {
+    static let just = "just"
     private(set) var request: MockSessionStatus?
     private(set) var session: MockSession
 

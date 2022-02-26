@@ -94,7 +94,9 @@ final class TestRestaurantSearcher: XCTestCase {
 
     func test_setRequest도_잘되고_response가_잘오면_성공한다() {
         //given
-        restaurantSearcherUnderTest.setUpRequest(request: .dataIsExist)
+        restaurantSearcherUnderTest.setUpRequest(request: .dataIsExist(
+            flag: MockRestaurantNetworkManager.just
+        ))
         let expectation = XCTestExpectation(description: "expect error")
 
         //when

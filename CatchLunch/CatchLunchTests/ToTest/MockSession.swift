@@ -14,7 +14,7 @@ enum DummyError: Error {
 }
 
 enum MockSessionStatus {
-    case dataIsExist
+    case dataIsExist(flag: String)
     case dataIsNotExist
     case clientError
     case serverError
@@ -23,6 +23,7 @@ enum MockSessionStatus {
 }
 
 final class MockSession: Sessionable {
+    static let just = "just"
     private static let dummyURL = "http://www.swift.com"
 
     func dataTask(
