@@ -9,12 +9,12 @@ import Foundation
 
 protocol NetworkManagable {
     associatedtype Session: Sessionable
-    typealias Requestable = Session.Requestable
+    typealias Request = Session.Request
 
-    var request: Requestable? { get }
+    var request: Request? { get }
     var session: Session { get }
 
     init(session: Session)
-    func setUpRequest(with request: Requestable)
+    func setUpRequest(with request: Request)
     func dataTask(completionHandler: @escaping (Result<Data, Error>) -> Void)
 }

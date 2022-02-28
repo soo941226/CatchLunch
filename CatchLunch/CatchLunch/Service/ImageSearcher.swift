@@ -7,7 +7,7 @@
 import UIKit
 
 final class ImageSearcher<NetworkManager: NetworkManagable>: SearchService {
-    typealias Requestable = NetworkManager.Requestable
+    typealias Request = NetworkManager.Request
     private(set) var manager: NetworkManager
     private let decoder = JSONDecoder()
 
@@ -15,7 +15,7 @@ final class ImageSearcher<NetworkManager: NetworkManagable>: SearchService {
         self.manager = manager
     }
 
-    func setUpRequest(request: Requestable) {
+    func setUpRequest(request: Request) {
         manager.setUpRequest(with: request)
     }
 

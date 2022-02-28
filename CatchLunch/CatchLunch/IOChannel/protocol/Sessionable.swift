@@ -8,16 +8,16 @@
 import Foundation
 
 protocol Sessionable {
-    associatedtype Requestable
+    associatedtype Request
     associatedtype Task: Taskable
     
     func dataTask(
-        with request: Requestable,
+        with request: Request,
         completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
     ) -> Task
 }
 
 extension URLSession: Sessionable {
-    typealias Requestable = URLRequest
+    typealias Request = URLRequest
     typealias Task = URLSessionDataTask
 }

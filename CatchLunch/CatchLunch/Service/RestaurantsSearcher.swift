@@ -8,8 +8,8 @@
 import Foundation
 
 final class RestaurantsSearcher<NetworkManager: NetworkManagable>: SearchService {
-    typealias Requestable = NetworkManager.Requestable
     typealias completionHandler = (Result<[RestaurantInformation], Error>) -> Void
+    
     private let decoder = JSONDecoder()
     private(set) var manager: NetworkManager
 
@@ -17,7 +17,7 @@ final class RestaurantsSearcher<NetworkManager: NetworkManagable>: SearchService
         self.manager = manager
     }
 
-    func setUpRequest(request: Requestable) {
+    func setUpRequest(request: Request) {
         manager.setUpRequest(with: request)
     }
 

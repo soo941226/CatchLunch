@@ -22,7 +22,7 @@ final class MockImageNetworkManager: NetworkManagable {
         self.session = session
     }
 
-    func setUpRequest(with request: Requestable) {
+    func setUpRequest(with request: MockSessionStatus) {
         self.request = request
     }
 
