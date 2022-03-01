@@ -8,15 +8,14 @@
 import Foundation
 
 final class NetworkManager<Session: Sessionable>: NetworkManagable {
-    typealias Request = Session.Request
     private(set) var session: Session
-    private(set) var request: Request?
+    private(set) var request: URLRequest?
 
-    init(session: Session) {
+    required init(session: Session) {
         self.session = session
     }
 
-    func setUpRequest(with request: Request) {
+    func setUpRequest(with request: URLRequest) {
         self.request = request
     }
 

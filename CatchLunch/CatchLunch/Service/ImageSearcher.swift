@@ -7,7 +7,6 @@
 import UIKit
 
 final class ImageSearcher<NetworkManager: NetworkManagable>: SearchService {
-    typealias Request = NetworkManager.Request
     private(set) var manager: NetworkManager
     private let decoder = JSONDecoder()
 
@@ -15,7 +14,7 @@ final class ImageSearcher<NetworkManager: NetworkManagable>: SearchService {
         self.manager = manager
     }
 
-    func setUpRequest(request: Request) {
+    func setUpRequest(request: URLRequest) {
         manager.setUpRequest(with: request)
     }
 
@@ -62,7 +61,7 @@ final class ImageSearcher<NetworkManager: NetworkManagable>: SearchService {
     }
 }
 
-@frozen enum ImageSearchError: Error {
+@frozen enum ImageSearchError: LocalizedError {
     case searchResultIsWrong
     case itemsIsNotExists
     case linkIsNotExists

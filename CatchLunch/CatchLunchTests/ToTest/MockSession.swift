@@ -13,13 +13,37 @@ enum DummyError: Error {
     case canNotCreateURL
 }
 
-enum MockSessionStatus {
-    case dataIsExist(flag: String)
-    case dataIsNotExist
-    case clientError
-    case serverError
-    case otherResponseError
-    case criticalError
+extension URLRequest {
+    static func dataIsExist(flag: String) -> URLRequest {
+        var urlRequest = URLRequest(url: URL(string: "url")!)
+        urlRequest.addValue(flag, forHTTPHeaderField: flag)
+        return urlRequest
+    }
+    static let dataIsNotExist: URLRequest = {
+        var urlRequest = URLRequest(url: URL(string: "dataIsNotExist")!)
+        urlRequest.addValue("dataIsNotExist", forHTTPHeaderField: "dataIsNotExist")
+        return urlRequest
+    }()
+    static let clientError: URLRequest = {
+        var urlRequest = URLRequest(url: URL(string: "clientError")!)
+        urlRequest.addValue("clientError", forHTTPHeaderField: "clientError")
+        return urlRequest
+    }()
+    static let serverError: URLRequest = {
+        var urlRequest = URLRequest(url: URL(string: "serverError")!)
+        urlRequest.addValue("serverError", forHTTPHeaderField: "serverError")
+        return urlRequest
+    }()
+    static let otherResponseError: URLRequest = {
+        var urlRequest = URLRequest(url: URL(string: "otherResponseError")!)
+        urlRequest.addValue("otherResponseError", forHTTPHeaderField: "otherResponseError")
+        return urlRequest
+    }()
+    static let criticalError: URLRequest = {
+        var urlRequest = URLRequest(url: URL(string: "criticalError")!)
+        urlRequest.addValue("criticalError", forHTTPHeaderField: "criticalError")
+        return urlRequest
+    }()
 }
 
 final class MockSession: Sessionable {
@@ -27,17 +51,17 @@ final class MockSession: Sessionable {
     private static let dummyURL = "http://www.swift.com"
 
     func dataTask(
-        with request: MockSessionStatus,
+        with request: URLRequest,
         completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
     ) -> DummyTask {
         return DummyTask(status: request, completionHandler)
     }
 
     struct DummyTask: Taskable {
-        let status: MockSessionStatus
+        let status: URLRequest
         let completionHandler: (Data?, URLResponse?, Error?) -> Void
 
-        init(status: MockSessionStatus, _ completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        init(status: URLRequest, _ completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
             self.status = status
             self.completionHandler = completionHandler
         }
@@ -87,8 +111,6 @@ final class MockSession: Sessionable {
         func resume() {
             DispatchQueue.global().asyncAfter(deadline: .now() + 0.5) {
                 switch status {
-                case .dataIsExist:
-                    returnEmptyData()
                 case .dataIsNotExist:
                     returnNil()
                 case .clientError:
@@ -99,6 +121,8 @@ final class MockSession: Sessionable {
                     returnStrangeResponse()
                 case .criticalError:
                     returnJustError()
+                default:
+                    returnEmptyData()
                 }
             }
         }

@@ -15,14 +15,14 @@ final class MockImageNetworkManager: NetworkManagable {
     static let stateOnWrongURL = "blahblahblahblah"
     static let stateOnWrongImageData = "blahblahblahblahblah"
 
-    private(set) var request: MockSessionStatus?
+    private(set) var request: URLRequest?
     private(set) var session: MockSession
 
     init(session: MockSession = MockSession()) {
         self.session = session
     }
 
-    func setUpRequest(with request: MockSessionStatus) {
+    func setUpRequest(with request: URLRequest) {
         self.request = request
     }
 
@@ -34,8 +34,6 @@ final class MockImageNetworkManager: NetworkManagable {
 
         session.dataTask(with: request) { data, response, error in
             switch request {
-            case .dataIsExist(let flag):
-                self.dataIsExist(flag, with: completionHandler)
             case .dataIsNotExist:
                 completionHandler(.failure(NetworkError.dataIsNotExist))
             case .clientError:
@@ -46,6 +44,11 @@ final class MockImageNetworkManager: NetworkManagable {
                 completionHandler(.failure(NetworkError.dataIsNotExist))
             case .criticalError:
                 completionHandler(.failure(NetworkError.dataIsNotExist))
+            default:
+                guard let key = request.allHTTPHeaderFields?.keys.first else {
+                    return
+                }
+                self.dataIsExist(key, with: completionHandler)
             }
         }.resume()
     }

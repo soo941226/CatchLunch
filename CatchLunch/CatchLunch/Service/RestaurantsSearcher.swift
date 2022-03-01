@@ -13,11 +13,11 @@ final class RestaurantsSearcher<NetworkManager: NetworkManagable>: SearchService
     private let decoder = JSONDecoder()
     private(set) var manager: NetworkManager
 
-    init(manager: NetworkManager) {
+    required init(manager: NetworkManager) {
         self.manager = manager
     }
 
-    func setUpRequest(request: Request) {
+    func setUpRequest(request: URLRequest) {
         manager.setUpRequest(with: request)
     }
 

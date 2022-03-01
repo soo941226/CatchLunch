@@ -5,7 +5,9 @@
 //  Created by kjs on 2022/02/25.
 //
 
-@frozen enum NetworkError: Error {
+import Foundation
+
+@frozen enum NetworkError: LocalizedError {
     case requestIsNotExist
     case dataIsNotExist
     case clientError(code: Int)
