@@ -15,6 +15,8 @@
 		63018DEE27C9126900363F00 /* TestNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63018DED27C9126900363F00 /* TestNetworkManager.swift */; };
 		63018DF227C92B6200363F00 /* ImageSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63018DF127C92B6200363F00 /* ImageSearcher.swift */; };
 		6329D66727CAA60300B0E1DC /* dummyText.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6329D66627CAA60300B0E1DC /* dummyText.txt */; };
+		63667CF227CDDE71008677C2 /* TestGyeonggiRestaurantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63667CF127CDDE71008677C2 /* TestGyeonggiRestaurantViewModel.swift */; };
+		63667CF427CDDEEE008677C2 /* MockRestaurantSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63667CF327CDDEEE008677C2 /* MockRestaurantSearcher.swift */; };
 		6367CED627C7F60F007E0735 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6367CEC227C7F60F007E0735 /* Assets.xcassets */; };
 		6367CED727C7F60F007E0735 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6367CEC327C7F60F007E0735 /* AppDelegate.swift */; };
 		6367CED927C7F60F007E0735 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6367CEC527C7F60F007E0735 /* SceneDelegate.swift */; };
@@ -43,7 +45,7 @@
 		63DE3E3C27C8996000A32868 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE3E3B27C8996000A32868 /* NetworkManager.swift */; };
 		63DE3E3E27C8A81D00A32868 /* RestaurantsSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE3E3D27C8A81D00A32868 /* RestaurantsSearcher.swift */; };
 		63DE3E4227C8C71B00A32868 /* MockRestaurantNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE3E4127C8C71B00A32868 /* MockRestaurantNetworkManager.swift */; };
-		63E0347327CCA5E700CB7613 /* RestaurantSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E0347227CCA5E700CB7613 /* RestaurantSearchViewModel.swift */; };
+		63E0347327CCA5E700CB7613 /* GyeonggiRestaurantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E0347227CCA5E700CB7613 /* GyeonggiRestaurantViewModel.swift */; };
 		63E8272D27CCE7E6000561BD /* NetworkManagerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E8272C27CCE7E6000561BD /* NetworkManagerFactory.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +76,8 @@
 		63018DED27C9126900363F00 /* TestNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkManager.swift; sourceTree = "<group>"; };
 		63018DF127C92B6200363F00 /* ImageSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearcher.swift; sourceTree = "<group>"; };
 		6329D66627CAA60300B0E1DC /* dummyText.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dummyText.txt; sourceTree = "<group>"; };
+		63667CF127CDDE71008677C2 /* TestGyeonggiRestaurantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestGyeonggiRestaurantViewModel.swift; sourceTree = "<group>"; };
+		63667CF327CDDEEE008677C2 /* MockRestaurantSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRestaurantSearcher.swift; sourceTree = "<group>"; };
 		6367CEC227C7F60F007E0735 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6367CEC327C7F60F007E0735 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6367CEC527C7F60F007E0735 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,7 +108,7 @@
 		63DE3E3B27C8996000A32868 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		63DE3E3D27C8A81D00A32868 /* RestaurantsSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsSearcher.swift; sourceTree = "<group>"; };
 		63DE3E4127C8C71B00A32868 /* MockRestaurantNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRestaurantNetworkManager.swift; sourceTree = "<group>"; };
-		63E0347227CCA5E700CB7613 /* RestaurantSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantSearchViewModel.swift; sourceTree = "<group>"; };
+		63E0347227CCA5E700CB7613 /* GyeonggiRestaurantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyeonggiRestaurantViewModel.swift; sourceTree = "<group>"; };
 		63E8272C27CCE7E6000561BD /* NetworkManagerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerFactory.swift; sourceTree = "<group>"; };
 		63F0271A27C7F2A900680D0B /* CatchLunch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatchLunch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		777644171959F8BA17EAF3E9 /* Pods-CatchLunch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchLunch.debug.xcconfig"; path = "Target Support Files/Pods-CatchLunch/Pods-CatchLunch.debug.xcconfig"; sourceTree = "<group>"; };
@@ -243,7 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				63E0347427CCA79800CB7613 /* protocol */,
-				63E0347227CCA5E700CB7613 /* RestaurantSearchViewModel.swift */,
+				63E0347227CCA5E700CB7613 /* GyeonggiRestaurantViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -256,6 +260,7 @@
 				63018DEB27C911B000363F00 /* TestRestaurantSearcher.swift */,
 				6375C8BF27CA7EDD00F1D60F /* TestImageSearcher.swift */,
 				63018DED27C9126900363F00 /* TestNetworkManager.swift */,
+				63667CF127CDDE71008677C2 /* TestGyeonggiRestaurantViewModel.swift */,
 			);
 			path = CatchLunchTests;
 			sourceTree = "<group>";
@@ -299,6 +304,7 @@
 				63DE3E4127C8C71B00A32868 /* MockRestaurantNetworkManager.swift */,
 				6375C8BB27CA7BCC00F1D60F /* MockImageNetworkManager.swift */,
 				63018DE927C9064F00363F00 /* MockSession.swift */,
+				63667CF327CDDEEE008677C2 /* MockRestaurantSearcher.swift */,
 			);
 			path = ToTest;
 			sourceTree = "<group>";
@@ -359,6 +365,8 @@
 				63C448D227C7F37300F7063B /* PBXTargetDependency */,
 			);
 			name = CatchLunchTests;
+			packageProductDependencies = (
+			);
 			productName = CatchLunchTests;
 			productReference = 63C448CD27C7F37300F7063B /* CatchLunchTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -432,6 +440,8 @@
 				Base,
 			);
 			mainGroup = 63F0271127C7F2A900680D0B;
+			packageReferences = (
+			);
 			productRefGroup = 63F0271B27C7F2A900680D0B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -547,6 +557,8 @@
 			files = (
 				63A71BC727C7FB2900820C0C /* StubJsonToTest.swift in Sources */,
 				63DE3E4227C8C71B00A32868 /* MockRestaurantNetworkManager.swift in Sources */,
+				63667CF227CDDE71008677C2 /* TestGyeonggiRestaurantViewModel.swift in Sources */,
+				63667CF427CDDEEE008677C2 /* MockRestaurantSearcher.swift in Sources */,
 				63018DEA27C9064F00363F00 /* MockSession.swift in Sources */,
 				63C448D027C7F37300F7063B /* TestRestaurantInformation.swift in Sources */,
 				63018DEC27C911B000363F00 /* TestRestaurantSearcher.swift in Sources */,
@@ -575,7 +587,7 @@
 				6379AFBB27C8E48300F84A91 /* NetworkError.swift in Sources */,
 				6367CEDA27C7F60F007E0735 /* ViewController.swift in Sources */,
 				63DE3E3C27C8996000A32868 /* NetworkManager.swift in Sources */,
-				63E0347327CCA5E700CB7613 /* RestaurantSearchViewModel.swift in Sources */,
+				63E0347327CCA5E700CB7613 /* GyeonggiRestaurantViewModel.swift in Sources */,
 				6367CEDE27C7F60F007E0735 /* RestaurantInformation.swift in Sources */,
 				6367CEDD27C7F60F007E0735 /* Restaurant.swift in Sources */,
 				63018DF227C92B6200363F00 /* ImageSearcher.swift in Sources */,

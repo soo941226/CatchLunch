@@ -7,7 +7,6 @@
 
 protocol SearchViewModelable {
     associatedtype Service: SearchService
-    typealias Request = Service.Request
     typealias Response = Service.Response
 
     init(service: Service)
