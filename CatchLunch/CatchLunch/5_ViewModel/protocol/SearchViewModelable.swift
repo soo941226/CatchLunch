@@ -11,6 +11,6 @@ protocol SearchViewModelable {
 
     init(service: Service)
     var service: Service { get }
-    var count: Int { get }
+    
     func fetch(completionHandler: @escaping (Bool) -> Void)
 }

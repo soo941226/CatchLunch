@@ -23,8 +23,7 @@ final class NetworkManager<Session: Sessionable>: NetworkManagable {
         completionHandler: @escaping (Result<Data, Error>) -> Void
     ) {
         guard let request = request else {
-            completionHandler(.failure(NetworkError.requestIsNotExist))
-            return
+            return completionHandler(.failure(NetworkError.requestIsNotExist))
         }
 
         session.dataTask(with: request) { [weak self] data, response, error in
@@ -32,22 +31,19 @@ final class NetworkManager<Session: Sessionable>: NetworkManagable {
             self.request = nil
 
             if let error = error {
-                completionHandler(.failure(error))
-                return
+                return completionHandler(.failure(error))
             }
 
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
                 case 400..<500:
-                    completionHandler(.failure(NetworkError.clientError(
+                    return completionHandler(.failure(NetworkError.clientError(
                         code: response.statusCode
                     )))
-                    return
                 case 500..<600:
-                    completionHandler(.failure(NetworkError.serverError(
+                    return completionHandler(.failure(NetworkError.serverError(
                         code: response.statusCode
                     )))
-                    return
                 default:
                     break
                 }

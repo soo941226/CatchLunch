@@ -28,8 +28,7 @@ final class MockImageNetworkManager: NetworkManagable {
 
     func dataTask(completionHandler: @escaping (Result<Data, Error>) -> Void) {
         guard let request = request else {
-            completionHandler(.failure(NetworkError.requestIsNotExist))
-            return
+            return completionHandler(.failure(NetworkError.requestIsNotExist))
         }
 
         session.dataTask(with: request) { data, response, error in

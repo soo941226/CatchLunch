@@ -37,10 +37,9 @@ final class MockRestaurantSearcher: SearchService {
                     let startOfRange = index * 10
 
                     if startOfRange >= endIndex {
-                        completionHandler(.failure(
+                        return completionHandler(.failure(
                             NetworkError.dataIsNotExist
                         ))
-                        return
                     }
 
                     let endOfRange = (index+1) * 10 >= endIndex ? endIndex : (index+1) * 10

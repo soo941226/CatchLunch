@@ -29,28 +29,23 @@ final class ImageSearcher<NetworkManager: NetworkManagable>: SearchService {
                 guard let response = try? decoder.decode(
                     ImageSearchResult.self, from: data
                 ) else {
-                    completionHandler(.failure(ImageSearchError.searchResultIsWrong))
-                    return
+                    return completionHandler(.failure(ImageSearchError.searchResultIsWrong))
                 }
 
                 guard let items = response.items, items.count >= 1 else {
-                    completionHandler(.failure(ImageSearchError.itemsIsNotExists))
-                    return
+                    return completionHandler(.failure(ImageSearchError.itemsIsNotExists))
                 }
 
                 guard let link = items[0].thumbnail, let url = URL(string: link) else {
-                    completionHandler(.failure(ImageSearchError.linkIsNotExists))
-                    return
+                    return completionHandler(.failure(ImageSearchError.linkIsNotExists))
                 }
 
                 guard let data = try? Data(contentsOf: url) else {
-                    completionHandler(.failure(ImageSearchError.urlIsWrong))
-                    return
+                    return completionHandler(.failure(ImageSearchError.urlIsWrong))
                 }
 
                 guard let image = UIImage(data: data) else {
-                    completionHandler(.failure(ImageSearchError.imageDataIsWrong))
-                    return
+                    return completionHandler(.failure(ImageSearchError.imageDataIsWrong))
                 }
 
                 completionHandler(.success(image))

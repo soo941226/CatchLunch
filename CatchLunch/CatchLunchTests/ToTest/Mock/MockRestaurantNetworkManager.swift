@@ -34,8 +34,7 @@ final class MockRestaurantNetworkManager: NetworkManagable {
         completionHandler: @escaping (Result<Data, Error>) -> Void
     ) {
         guard let request = request else {
-            completionHandler(.failure(NetworkError.requestIsNotExist))
-            return
+            return completionHandler(.failure(NetworkError.requestIsNotExist))
         }
         
         asyncAfter {
