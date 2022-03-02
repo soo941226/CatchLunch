@@ -14,25 +14,17 @@ where Service.Response == [RestaurantInformation] {
     private var managingItems = [RestaurantInformation]()
     private let requestItemAmount = 10
     private var itemPageIndex = 1
-    private var nextRequest: URLRequest? {
-        guard var urlComponent = URLComponents(string: GyeonggiAPIConfigs.httpURL) else {
-            return nil
-        }
-
+    private var nextRequest: URLRequest {
+        var urlComponent = URLComponents(string: GyeonggiAPIConfigs.httpURL)!
         urlComponent.queryItems = [
             .init(name: "Key", value: HiddenConfiguration.gyeonggiAPIKey),
             .init(name: "Type", value: "json"),
             .init(name: "pIndex", value: itemPageIndex.description),
             .init(name: "pSize", value: requestItemAmount.description)
         ]
-
-        if let url = urlComponent.url {
-            return URLRequest(url: url)
-        } else {
-            return nil
-        }
+        return URLRequest(url: urlComponent.url!)
     }
-    private var error: Error?
+    private(set) var error: Error?
     private var nowLoading = false
 
     var count: Int {
@@ -49,11 +41,7 @@ where Service.Response == [RestaurantInformation] {
 
     func fetch(completionHandler: @escaping (Bool) -> Void) {
         if nowLoading { return }
-
-        guard let request = nextRequest else {
-            completionHandler(false)
-            return
-        }
+        let request = nextRequest
 
         nowLoading = true
 
