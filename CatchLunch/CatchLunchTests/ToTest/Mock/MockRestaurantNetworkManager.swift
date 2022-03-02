@@ -21,20 +21,8 @@ final class MockRestaurantNetworkManager: NetworkManagable {
         self.request = request
     }
 
-    var correctData: Data {
-        let response = StubJsonToTest(
-            cityName: "가평군",
-            restaurantName: "가평축협 한우명가",
-            phoneNumber: "031-581-1592",
-            mainFoodNames: "푸른연잎한우명품꽃등심",
-            refinedZipCode: "12422",
-            roadNameAddress: "경기도 가평군 가평읍 달전로 19",
-            locationNameAddress: "경기도 가평군 가평읍 달전리 382-1번지",
-            latitude: "37.8158443",
-            longitude: "127.5161283"
-        )
-
-        let jsonString = "[\(response.jsonString)]"
+    var correctDummyData: Data {
+        let jsonString = dummyRestaurants
         return jsonString.data(using: .utf8)!
     }
     
@@ -64,15 +52,9 @@ final class MockRestaurantNetworkManager: NetworkManagable {
                 case .criticalError:
                     completionHandler(.failure(NetworkError.dataIsNotExist))
                 default:
-                    completionHandler(.success(self.correctData))
+                    completionHandler(.success(self.correctDummyData))
                 }
             }.resume()
-        }
-    }
-
-    private func asyncAfter(_ then: @escaping () -> Void) {
-        DispatchQueue.global().asyncAfter(deadline: .now() + 1.0) {
-            then()
         }
     }
 }

@@ -8,9 +8,18 @@
 import Foundation
 @testable import CatchLunch
 
-enum DummyError: Error {
+enum DummyError: LocalizedError {
     case justError
     case canNotCreateURL
+
+    var errorDescription: String {
+        switch self {
+        case .justError:
+            return "justError"
+        case .canNotCreateURL:
+            return "canNotCreateURL"
+        }
+    }
 }
 
 extension URLRequest {

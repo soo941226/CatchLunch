@@ -12,12 +12,17 @@ final class MockRestaurantSearcher: SearchService {
     private(set) var manager: MockRestaurantNetworkManager
 
     private let decoder = JSONDecoder()
+    private var index = 0
     init(manager: MockRestaurantNetworkManager = MockRestaurantNetworkManager()) {
         self.manager = manager
     }
 
     func setUpRequest(request: URLRequest) {
-        manager.setUpRequest(with: request)
+        if index <= 3 {
+            manager.setUpRequest(with: request)
+        } else {
+            manager.setUpRequest(with: .criticalError)
+        }
     }
 
     func fetch(completionHandler: @escaping (Result<[RestaurantInformation], Error>) -> Void) {
@@ -27,7 +32,22 @@ final class MockRestaurantSearcher: SearchService {
                 let result = try? self.decoder.decode(Response.self, from: data)
 
                 if let result = result {
-                    completionHandler(.success(result))
+                    let index = self.index
+                    let endIndex = result.endIndex
+                    let startOfRange = index * 10
+
+                    if startOfRange >= endIndex {
+                        completionHandler(.failure(
+                            NetworkError.dataIsNotExist
+                        ))
+                        return
+                    }
+
+                    let endOfRange = (index+1) * 10 >= endIndex ? endIndex : (index+1) * 10
+                    let range = startOfRange..<endOfRange
+                    self.index += 1
+
+                    completionHandler(.success(Array(result[range])))
                 } else {
                     completionHandler(.failure(
                         ErrorMockRestaurantSearcher.decodingFailed
@@ -40,6 +60,10 @@ final class MockRestaurantSearcher: SearchService {
     }
 }
 
-enum ErrorMockRestaurantSearcher: Error {
+enum ErrorMockRestaurantSearcher: LocalizedError {
     case decodingFailed
+
+    var errorDescription: String {
+        return "decodingFailed"
+    }
 }

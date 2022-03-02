@@ -103,7 +103,7 @@ final class TestRestaurantSearcher: XCTestCase {
         restaurantSearcherUnderTest.fetch { result in
             switch result {
             case .success(let response):
-                XCTAssertEqual(response.count, 1)
+                XCTAssertGreaterThan(response.count, .zero)
                 XCTAssertEqual(response[0].isBookmarked, false)
                 XCTAssertEqual(response[0].cityName, "가평군")
             case .failure(let error):
