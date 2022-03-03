@@ -11,7 +11,7 @@ final class NetworkManager<Session: Sessionable>: NetworkManagable {
     private(set) var session: Session
     private(set) var request: URLRequest?
 
-    required init(session: Session) {
+    init(session: Session) {
         self.session = session
     }
 

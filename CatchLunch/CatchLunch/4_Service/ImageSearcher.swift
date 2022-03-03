@@ -6,7 +6,7 @@
 //
 import UIKit
 
-final class ImageSearcher<NetworkManager: NetworkManagable>: SearchService {
+struct ImageSearcher<NetworkManager: NetworkManagable>: SearchService {
     private(set) var manager: NetworkManager
     private let decoder = JSONDecoder()
 
@@ -21,9 +21,7 @@ final class ImageSearcher<NetworkManager: NetworkManagable>: SearchService {
     func fetch(
         completionHandler: @escaping (Result<UIImage, Error>) -> Void
     ) {
-        manager.dataTask { [weak self] result in
-            guard let decoder = self?.decoder else { return }
-
+        manager.dataTask { result in
             switch result {
             case .success(let data):
                 guard let response = try? decoder.decode(

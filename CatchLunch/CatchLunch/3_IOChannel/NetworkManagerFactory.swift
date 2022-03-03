@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class NetworkManagerFactory {
-    static func basic() -> NetworkManager<URLSession> {
+struct NetworkManagerFactory {
+    static func basic() -> some NetworkManagable {
         return NetworkManager(session: URLSession(configuration: .default))
     }
 }
