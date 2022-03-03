@@ -36,7 +36,7 @@ struct GyeonggiRestaurantsSearcher: PagingSearchService {
             itemPageIndex: itemPageIndex, requestItemAmount: requestItemAmount
         )
         manager.setUpRequest(with: request)
-        manager.dataTask { [self] result in
+        manager.dataTask { result in
             switch result {
             case .success(let data):
                 do {
