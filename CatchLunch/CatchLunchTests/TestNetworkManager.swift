@@ -66,24 +66,24 @@ final class TestNetworkManager: XCTestCase {
         wait(for: [dispatch], timeout: 5.0)
     }
 
-    func test_request를_잘설정했는데_응답데이터가없으면_데이터가없다는_에러가뜬다() {
+    func test_request를_잘설정했는데_응답데이터가없으면_데이터가없다는_에러가_뜬다() {
         //given
         networkManagerUnderTest.setUpRequest(with: .dataIsNotExist)
         let dispatch = XCTestExpectation(description: "expect error")
-        let expectation = Int.zero
-        var testResult = Int.min
+        let expectation = NetworkError.dataIsNotExist.errorDescription
+        var testResult = ""
 
         //when
         networkManagerUnderTest.dataTask { result in
             switch result {
-            case .success(let data):
-                testResult = data.count
+            case .success:
+                XCTFail("error")
             case .failure(let error):
                 guard let error = error as? NetworkError else {
                     XCTFail(error.localizedDescription)
                     return
                 }
-                XCTFail(error.errorDescription)
+                testResult = error.errorDescription
             }
             dispatch.fulfill()
         }
@@ -153,21 +153,21 @@ final class TestNetworkManager: XCTestCase {
         //given
         networkManagerUnderTest.setUpRequest(with: .otherResponseError)
         let dispatch = XCTestExpectation(description: "expect error")
-        let expection = Int.zero
-        var testResult = Int.min
+        let expection = NetworkError.uknownError(code: .zero).errorDescription
+        var testResult = ""
 
         //when
         networkManagerUnderTest.dataTask { result in
             switch result {
-            case .success(let data):
-                testResult = data.count
+            case .success:
+                XCTFail("error")
             case .failure(let error):
                 guard let error = error as? NetworkError else {
                     XCTFail(error.localizedDescription)
                     return
                 }
 
-                XCTFail(error.errorDescription)
+                testResult = error.errorDescription
             }
             dispatch.fulfill()
         }

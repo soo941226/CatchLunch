@@ -53,7 +53,7 @@ final class MockSession: Sessionable {
         case .otherResponseError:
             MockURLProtocol.requestHandler = { request in
                 let response = HTTPURLResponse(
-                    url: request.url!, statusCode: 999,
+                    url: request.url!, statusCode: .zero,
                     httpVersion: nil, headerFields: nil
                 )
 
@@ -113,7 +113,7 @@ final class MockURLProtocol: URLProtocol {
         }
         do {
             if request == .errorRequest {
-                self.client?.urlProtocol(self, didFailWithError:NetworkError.uknownError(code: 1234))
+                self.client?.urlProtocol(self, didFailWithError:NetworkError.uknownError(code: .zero))
                 return
             }
 
