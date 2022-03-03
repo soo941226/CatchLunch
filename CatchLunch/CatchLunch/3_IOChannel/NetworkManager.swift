@@ -36,6 +36,8 @@ final class NetworkManager: NetworkManagable {
 
             if let response = response as? HTTPURLResponse {
                 switch response.statusCode {
+                case 200..<300:
+                    break
                 case 400..<500:
                     return completionHandler(.failure(NetworkError.clientError(
                         code: response.statusCode
@@ -45,7 +47,9 @@ final class NetworkManager: NetworkManagable {
                         code: response.statusCode
                     )))
                 default:
-                    break
+                    return completionHandler(.failure(NetworkError.uknownError(
+                        code: response.statusCode
+                    )))
                 }
             }
 
