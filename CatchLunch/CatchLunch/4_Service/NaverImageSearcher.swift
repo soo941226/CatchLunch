@@ -1,26 +1,47 @@
 //
-//  ImageSearcher.swift
+//  NaverImageSearcher.swift
 //  CatchLunch
 //
 //  Created by kjs on 2022/02/25.
 //
 import UIKit
 
-struct ImageSearcher<NetworkManager: NetworkManagable>: SearchService {
-    private(set) var manager: NetworkManager
+struct NaverImageSearcher: SingleItemSearchService {
+    typealias Response = UIImage
+    private(set) var manager: NetworkManagable
     private let decoder = JSONDecoder()
 
-    init(manager: NetworkManager) {
+    init(manager: NetworkManagable = NetworkManager()) {
         self.manager = manager
     }
 
-    func setUpRequest(request: URLRequest) {
-        manager.setUpRequest(with: request)
+    private func nextRequest(about name: String) -> URLRequest {
+        var urlComponent = URLComponents(string: NaverAPIConfig.httpURL)!
+        urlComponent.queryItems = [
+            .init(name: "query", value: name),
+            .init(name: "display", value: "1"),
+            .init(name: "sort", value: "sim"),
+            .init(name: "filter", value: "medium")
+        ]
+
+        var request = URLRequest(url: urlComponent.url!)
+        request.setValue(
+            HiddenConfiguration.naverAPIID.value,
+            forHTTPHeaderField: HiddenConfiguration.naverAPIID.key
+        )
+        request.setValue(
+            HiddenConfiguration.naverAPIKey.value,
+            forHTTPHeaderField: HiddenConfiguration.naverAPIKey.key
+        )
+        return request
     }
 
     func fetch(
+        about name: String,
         completionHandler: @escaping (Result<UIImage, Error>) -> Void
     ) {
+        let request = nextRequest(about: name)
+        manager.setUpRequest(with: request)
         manager.dataTask { result in
             switch result {
             case .success(let data):
@@ -75,4 +96,8 @@ struct ImageSearcher<NetworkManager: NetworkManagable>: SearchService {
             return "링크로 이미지 가져왔더니 이상함"
         }
     }
+}
+
+fileprivate enum NaverAPIConfig {
+    static let httpURL = "https://openapi.naver.com/v1/search/image"
 }
