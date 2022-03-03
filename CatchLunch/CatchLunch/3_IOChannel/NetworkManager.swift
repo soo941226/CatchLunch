@@ -7,11 +7,11 @@
 
 import Foundation
 
-final class NetworkManager<Session: Sessionable>: NetworkManagable {
-    private(set) var session: Session
-    private(set) var request: URLRequest?
+final class NetworkManager: NetworkManagable {
+    private var session: Sessionable
+    private var request: URLRequest?
 
-    init(session: Session) {
+    init(session: Sessionable = URLSession(configuration: .default)) {
         self.session = session
     }
 
