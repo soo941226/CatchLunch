@@ -54,7 +54,11 @@ final class NetworkManager: NetworkManagable {
             }
 
             if let data = data {
-                completionHandler(.success(data))
+                if data.isEmpty {
+                    completionHandler(.failure(NetworkError.dataIsNotExist))
+                } else {
+                    completionHandler(.success(data))
+                }
             } else {
                 completionHandler(.failure(NetworkError.dataIsNotExist))
             }
