@@ -8,6 +8,17 @@
 import Foundation
 @testable import CatchLunch
 
+extension URLRequest {
+    static let emptyResaurantData = URLRequest(url: URL(string: "empty_row")!)
+    static let wrongDataRequest = URLRequest(url: URL(string: "wrong_dummy")!)
+    static let dummyRestaurantData = URLRequest(url: URL(string: "good_dummy")!)
+    static let dataIsNotExist = URLRequest(url: URL(string: "be_error1")!)
+    static let clientError = URLRequest(url: URL(string: "be_error2")!)
+    static let serverError = URLRequest(url: URL(string: "be_error3")!)
+    static let otherResponseError = URLRequest(url: URL(string: "be_error4")!)
+    static let errorRequest = URLRequest(url: URL(string: "be_error5")!)
+}
+
 final class MockSession: Sessionable {
     func dataTask(
         with request: URLRequest,
@@ -15,87 +26,63 @@ final class MockSession: Sessionable {
     ) -> URLSessionDataTask {
         let configuration = URLSessionConfiguration.ephemeral
         configuration.protocolClasses = [MockURLProtocol.self]
-        setUpHandler(with: request)
+        setUpRequest(with: request)
         return URLSession(
             configuration: configuration
         ).dataTask(with: request, completionHandler: completionHandler)
     }
 
-    private func setUpHandler(with request: URLRequest) {
+    private func setUpRequest(with request: URLRequest) {
         switch request {
         case .dataIsNotExist:
-            MockURLProtocol.requestHandler = { request in
-                let response = HTTPURLResponse(
-                    url: request.url!, statusCode: 200,
-                    httpVersion: nil, headerFields: nil
-                )
-
-                return (response!, self.emptyData)
-            }
+            setUpHandler(with: 200, data: emptyData)
         case .clientError:
-            MockURLProtocol.requestHandler = { request in
-                let response = HTTPURLResponse(
-                    url: request.url!, statusCode: 400,
-                    httpVersion: nil, headerFields: nil
-                )
-
-                return (response!, Data())
-            }
+            setUpHandler(with: 400, data: emptyData)
         case .serverError:
-            MockURLProtocol.requestHandler = { request in
-                let response = HTTPURLResponse(
-                    url: request.url!, statusCode: 500,
-                    httpVersion: nil, headerFields: nil
-                )
-
-                return (response!, Data())
-            }
+            setUpHandler(with: 500, data: emptyData)
         case .otherResponseError:
-            MockURLProtocol.requestHandler = { request in
-                let response = HTTPURLResponse(
-                    url: request.url!, statusCode: .zero,
-                    httpVersion: nil, headerFields: nil
-                )
-
-                return (response!, Data())
-            }
+            setUpHandler(with: .zero, data: emptyData)
         case .errorRequest:
-            MockURLProtocol.requestHandler = { request in
-                let response = HTTPURLResponse(
-                    url: request.url!, statusCode: .min,
-                    httpVersion: nil, headerFields: nil
-                )
-
-                return (response!, Data())
-            }
+            setUpHandler(with: .min, data: emptyData)
         case .dummyRestaurantData:
-            MockURLProtocol.requestHandler = { request in
-                let response = HTTPURLResponse(
-                    url: request.url!, statusCode: 200,
-                    httpVersion: nil, headerFields: nil
-                )
-
-                return (response!, self.restaurantDummyData)
-            }
+            setUpHandler(with: 200, data: restaurantDummyData)
+        case .wrongDataRequest:
+            setUpHandler(with: 200, data: wrongDummyData)
+        case .emptyResaurantData:
+            setUpHandler(with: 200, data: emptyDummyData)
         default:
-            MockURLProtocol.requestHandler = { request in
-                let response = HTTPURLResponse(
-                    url: request.url!, statusCode: .min,
-                    httpVersion: nil, headerFields: nil
-                )
-
-                return (response!, Data())
-            }
+            setUpHandler(with: 200, data: emptyData)
         }
     }
 
-    private var restaurantDummyData: Data {
-        let jsonString = dummyGyeonggiAPIResult
-        return jsonString.data(using: .utf8)!
+    private func setUpHandler(with code: Int, data: Data) {
+        MockURLProtocol.requestHandler = { request in
+            let response = HTTPURLResponse(
+                url: request.url!, statusCode: code,
+                httpVersion: nil, headerFields: nil
+            )
+
+            return (response!, data)
+        }
     }
 
     private var emptyData: Data {
         return Data()
+    }
+
+    private var emptyDummyData: Data {
+        let jsonString = dummyGyeonggiAPIResultWithEmptyData
+        return jsonString.data(using: .utf8)!
+    }
+
+    private var wrongDummyData: Data {
+        let jsonString = dummyGyeonggiAPIResultWithWrongFormmat
+        return jsonString.data(using: .utf8)!
+    }
+
+    private var restaurantDummyData: Data {
+        let jsonString = dummyGyeonggiAPIResultWithCount10
+        return jsonString.data(using: .utf8)!
     }
 }
 
@@ -126,25 +113,4 @@ final class MockURLProtocol: URLProtocol {
         }
     }
     override func stopLoading() {} // not interested
-}
-
-extension URLRequest {
-    static let dummyRestaurantData: URLRequest = {
-        return URLRequest(url: URL(string: "https://dataIsExist.com")!)
-    }()
-    static let dataIsNotExist: URLRequest = {
-        return URLRequest(url: URL(string: "https://dataIsNotExist.com")!)
-    }()
-    static let clientError: URLRequest = {
-        return URLRequest(url: URL(string: "https://clientError.com")!)
-    }()
-    static let serverError: URLRequest = {
-        return URLRequest(url: URL(string: "https://serverError.com")!)
-    }()
-    static let otherResponseError: URLRequest = {
-        return URLRequest(url: URL(string: "https://otherResponseError.com")!)
-    }()
-    static let errorRequest: URLRequest = {
-        return URLRequest(url: URL(string: "https://errorRequest.com")!)
-    }()
 }
