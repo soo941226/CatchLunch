@@ -10,7 +10,7 @@ import Foundation
 struct GyeonggiRestaurantsSearcher: PagingSearchService {
     typealias Response = [RestaurantInformation]
     private let decoder = JSONDecoder()
-    private(set) var manager: NetworkManagable
+    private let manager: NetworkManagable
 
     init(manager: NetworkManagable = NetworkManager()) {
         self.manager = manager
@@ -41,7 +41,7 @@ struct GyeonggiRestaurantsSearcher: PagingSearchService {
             case .success(let data):
                 do {
                     let result = try self.decoder
-                        .decode(GyeonggiAPIResult.self, from: data).place?[1]
+                        .decode(GyeonggiAPIResult.self, from: data).place?.last?
                         .row
 
                     if let result = result {

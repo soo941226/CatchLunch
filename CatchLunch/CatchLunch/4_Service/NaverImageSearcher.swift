@@ -8,7 +8,7 @@ import UIKit
 
 struct NaverImageSearcher: SingleItemSearchService {
     typealias Response = UIImage
-    private(set) var manager: NetworkManagable
+    private let manager: NetworkManagable
     private let decoder = JSONDecoder()
 
     init(manager: NetworkManagable = NetworkManager()) {
