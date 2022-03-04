@@ -5,11 +5,14 @@
 //  Created by kjs on 2022/02/25.
 //
 
-@frozen enum NetworkError: Error {
+import Foundation
+
+@frozen enum NetworkError: LocalizedError {
     case requestIsNotExist
     case dataIsNotExist
     case clientError(code: Int)
     case serverError(code: Int)
+    case uknownError(code: Int)
 
     var errorDescription: String {
         switch self {
@@ -21,6 +24,8 @@
             return "Client Error: \(code.description)"
         case .serverError(let code):
             return "Server Error: \(code.description)"
+        case .uknownError(let code):
+            return "\(code.description)알 수 없는 에러가 발생했습니다"
         }
     }
 }

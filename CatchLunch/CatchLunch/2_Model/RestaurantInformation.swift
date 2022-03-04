@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RestaurantInformation: Restaurant, Coordinate, Bookmarkable, Decodable {
+struct RestaurantInformation: Restaurant, Coordinate2D, Bookmarkable, Decodable {
     private(set) var isBookmarked: Bool = false
     private(set) var cityName: String?
     private(set) var restaurantName: String?

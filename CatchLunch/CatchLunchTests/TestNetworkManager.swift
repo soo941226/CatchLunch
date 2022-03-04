@@ -9,10 +9,10 @@ import XCTest
 @testable import CatchLunch
 
 final class TestNetworkManager: XCTestCase {
-    private var networkManagerUnderTest: NetworkManager<MockSession>!
+    private var networkManagerUnderTest: NetworkManager!
 
     override func setUp() {
-        networkManagerUnderTest = NetworkManager(session: MockSession())
+        networkManagerUnderTest = NetworkManager(session: MockSessionAboutRestaurant())
     }
 
     override func tearDown() {
@@ -20,9 +20,12 @@ final class TestNetworkManager: XCTestCase {
     }
 
     func test_request를_설정하지않으면_설정하라는_에러가뜬다() {
-        let expectaion = XCTestExpectation(description: "expect error")
-        let targetDescription = NetworkError.requestIsNotExist.errorDescription
+        //given
+        let dispatch = XCTestExpectation(description: "expect error")
+        let expectation = NetworkError.requestIsNotExist.errorDescription
+        var testResult = ""
 
+        //when
         networkManagerUnderTest.dataTask { result in
             switch result {
             case .success(let data):
@@ -33,44 +36,72 @@ final class TestNetworkManager: XCTestCase {
                     return
                 }
 
-                let result = error.errorDescription
-                XCTAssertEqual(targetDescription, result)
-            }
-            expectaion.fulfill()
-        }
 
-        wait(for: [expectaion], timeout: 5.0)
+                testResult = error.errorDescription
+            }
+            dispatch.fulfill()
+        }
+        wait(for: [dispatch], timeout: 5.0)
+
+        //then
+        XCTAssertEqual(expectation, testResult)
     }
 
-    func test_request를잘설정했는데_응답데이터가없으면_데이터가없다는_에러가뜬다() {
-        networkManagerUnderTest.setUpRequest(with: .dataIsNotExist)
-        let expectaion = XCTestExpectation(description: "expect error")
-        let targetDescription = NetworkError.dataIsNotExist.errorDescription
+    func test_request에_에러가있으면_에러가뜬다() {
+        //given
+        networkManagerUnderTest.setUpRequest(with: .errorRequest)
+        let dispatch = XCTestExpectation(description: "expect error")
 
+        //when
         networkManagerUnderTest.dataTask { result in
             switch result {
             case .success(let data):
                 XCTFail(data.description)
             case .failure(let error):
+                //then
+                XCTAssert(true, error.localizedDescription)
+            }
+            dispatch.fulfill()
+        }
+        wait(for: [dispatch], timeout: 5.0)
+    }
+
+    func test_request를_잘설정했는데_응답데이터가없으면_데이터가없다는_에러가_뜬다() {
+        //given
+        networkManagerUnderTest.setUpRequest(with: .dataIsNotExist)
+        let dispatch = XCTestExpectation(description: "expect error")
+        let expectation = NetworkError.dataIsNotExist.errorDescription
+        var testResult = ""
+
+        //when
+        networkManagerUnderTest.dataTask { result in
+            switch result {
+            case .success:
+                XCTFail("error")
+            case .failure(let error):
                 guard let error = error as? NetworkError else {
                     XCTFail(error.localizedDescription)
                     return
                 }
-
-                let result = error.errorDescription
-                XCTAssertEqual(targetDescription, result)
+                testResult = error.errorDescription
             }
-            expectaion.fulfill()
+            dispatch.fulfill()
         }
 
-        wait(for: [expectaion], timeout: 5.0)
+        wait(for: [dispatch], timeout: 5.0)
+
+        //then
+        XCTAssertEqual(expectation, testResult)
     }
 
     func test_request가_잘설정되어있어도_400번대응답이오면_클라이언트에러가_발생한다() {
+        //given
         networkManagerUnderTest.setUpRequest(with: .clientError)
-        let expectaion = XCTestExpectation(description: "expect error")
-        let targetDescription = NetworkError.clientError(code: 400).errorDescription
+        let dispatch = XCTestExpectation(description: "expect error")
+        let expectation = NetworkError.clientError(code: 400).errorDescription
+        var testResult = ""
 
+        //when
         networkManagerUnderTest.dataTask { result in
             switch result {
             case .success(let data):
@@ -81,20 +112,24 @@ final class TestNetworkManager: XCTestCase {
                     return
                 }
 
-                let result = error.errorDescription
-                XCTAssertEqual(targetDescription, result)
+                testResult = error.errorDescription
             }
-            expectaion.fulfill()
+            dispatch.fulfill()
         }
+        wait(for: [dispatch], timeout: 5.0)
 
-        wait(for: [expectaion], timeout: 5.0)
+        //then
+        XCTAssertEqual(expectation, testResult)
     }
 
     func test_request가_잘설정되어있어도_500번대응답이오면_서버에러가_발생한다() {
+        //given
         networkManagerUnderTest.setUpRequest(with: .serverError)
-        let expectaion = XCTestExpectation(description: "expect error")
-        let targetDescription = NetworkError.serverError(code: 500).errorDescription
+        let dispatch = XCTestExpectation(description: "expect error")
+        let expectation = NetworkError.serverError(code: 500).errorDescription
+        var testResult = ""
 
+        //when
         networkManagerUnderTest.dataTask { result in
             switch result {
             case .success(let data):
@@ -104,72 +139,55 @@ final class TestNetworkManager: XCTestCase {
                     XCTFail(error.localizedDescription)
                     return
                 }
-
-                let result = error.errorDescription
-                XCTAssertEqual(targetDescription, result)
+                testResult = error.errorDescription
             }
-            expectaion.fulfill()
+            dispatch.fulfill()
         }
+        wait(for: [dispatch], timeout: 5.0)
 
-        wait(for: [expectaion], timeout: 5.0)
+        //then
+        XCTAssertEqual(expectation, testResult)
     }
 
-    func test_request가_잘설정되어있어도_예기치않은상황엔_에러가발생한다() {
-        networkManagerUnderTest.setUpRequest(with: .criticalError)
-        let expectaion = XCTestExpectation(description: "expect error")
-        let targetDescription = DummyError.justError.localizedDescription
-
-        networkManagerUnderTest.dataTask { result in
-            switch result {
-            case .success(let data):
-                XCTFail(data.description)
-            case .failure(let error):
-                guard let error = error as? DummyError else {
-                    XCTFail(error.localizedDescription)
-                    return
-                }
-
-                XCTAssertEqual(targetDescription, error.localizedDescription)
-            }
-            expectaion.fulfill()
-        }
-
-        wait(for: [expectaion], timeout: 5.0)
-    }
-
-    func test_request가_잘설정되어있어도_서버가REST를_지키지_않았으면_data가없다는에러가뜬다() {
+    func test_request가_잘설정되어있어도_서버에문제가있을경우_data가없다고처리된다() {
+        //given
         networkManagerUnderTest.setUpRequest(with: .otherResponseError)
-        let expectaion = XCTestExpectation(description: "expect error")
-        let targetDescription = NetworkError.dataIsNotExist.errorDescription
+        let dispatch = XCTestExpectation(description: "expect error")
+        let expection = NetworkError.uknownError(code: .zero).errorDescription
+        var testResult = ""
 
+        //when
         networkManagerUnderTest.dataTask { result in
             switch result {
-            case .success(let data):
-                XCTFail(data.description)
+            case .success:
+                XCTFail("error")
             case .failure(let error):
                 guard let error = error as? NetworkError else {
                     XCTFail(error.localizedDescription)
                     return
                 }
 
-                let result = error.errorDescription
-                XCTAssertEqual(targetDescription, result)
+                testResult = error.errorDescription
             }
-            expectaion.fulfill()
+            dispatch.fulfill()
         }
 
-        wait(for: [expectaion], timeout: 5.0)
+        wait(for: [dispatch], timeout: 5.0)
+        XCTAssertEqual(testResult, expection)
     }
 
     func test_request가_잘설정되어있고_응답데이터도있으면_잘동작한다() {
-        networkManagerUnderTest.setUpRequest(with: .dataIsExist)
-        let expectaion = XCTestExpectation(description: "expect error")
-        let dummyDataCount = Int.zero
+        //given
+        networkManagerUnderTest.setUpRequest(with: .dummyRestaurantData)
+        let dispatch = XCTestExpectation(description: "expect error")
+        let expectation = Int.zero
+        var testResult = Int.min
 
+        //when
         networkManagerUnderTest.dataTask { result in
             switch result {
             case .success(let data):
-                XCTAssertEqual(data.count, dummyDataCount)
+                testResult = data.count
             case .failure(let error):
                 guard let error = error as? NetworkError else {
                     XCTFail(error.localizedDescription)
@@ -178,9 +196,13 @@ final class TestNetworkManager: XCTestCase {
 
                 XCTFail(error.errorDescription)
             }
-            expectaion.fulfill()
+            dispatch.fulfill()
         }
+        wait(for: [dispatch], timeout: 5.0)
 
-        wait(for: [expectaion], timeout: 5.0)
+
+        //then
+        XCTAssertGreaterThan(testResult, expectation)
     }
 }
+
