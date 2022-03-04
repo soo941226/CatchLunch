@@ -100,7 +100,7 @@ fileprivate final class MockURLProtocol: URLProtocol {
         }
         do {
             if request == .errorRequest {
-                self.client?.urlProtocol(self, didFailWithError:NetworkError.uknownError(code: .zero))
+                self.client?.urlProtocol(self, didFailWithError: NetworkError.uknownError(code: .zero))
                 return
             }
 
@@ -109,7 +109,7 @@ fileprivate final class MockURLProtocol: URLProtocol {
             self.client?.urlProtocol(self, didLoad: data)
             self.client?.urlProtocolDidFinishLoading(self)
         } catch {
-            self.client?.urlProtocol(self, didFailWithError:error)
+            self.client?.urlProtocol(self, didFailWithError: error)
         }
     }
     override func stopLoading() {} // not interested

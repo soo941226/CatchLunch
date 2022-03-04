@@ -7,7 +7,8 @@
 
 import UIKit
 
-final class ImageViewModel<Service: SingleItemSearchService>: NameSearchViewModelable {
+final class ImageViewModel<Service: SingleItemSearchService>: NameSearchViewModelable
+where Service.Response == UIImage {
     private let service: Service
     private(set) var error: Error?
     private let cachedImages: NSCache<NSString, UIImage>
@@ -34,7 +35,6 @@ final class ImageViewModel<Service: SingleItemSearchService>: NameSearchViewMode
 
             switch result {
             case .success(let response):
-                let response = response as! UIImage
                 self.cachedImages.setObject(response, forKey: nsName)
                 completionHandler(true)
             case .failure(let error):

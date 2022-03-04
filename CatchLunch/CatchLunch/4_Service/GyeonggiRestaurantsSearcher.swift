@@ -59,6 +59,6 @@ struct GyeonggiRestaurantsSearcher: PagingSearchService {
     }
 }
 
-fileprivate enum GyeonggiAPIConfigs {
+private enum GyeonggiAPIConfigs {
     static let httpURL = "https://openapi.gg.go.kr/PlaceThatDoATasteyFoodSt"
 }

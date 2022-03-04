@@ -54,7 +54,7 @@ final class MockImageNetworkManager: NetworkManagable {
         guard let request = request else {
             return completionHandler(.failure(NetworkError.requestIsNotExist))
         }
-        
+
         asyncAfter {
             self.session.dataTask(with: request) { data, response, error in
                 self.request = nil

@@ -5,7 +5,6 @@
 //  Created by kjs on 2022/03/04.
 //
 
-
 let goodDummyImageSearchResult = """
 {
     "lastBuildDate": "Fri, 04 Mar 2022 13:48:07 +0900",

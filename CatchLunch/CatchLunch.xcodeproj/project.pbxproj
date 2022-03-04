@@ -239,8 +239,8 @@
 		6367CEC827C7F60F007E0735 /* 2_Model */ = {
 			isa = PBXGroup;
 			children = (
-				632B2D0D27CFC6680018BECC /* Entity */,
 				6367CEC927C7F60F007E0735 /* protocol */,
+				632B2D0D27CFC6680018BECC /* Entity */,
 				6367CECD27C7F60F007E0735 /* RestaurantInformation.swift */,
 			);
 			path = 2_Model;
@@ -472,6 +472,7 @@
 			buildConfigurationList = 63F0272E27C7F2AA00680D0B /* Build configuration list for PBXNativeTarget "CatchLunch" */;
 			buildPhases = (
 				DFA9720E0E3D13265F5841FD /* [CP] Check Pods Manifest.lock */,
+				634A5BB027D2374400E74854 /* Lint */,
 				63F0271627C7F2A900680D0B /* Sources */,
 				63F0271727C7F2A900680D0B /* Frameworks */,
 				63F0271827C7F2A900680D0B /* Resources */,
@@ -559,6 +560,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		634A5BB027D2374400E74854 /* Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Lint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
 		97FC5EEC61C580E23BB72EFA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

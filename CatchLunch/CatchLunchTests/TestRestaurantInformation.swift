@@ -30,19 +30,19 @@ final class TestRestaurantInformation: XCTestCase {
     }
 
     func test_jsonString은_restaurant로_잘_디코딩이_된다() {
-        //given
+        // given
         let jsonString = structUnderTest.jsonString
         let jsonData = jsonString.data(using: .utf8)
 
         do {
-            //when
+            // when
             guard let jsonData = jsonData else {
                 XCTFail("Something wrong")
                 return
             }
             let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
 
-            //then
+            // then
             XCTAssertEqual(result.isBookmarked, false)
             XCTAssertEqual(result.cityName, structUnderTest.cityName)
             XCTAssertEqual(result.restaurantName, structUnderTest.restaurantName)
@@ -59,20 +59,20 @@ final class TestRestaurantInformation: XCTestCase {
     }
 
     func test_jsonString의_메인음식이름들이없어도_잘_디코딩이_된다() {
-        //given
+        // given
         structUnderTest.mainFoodNames = ""
         let jsonString = structUnderTest.jsonString
         let jsonData = jsonString.data(using: .utf8)
 
         do {
-            //when
+            // when
             guard let jsonData = jsonData else {
                 XCTFail("Something wrong")
                 return
             }
             let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
 
-            //then
+            // then
             XCTAssertEqual(result.restaurantName, structUnderTest.restaurantName)
             XCTAssertEqual(result.mainFoodNames?.count, 0)
         } catch {
@@ -81,20 +81,20 @@ final class TestRestaurantInformation: XCTestCase {
     }
 
     func test_jsonString의_latitude가_이상하면_latitude는_nil이다() {
-        //given
+        // given
         structUnderTest.latitude = "치킨먹고싶다"
         let jsonString = structUnderTest.jsonString
         let jsonData = jsonString.data(using: .utf8)
 
         do {
-            //when
+            // when
             guard let jsonData = jsonData else {
                 XCTFail("Something wrong")
                 return
             }
             let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
 
-            //then
+            // then
             XCTAssertNil(result.latitude)
         } catch {
             XCTFail(error.localizedDescription)
@@ -102,20 +102,20 @@ final class TestRestaurantInformation: XCTestCase {
     }
 
     func test_jsonString의_longitude가_이상하면_latitude는_nil이다() {
-        //given
+        // given
         structUnderTest.longitude = "치킨먹고싶다"
         let jsonString = structUnderTest.jsonString
         let jsonData = jsonString.data(using: .utf8)
 
         do {
-            //when
+            // when
             guard let jsonData = jsonData else {
                 XCTFail("Something wrong")
                 return
             }
             let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
 
-            //then
+            // then
             XCTAssertNil(result.longitude)
         } catch {
             XCTFail(error.localizedDescription)
@@ -123,7 +123,7 @@ final class TestRestaurantInformation: XCTestCase {
     }
 
     func test_jsonString에_Restaurant타입의_프로퍼티가_누락되도_decode은_된다() {
-        //given
+        // given
         let jsonStringWithoutCityName = """
 {
     "RESTRT_NM": "\(structUnderTest.restaurantName)",
@@ -139,14 +139,14 @@ final class TestRestaurantInformation: XCTestCase {
         let jsonData = jsonStringWithoutCityName.data(using: .utf8)
 
         do {
-            //when
+            // when
             guard let jsonData = jsonData else {
                 XCTFail("Something wrong")
                 return
             }
             let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
 
-            //then
+            // then
             XCTAssertNil(result.cityName)
             XCTAssertEqual(result.restaurantName, structUnderTest.restaurantName)
         } catch {
@@ -155,7 +155,7 @@ final class TestRestaurantInformation: XCTestCase {
     }
 
     func test_jsonString에_Restaurant타입의_프로퍼티가_타입이달라도_디코딩은_된다() {
-        //given
+        // given
         let jsonStringWithWrongCityName = """
 {
     "SIGUN_NM": 1234,
@@ -172,14 +172,14 @@ final class TestRestaurantInformation: XCTestCase {
         let jsonData = jsonStringWithWrongCityName.data(using: .utf8)
 
         do {
-            //when
+            // when
             guard let jsonData = jsonData else {
                 XCTFail("Something wrong")
                 return
             }
             let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
 
-            //then
+            // then
             XCTAssertNil(result.cityName)
             XCTAssertEqual(result.restaurantName, structUnderTest.restaurantName)
         } catch {
@@ -188,7 +188,7 @@ final class TestRestaurantInformation: XCTestCase {
     }
 
     func test_jsonString에_Coordinate타입의_longitude가_타입이달라도_디코딩이_된다() {
-        //given
+        // given
         let jsonStringWithWrongLongitude = """
 {
     "SIGUN_NM": "\(structUnderTest.cityName)",
@@ -205,14 +205,14 @@ final class TestRestaurantInformation: XCTestCase {
         let jsonData = jsonStringWithWrongLongitude.data(using: .utf8)
 
         do {
-            //when
+            // when
             guard let jsonData = jsonData else {
                 XCTFail("Something wrong")
                 return
             }
             let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
 
-            //then
+            // then
             XCTAssertEqual(result.cityName, structUnderTest.cityName)
             XCTAssertEqual(result.longitude?.description, structUnderTest.longitude)
             XCTAssertEqual(result.latitude?.description, structUnderTest.latitude)
@@ -222,7 +222,7 @@ final class TestRestaurantInformation: XCTestCase {
     }
 
     func test_jsonString에_Coordinate타입의_latitude가_타입이달라도_디코딩이_된다() {
-        //given
+        // given
         let jsonStringWithWrongLatitude = """
 {
     "SIGUN_NM": "\(structUnderTest.cityName)",
@@ -239,14 +239,14 @@ final class TestRestaurantInformation: XCTestCase {
         let jsonData = jsonStringWithWrongLatitude.data(using: .utf8)
 
         do {
-            //when
+            // when
             guard let jsonData = jsonData else {
                 XCTFail("Something wrong")
                 return
             }
             let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
 
-            //then
+            // then
             XCTAssertEqual(result.cityName, structUnderTest.cityName)
             XCTAssertEqual(result.longitude?.description, structUnderTest.longitude)
             XCTAssertEqual(result.latitude?.description, structUnderTest.latitude)

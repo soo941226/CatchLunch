@@ -78,6 +78,6 @@ struct MockNaverImageSearcher: SingleItemSearchService {
     }
 }
 
-fileprivate enum NaverAPIConfig {
+private enum NaverAPIConfig {
     static let httpURL = "https://openapi.naver.com/v1/search/image"
 }

@@ -5,8 +5,6 @@
 //  Created by kjs on 2022/02/27.
 //
 
-// TODO: - handling error in each viewModel
-
 protocol SearchViewModelable {
     associatedtype Service
     init(service: Service)
@@ -17,5 +15,5 @@ protocol JustSearchViewModelable: SearchViewModelable {
 }
 
 protocol NameSearchViewModelable: SearchViewModelable {
-    func fetch(about name: String ,completionHandler: @escaping (Bool) -> Void)
+    func fetch(about name: String, completionHandler: @escaping (Bool) -> Void)
 }

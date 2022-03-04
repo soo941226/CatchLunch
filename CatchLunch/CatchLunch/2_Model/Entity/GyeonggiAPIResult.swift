@@ -16,6 +16,3 @@ struct GyeonggiAPIResult: Decodable {
         let row: [RestaurantInformation]?
     }
 }
-
-
-

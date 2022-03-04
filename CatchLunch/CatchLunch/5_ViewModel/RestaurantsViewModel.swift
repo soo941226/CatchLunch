@@ -5,10 +5,10 @@
 //  Created by kjs on 2022/02/28.
 //
 
-import Foundation
 import UIKit
 
-final class RestaurantsViewModel<Service: PagingSearchService>: JustSearchViewModelable {
+final class RestaurantsViewModel<Service: PagingSearchService>: JustSearchViewModelable
+where Service.Response == [RestaurantInformation] {
     private let service: Service
     private let imageSearchViewModel = ImageViewModel(service: NaverImageSearcher())
     private let imagePlaceHolder = UIImage(systemName: "fork.knife.circle")!
@@ -32,7 +32,7 @@ final class RestaurantsViewModel<Service: PagingSearchService>: JustSearchViewMo
         guard managingItems.indices ~= index else {
             return nil
         }
-        
+
         let image = managingItems[index].mainFoodNames?.first
             .flatMap({ name in
                 imageSearchViewModel[name]
@@ -53,7 +53,6 @@ final class RestaurantsViewModel<Service: PagingSearchService>: JustSearchViewMo
 
             switch result {
             case .success(let restaurants):
-                let restaurants = restaurants as! [RestaurantInformation]
                 self.fetchImages(from: restaurants, with: completionHandler)
             case .failure(let error):
                 self.error = error

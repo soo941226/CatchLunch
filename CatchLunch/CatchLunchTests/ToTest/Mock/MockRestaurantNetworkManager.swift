@@ -51,7 +51,7 @@ final class MockRestaurantNetworkManager: NetworkManagable {
             self.request = .serverError
         }
     }
-    
+
     func dataTask(
         completionHandler: @escaping (Result<Data, Error>) -> Void
     ) {

@@ -4,6 +4,7 @@
 //
 //  Created by kjs on 2022/02/25.
 //
+
 import UIKit
 
 struct NaverImageSearcher: SingleItemSearchService {
@@ -67,7 +68,7 @@ struct NaverImageSearcher: SingleItemSearchService {
                 guard let image = UIImage(data: data) else {
                     return completionHandler(.failure(ImageSearchError.imageDataIsWrong))
                 }
-                
+
                 completionHandler(.success(image))
             case .failure(let error):
                 completionHandler(.failure(error))
@@ -99,6 +100,6 @@ struct NaverImageSearcher: SingleItemSearchService {
     }
 }
 
-fileprivate enum NaverAPIConfig {
+private enum NaverAPIConfig {
     static let httpURL = "https://openapi.naver.com/v1/search/image"
 }

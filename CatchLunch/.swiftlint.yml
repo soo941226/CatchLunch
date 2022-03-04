@@ -1,0 +1,6 @@
+excluded:
+    - CatchLunchTests
+    - CatchLunchUITests
+
+identifier_name:
+  min_length: 2

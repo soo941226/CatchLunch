@@ -5,7 +5,6 @@
 //  Created by kjs on 2022/03/01.
 //
 
-
 import XCTest
 @testable import CatchLunch
 
@@ -21,7 +20,7 @@ final class TestRestaurantViewModel: XCTestCase {
     }
 
     func test_fetch_이전에_viewModel의_subscript로_접근하면_nil이_나온다() {
-        //just
+        // just
         XCTAssertNil(viewModelUnderTest[0])
     }
 
@@ -63,7 +62,7 @@ final class TestRestaurantViewModel: XCTestCase {
     }
 
     func test_viewModel의_fetch중_어떻게든_에러가_나오면_에러를_저장해놓는다() {
-        //given
+        // given
         let disaptch = XCTestExpectation()
         var resultToExpect: Error?
         func recursiveFetch(with dispatch: XCTestExpectation, to: Int, from: Int = .zero) {
@@ -82,11 +81,11 @@ final class TestRestaurantViewModel: XCTestCase {
             }
         }
 
-        //when
+        // when
         recursiveFetch(with: disaptch, to: 5)
         wait(for: [disaptch], timeout: 10)
 
-        //then
+        // then
         XCTAssertNotNil(resultToExpect)
     }
 }

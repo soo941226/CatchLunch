@@ -189,4 +189,3 @@ let dummyGyeonggiAPIResultWithWrongFormmat = """
 """
 
 let dummyGyeonggiAPIResultWithEmptyData = "{}"
-
