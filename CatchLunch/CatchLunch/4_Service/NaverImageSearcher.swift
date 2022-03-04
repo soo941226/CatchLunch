@@ -51,13 +51,14 @@ struct NaverImageSearcher: SingleItemSearchService {
                     return completionHandler(.failure(ImageSearchError.searchResultIsWrong))
                 }
 
-                guard let items = response.items, items.count >= 1 else {
+                guard let items = response.items, let first = items.first else {
                     return completionHandler(.failure(ImageSearchError.itemsIsNotExists))
                 }
 
-                guard let link = items[0].thumbnail, let url = URL(string: link) else {
-                    return completionHandler(.failure(ImageSearchError.linkIsNotExists))
-                }
+                guard let link = first.thumbnail,
+                      let url = URL(string: link) else {
+                          return completionHandler(.failure(ImageSearchError.linkIsNotExists))
+                      }
 
                 guard let data = try? Data(contentsOf: url) else {
                     return completionHandler(.failure(ImageSearchError.urlIsWrong))
@@ -66,7 +67,7 @@ struct NaverImageSearcher: SingleItemSearchService {
                 guard let image = UIImage(data: data) else {
                     return completionHandler(.failure(ImageSearchError.imageDataIsWrong))
                 }
-
+                
                 completionHandler(.success(image))
             case .failure(let error):
                 completionHandler(.failure(error))
