@@ -12,7 +12,7 @@ final class TestNetworkManager: XCTestCase {
     private var networkManagerUnderTest: NetworkManager!
 
     override func setUp() {
-        networkManagerUnderTest = NetworkManager(session: MockSession())
+        networkManagerUnderTest = NetworkManager(session: MockSessionAboutRestaurant())
     }
 
     override func tearDown() {

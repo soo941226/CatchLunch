@@ -10,9 +10,9 @@ import Foundation
 
 final class MockRestaurantNetworkManager: NetworkManagable {
     private(set) var request: URLRequest?
-    private(set) var session: MockSession
+    private(set) var session: MockSessionAboutRestaurant
 
-    init(session: MockSession = MockSession()) {
+    init(session: MockSessionAboutRestaurant = MockSessionAboutRestaurant()) {
         self.session = session
     }
 
@@ -23,7 +23,7 @@ final class MockRestaurantNetworkManager: NetworkManagable {
                 let index = substirng.range(of: "pSize")
                 return index == nil ? false : true
             })[0]
-        let string = pageSizeQuery!.split(separator: "=")[1].description
+        let string = pageSizeQuery!.split(separator: "=").last!.description
         let pageSize = Int(string)!
 
         guard pageSize > .zero else {

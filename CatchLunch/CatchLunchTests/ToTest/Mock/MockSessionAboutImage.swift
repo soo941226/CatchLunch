@@ -1,25 +1,23 @@
 //
-//  MockSession.swift
+//  MockSessionAboutImage.swift
 //  CatchLunchTests
 //
-//  Created by kjs on 2022/02/25.
+//  Created by kjs on 2022/03/04.
 //
-
 import Foundation
 @testable import CatchLunch
 
 extension URLRequest {
-    static let emptyResaurantData = URLRequest(url: URL(string: "empty_row")!)
-    static let wrongDataRequest = URLRequest(url: URL(string: "wrong_dummy")!)
-    static let dummyRestaurantData = URLRequest(url: URL(string: "good_dummy")!)
-    static let dataIsNotExist = URLRequest(url: URL(string: "be_error1")!)
-    static let clientError = URLRequest(url: URL(string: "be_error2")!)
-    static let serverError = URLRequest(url: URL(string: "be_error3")!)
-    static let otherResponseError = URLRequest(url: URL(string: "be_error4")!)
-    static let errorRequest = URLRequest(url: URL(string: "be_error5")!)
+    static let failToParse = URLRequest(url: URL(string: "failToParse")!)
+    static let emptyResponse = URLRequest(url: URL(string: "emptyResponse")!)
+    static let emptyLink = URLRequest(url: URL(string: "emptyLink")!)
+    static let invalidLink = URLRequest(url: URL(string: "invalidLink")!)
+    static let invaildData = URLRequest(url: URL(string: "invaildData")!)
+    static let notAnImage = URLRequest(url: URL(string: "notAnImage")!)
+    static let goodImage = URLRequest(url: URL(string: "goodImage")!)
 }
 
-final class MockSession: Sessionable {
+final class MockSessionAboutImage: Sessionable {
     func dataTask(
         with request: URLRequest,
         completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
@@ -34,22 +32,20 @@ final class MockSession: Sessionable {
 
     private func setUpRequest(with request: URLRequest) {
         switch request {
-        case .dataIsNotExist:
+        case .goodImage:
+            setUpHandler(with: 200, data: goodDummyData)
+        case .failToParse:
+            setUpHandler(with: 200, data: invalidDummayData)
+        case .emptyResponse:
+            setUpHandler(with: 200, data: emptyResultDummyData)
+        case .emptyLink:
+            setUpHandler(with: 200, data: emptyLinkDummyData)
+        case .invalidLink:
+            setUpHandler(with: 200, data: invalidLinkDummyData)
+        case .invaildData:
             setUpHandler(with: 200, data: emptyData)
-        case .clientError:
-            setUpHandler(with: 400, data: emptyData)
-        case .serverError:
-            setUpHandler(with: 500, data: emptyData)
-        case .otherResponseError:
-            setUpHandler(with: .zero, data: emptyData)
-        case .errorRequest:
-            setUpHandler(with: .min, data: emptyData)
-        case .dummyRestaurantData:
-            setUpHandler(with: 200, data: restaurantDummyData)
-        case .wrongDataRequest:
-            setUpHandler(with: 200, data: wrongDummyData)
-        case .emptyResaurantData:
-            setUpHandler(with: 200, data: emptyDummyData)
+        case .notAnImage:
+            setUpHandler(with: 200, data: notImageDummyData)
         default:
             setUpHandler(with: 200, data: emptyData)
         }
@@ -70,23 +66,38 @@ final class MockSession: Sessionable {
         return Data()
     }
 
-    private var emptyDummyData: Data {
-        let jsonString = dummyGyeonggiAPIResultWithEmptyData
+    private var goodDummyData: Data {
+        let jsonString = goodDummyImageSearchResult
         return jsonString.data(using: .utf8)!
     }
 
-    private var wrongDummyData: Data {
-        let jsonString = dummyGyeonggiAPIResultWithWrongFormmat
+    private var invalidDummayData: Data {
+        let jsonString = invalidDummyImageSearchResult
+        return jsonString.data(using: .utf8)!
+    }
+    
+    private var emptyResultDummyData: Data {
+        let jsonString = dummyImageSearchResultWithEmptyItems
         return jsonString.data(using: .utf8)!
     }
 
-    private var restaurantDummyData: Data {
-        let jsonString = dummyGyeonggiAPIResultWithCount10
+    private var emptyLinkDummyData: Data {
+        let jsonString = dummyImageSearchResultWithEmptyLink
+        return jsonString.data(using: .utf8)!
+    }
+
+    private var invalidLinkDummyData: Data {
+        let jsonString = dummyImageSearchResultWithInvalidData
+        return jsonString.data(using: .utf8)!
+    }
+
+    private var notImageDummyData: Data {
+        let jsonString = dummyImageSearchResultWithWrongData
         return jsonString.data(using: .utf8)!
     }
 }
 
-final class MockURLProtocol: URLProtocol {
+fileprivate final class MockURLProtocol: URLProtocol {
     static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data))?
     override class func canInit(with request: URLRequest) -> Bool {
         return true

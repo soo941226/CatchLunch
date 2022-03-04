@@ -8,33 +8,38 @@
 import Foundation
 @testable import CatchLunch
 
-final class MockRestaurantSearcher: SearchService {
+final class MockGyeonggiRestaurantSearcher: PagingSearchService {
+    typealias Response = [RestaurantInformation]
+
     private(set) var manager: MockRestaurantNetworkManager
 
     private let decoder = JSONDecoder()
-    private var index = 0
     init(manager: MockRestaurantNetworkManager = MockRestaurantNetworkManager()) {
         self.manager = manager
     }
 
-    func setUpRequest(request: URLRequest) {
-        if index <= 3 {
-            manager.setUpRequest(with: request)
-        } else {
-            manager.setUpRequest(with: .criticalError)
+    func fetch(
+        itemPageIndex: Int,
+        requestItemAmount: Int,
+        completionHandler: @escaping CompletionHandler
+    ) {
+        if itemPageIndex == .zero {
+            manager.setUpRequest(with: .dataIsNotExist)
+        } else if itemPageIndex <= 3 {
+            manager.setUpRequest(with: .dummyRestaurantData)
         }
-    }
 
-    func fetch(completionHandler: @escaping (Result<[RestaurantInformation], Error>) -> Void) {
         manager.dataTask { result in
             switch result {
             case .success(let data):
-                let result = try? self.decoder.decode(Response.self, from: data)
+                let result = try? self.decoder
+                    .decode(GyeonggiAPIResult.self, from: data).place?.last?
+                    .row
 
                 if let result = result {
-                    let index = self.index
+                    let index = itemPageIndex
                     let endIndex = result.endIndex
-                    let startOfRange = index * 10
+                    let startOfRange = index * requestItemAmount
 
                     if startOfRange >= endIndex {
                         return completionHandler(.failure(
@@ -42,9 +47,8 @@ final class MockRestaurantSearcher: SearchService {
                         ))
                     }
 
-                    let endOfRange = (index+1) * 10 >= endIndex ? endIndex : (index+1) * 10
+                    let endOfRange = (index+1) * requestItemAmount >= endIndex ? endIndex : (index+1) * requestItemAmount
                     let range = startOfRange..<endOfRange
-                    self.index += 1
 
                     completionHandler(.success(Array(result[range])))
                 } else {
