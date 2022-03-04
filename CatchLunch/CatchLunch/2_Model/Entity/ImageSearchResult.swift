@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct ImageSearchResult: Codable {
+struct ImageSearchResult: Decodable {
     let items: [Item]?
 
-    struct Item: Codable {
+    struct Item: Decodable {
         let thumbnail: String?
     }
 }
