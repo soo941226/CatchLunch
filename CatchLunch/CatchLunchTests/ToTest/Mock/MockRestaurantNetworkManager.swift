@@ -9,8 +9,8 @@ import Foundation
 @testable import CatchLunch
 
 final class MockRestaurantNetworkManager: NetworkManagable {
-    private(set) var request: URLRequest?
-    private(set) var session: MockSessionAboutRestaurant
+    private var request: URLRequest?
+    private var session: MockSessionAboutRestaurant
 
     init(session: MockSessionAboutRestaurant = MockSessionAboutRestaurant()) {
         self.session = session
@@ -61,6 +61,7 @@ final class MockRestaurantNetworkManager: NetworkManagable {
 
         asyncAfter {
             self.session.dataTask(with: request) { data, response, error in
+                self.request = nil
                 if let error = error {
                     completionHandler(.failure(error))
                 }

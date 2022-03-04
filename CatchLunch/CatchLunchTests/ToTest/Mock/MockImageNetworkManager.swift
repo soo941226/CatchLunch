@@ -9,8 +9,8 @@ import Foundation
 @testable import CatchLunch
 
 final class MockImageNetworkManager: NetworkManagable {
-    private(set) var request: URLRequest?
-    private(set) var session: MockSessionAboutImage
+    private var request: URLRequest?
+    private var session: MockSessionAboutImage
 
     init(session: MockSessionAboutImage = MockSessionAboutImage()) {
         self.session = session
@@ -57,6 +57,7 @@ final class MockImageNetworkManager: NetworkManagable {
         
         asyncAfter {
             self.session.dataTask(with: request) { data, response, error in
+                self.request = nil
                 if let error = error {
                     completionHandler(.failure(error))
                 }
