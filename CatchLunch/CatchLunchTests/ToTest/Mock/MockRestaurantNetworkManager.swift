@@ -39,7 +39,6 @@ final class MockRestaurantNetworkManager: NetworkManagable {
         let numberString1 = pageIndexQuery!.split(separator: "=")[1].description
         let pageIndex = Int(numberString1)!
 
-
         if pageIndex < 0 {
             self.request = .clientError
         } else if pageIndex == 0 {
@@ -48,6 +47,8 @@ final class MockRestaurantNetworkManager: NetworkManagable {
             self.request = .dummyRestaurantData
         } else if pageIndex == .max, pageSize == .max {
             self.request = .wrongDataRequest
+        } else {
+            self.request = .serverError
         }
     }
     

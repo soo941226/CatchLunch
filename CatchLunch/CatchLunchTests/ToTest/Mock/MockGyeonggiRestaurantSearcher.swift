@@ -10,12 +10,22 @@ import Foundation
 
 final class MockGyeonggiRestaurantSearcher: PagingSearchService {
     typealias Response = [RestaurantInformation]
-
-    private(set) var manager: MockRestaurantNetworkManager
-
     private let decoder = JSONDecoder()
-    init(manager: MockRestaurantNetworkManager = MockRestaurantNetworkManager()) {
+    private let manager: NetworkManagable
+
+    init(manager: NetworkManagable = MockRestaurantNetworkManager()) {
         self.manager = manager
+    }
+
+    private func nextRequest(itemPageIndex: Int, requestItemAmount: Int) -> URLRequest {
+        var urlComponent = URLComponents(string: "https://dummyurl.com")!
+        urlComponent.queryItems = [
+            .init(name: "KEY", value: HiddenConfiguration.gyeonggiAPIKey),
+            .init(name: "Type", value: "json"),
+            .init(name: "pIndex", value: itemPageIndex.description),
+            .init(name: "pSize", value: requestItemAmount.description)
+        ]
+        return URLRequest(url: urlComponent.url!)
     }
 
     func fetch(
@@ -23,38 +33,25 @@ final class MockGyeonggiRestaurantSearcher: PagingSearchService {
         requestItemAmount: Int,
         completionHandler: @escaping CompletionHandler
     ) {
-        if itemPageIndex == .zero {
-            manager.setUpRequest(with: .dataIsNotExist)
-        } else if itemPageIndex <= 3 {
-            manager.setUpRequest(with: .dummyRestaurantData)
-        }
-
+        let request = nextRequest(
+            itemPageIndex: itemPageIndex, requestItemAmount: requestItemAmount
+        )
+        manager.setUpRequest(with: request)
         manager.dataTask { result in
             switch result {
             case .success(let data):
-                let result = try? self.decoder
-                    .decode(GyeonggiAPIResult.self, from: data).place?.last?
-                    .row
+                do {
+                    let result = try self.decoder
+                        .decode(GyeonggiAPIResult.self, from: data).place?.last?
+                        .row
 
-                if let result = result {
-                    let index = itemPageIndex
-                    let endIndex = result.endIndex
-                    let startOfRange = index * requestItemAmount
-
-                    if startOfRange >= endIndex {
-                        return completionHandler(.failure(
-                            NetworkError.dataIsNotExist
-                        ))
+                    if let result = result {
+                        completionHandler(.success(result))
+                    } else {
+                        completionHandler(.success([]))
                     }
-
-                    let endOfRange = (index+1) * requestItemAmount >= endIndex ? endIndex : (index+1) * requestItemAmount
-                    let range = startOfRange..<endOfRange
-
-                    completionHandler(.success(Array(result[range])))
-                } else {
-                    completionHandler(.failure(
-                        ErrorMockRestaurantSearcher.decodingFailed
-                    ))
+                } catch {
+                    completionHandler(.failure(error))
                 }
             case .failure(let error):
                 completionHandler(.failure(error))

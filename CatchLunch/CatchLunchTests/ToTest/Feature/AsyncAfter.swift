@@ -8,7 +8,7 @@
 import Foundation
 
 func asyncAfter(_ then: @escaping () -> Void) {
-    DispatchQueue.global().asyncAfter(deadline: .now() + 0.75) {
+    DispatchQueue.global().asyncAfter(deadline: .now() + 0.7) {
         then()
     }
 }
