@@ -1,5 +1,5 @@
 //
-//  ListViewDataSource.swift
+//  RestaurantsViewDataSource.swift
 //  CatchLunch
 //
 //  Created by kjs on 2022/03/07.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RestaurantDataSource: NSObject, UITableViewDataSource {
+final class RestaurantsViewDataSource: NSObject, UITableViewDataSource {
     private var managingData = [(restaurant: RestaurantInformation, image: UIImage)]()
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -16,10 +16,10 @@ final class RestaurantDataSource: NSObject, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: ListViewCell.identifier,
+            withIdentifier: RestaurantsViewCell.identifier,
             for: indexPath
-        ) as? ListViewCell else {
-            return ListViewCell()
+        ) as? RestaurantsViewCell else {
+            return RestaurantsViewCell()
         }
 
         cell.configure(with: managingData[indexPath.row])

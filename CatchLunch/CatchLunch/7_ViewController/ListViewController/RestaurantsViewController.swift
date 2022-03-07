@@ -1,5 +1,5 @@
 //
-//  ListViewController.swift
+//  RestaurantsViewController.swift
 //  CatchLunch
 //
 //  Created by kjs on 2022/02/23.
@@ -7,11 +7,12 @@
 
 import UIKit
 
-final class ListViewController: UIViewController {
+final class RestaurantsViewController: UIViewController {
     private let viewModel = RestaurantsViewModel(service: GyeonggiRestaurantsSearcher())
     private let searchBar = UISearchBar()
     private let tableView = UITableView()
-    private let tableViewDataSource = RestaurantDataSource()
+    private let dataSource = RestaurantsViewDataSource()
+    private let delegate = RestaurantsViewDelegate()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +47,7 @@ final class ListViewController: UIViewController {
             guard let self = self else { return }
             if isSuccess {
                 let result = self.viewModel.nextItems
-                self.tableViewDataSource.append(result)
+                self.dataSource.append(result)
                 self.tableView.reloadData()
             }
         }
@@ -54,8 +55,10 @@ final class ListViewController: UIViewController {
 
     private func tableViewConfiguration() {
         view.addSubview(tableView)
-        tableView.dataSource = tableViewDataSource
-        tableView.register(ListViewCell.self, forCellReuseIdentifier: ListViewCell.identifier)
+        tableView.dataSource = dataSource
+        tableView.delegate = delegate
+
+        tableView.register(RestaurantsViewCell.self, forCellReuseIdentifier: RestaurantsViewCell.identifier)
     }
 
     private func setUpTableViewLayout() {

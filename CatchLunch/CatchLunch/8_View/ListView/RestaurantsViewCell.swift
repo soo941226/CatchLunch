@@ -1,5 +1,5 @@
 //
-//  ListViewCell.swift
+//  RestaurantsViewCell.swift
 //  CatchLunch
 //
 //  Created by kjs on 2022/03/07.
@@ -7,13 +7,19 @@
 
 import UIKit
 
-final class ListViewCell: UITableViewCell {
+final class RestaurantsViewCell: UITableViewCell {
     static let identifier = #fileID
 
+    private let outerStackView = UIStackView()
+    private let innerStackView = UIStackView()
     private let foodImageView = UIImageView()
     private let titleLabel = UILabel()
     private let locationLabel = UILabel()
     private let foodNamesLabel = UILabel()
+
+    private let labelSpacing: CGFloat = 8.0
+    private let imageSpacing: CGFloat = 8.0
+    private let imageViewWidthPercentageAtCell: CGFloat = 0.3
 
     required init?(coder: NSCoder) {
         fatalError(.meesageAboutInterfaceBuilder)
@@ -25,29 +31,28 @@ final class ListViewCell: UITableViewCell {
     }
 
     private func setUpSubviews() {
-        let innerStackView = UIStackView
-            .init(
-                arrangedSubviews: [titleLabel, locationLabel, foodNamesLabel]
-            )
+        innerStackView
             .configure(
                 axis: .vertical, distribution: .fillProportionally,
-                alignment: .fill, spacing: 4
+                alignment: .fill, spacing: labelSpacing
             )
+            .addArrangedSubviews(titleLabel, locationLabel, foodNamesLabel)
 
-        let outerStackView = UIStackView
-            .init(
-                arrangedSubviews: [foodImageView, innerStackView]
-            )
+        outerStackView
             .configure(
                 axis: .horizontal, distribution: .fillProportionally,
-                alignment: .fill, spacing: 8
+                alignment: .fill, spacing: imageSpacing
             )
+            .addArrangedSubviews(foodImageView, innerStackView)
 
         contentView.addSubview(outerStackView)
 
         outerStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            foodImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3),
+            foodImageView.widthAnchor.constraint(
+                equalTo: contentView.widthAnchor,
+                multiplier: imageViewWidthPercentageAtCell
+            ),
             outerStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             outerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             outerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -58,14 +63,10 @@ final class ListViewCell: UITableViewCell {
     func configure(with data: (restaurant: RestaurantInformation, image: UIImage)) {
         let restaurant = data.restaurant
         let image = data.image
-        var foodNames = restaurant.mainFoodNames?.reduce("", { partialResult, name in
-            return partialResult + ", " + name
-        })
-        foodNames?.removeFirst(2)
 
         titleLabel.text = restaurant.restaurantName
         locationLabel.text = restaurant.cityName
-        foodNamesLabel.text = foodNames
+        foodNamesLabel.text = restaurant.descriptionOfMainFoodNames
         foodImageView.image = image
     }
 }
