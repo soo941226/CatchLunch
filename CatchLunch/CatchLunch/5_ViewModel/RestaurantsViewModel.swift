@@ -41,6 +41,26 @@ where Service.Response == [RestaurantInformation] {
         return (managingItems[index], image ?? imagePlaceHolder)
     }
 
+    var nextItems: [(restaurant: RestaurantInformation, image: UIImage)] {
+        let startIndex = pageIndex - 2
+        let indices = startIndex*amount..<managingItems.count
+
+        return managingItems[indices]
+            .map { restaurant in
+                let image = restaurant.mainFoodNames?
+                    .first
+                    .flatMap({ name in
+                        imageSearchViewModel[name]
+                    })
+
+                if let image = image {
+                    return (restaurant, image)
+                } else {
+                    return (restaurant, imagePlaceHolder)
+                }
+            }
+    }
+
     func fetch(completionHandler: @escaping (Bool) -> Void) {
         if nowLoading { return }
 
