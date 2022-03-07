@@ -87,14 +87,12 @@ where Service.Response == [RestaurantInformation] {
     ) {
         let dispatchGroup = DispatchGroup()
 
-        restaurants.forEach { information in
-            information.mainFoodNames?.forEach({ foodName in
-                dispatchGroup.enter()
-
-                imageSearchViewModel.fetch(about: foodName) { _ in
-                    dispatchGroup.leave()
-                }
-            })
+        restaurants.forEach { model in
+            dispatchGroup.enter()
+            let foodName = model.mainFoodNames?.first ?? ""
+            imageSearchViewModel.fetch(about: foodName) { _ in
+                dispatchGroup.leave()
+            }
         }
 
         dispatchGroup.notify(queue: .main) {
