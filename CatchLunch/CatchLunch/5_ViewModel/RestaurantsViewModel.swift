@@ -15,37 +15,42 @@ where Service.Response == [RestaurantInformation] {
 
     private var managingItems = [RestaurantInformation]()
 
-    var count: Int {
-        return managingItems.count
-    }
-
     private let amount = 10
     private var pageIndex = 1
     private var nowLoading = false
+    private var thereIsNoMoreItem = false
     private(set) var error: Error?
+    private var itemStartIndex: Int? {
+        let index = pageIndex - 2
+        if index < 0 {
+            return nil
+        } else {
+            return index
+        }
+    }
 
     init(service: Service) {
         self.service = service
     }
+}
 
-    subscript(_ index: Int) -> (restaurant: RestaurantInformation, image: UIImage)? {
-        guard managingItems.indices ~= index else {
-            return nil
-        }
+// MARK: - Facade
+extension RestaurantsViewModel {
+    var count: Int {
+        return managingItems.count
+    }
 
-        let image = managingItems[index].mainFoodNames?.first
-            .flatMap({ name in
-                imageSearchViewModel[name]
-            })
-
-        return (managingItems[index], image ?? imagePlaceHolder)
+    var searchBarPlaceHolder: String {
+        return "식당이름, 도시이름, 음식이름"
     }
 
     var nextItems: [(restaurant: RestaurantInformation, image: UIImage)] {
-        let startIndex = pageIndex - 2
-        let indices = startIndex*amount..<managingItems.count
+        guard let startIndex = itemStartIndex else {
+            return []
+        }
+        let nextIndices = startIndex*amount..<managingItems.count
 
-        return managingItems[indices]
+        return managingItems[nextIndices]
             .map { restaurant in
                 let image = restaurant.mainFoodNames?
                     .first
@@ -61,10 +66,36 @@ where Service.Response == [RestaurantInformation] {
             }
     }
 
-    func fetch(completionHandler: @escaping (Bool) -> Void) {
-        if nowLoading { return }
+    var nextIndexPaths: [IndexPath] {
+        guard let startIndex = itemStartIndex else {
+            return []
+        }
+        let nextIndices = startIndex*amount..<managingItems.count
+        return nextIndices.map { index in
+            return IndexPath(row: index, section: .zero)
+        }
+    }
 
+    subscript(_ index: Int) -> (restaurant: RestaurantInformation, image: UIImage)? {
+        guard managingItems.indices ~= index else {
+            return nil
+        }
+
+        let image = managingItems[index].mainFoodNames?.first
+            .flatMap({ name in
+                imageSearchViewModel[name]
+            })
+
+        return (managingItems[index], image ?? imagePlaceHolder)
+    }
+
+    func fetch(completionHandler: @escaping (Bool) -> Void) {
+        if thereIsNoMoreItem { return }
+        if nowLoading { return }
         nowLoading = true
+
+        NotificationCenter.default.post(name: .startNetwokring, object: nil)
+
         service.fetch(
             itemPageIndex: pageIndex,
             requestItemAmount: amount
@@ -73,7 +104,17 @@ where Service.Response == [RestaurantInformation] {
 
             switch result {
             case .success(let restaurants):
-                self.fetchImages(from: restaurants, with: completionHandler)
+                if restaurants.count > 0 {
+                    self.fetchImages(from: restaurants, with: completionHandler)
+                } else {
+                    self.thereIsNoMoreItem = true
+                    completionHandler(false)
+
+                    NotificationCenter.default.post(
+                        name: .finishNetworkingOnError, object: nil,
+                        userInfo: ["message": "더이상 요청할 수 없습니다"]
+                    )
+                }
             case .failure(let error):
                 self.error = error
                 completionHandler(false)
@@ -95,11 +136,12 @@ where Service.Response == [RestaurantInformation] {
             }
         }
 
-        dispatchGroup.notify(queue: .main) {
-            self.error = nil
-            self.pageIndex += 1
-            self.managingItems += restaurants
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            self?.error = nil
+            self?.pageIndex += 1
+            self?.managingItems += restaurants
             completionHandler(true)
+            NotificationCenter.default.post(name: .finishNetworking, object: nil)
         }
     }
 }

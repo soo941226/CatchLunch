@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol RestaurantsViewModelContainer: AnyObject {
+    func requestNextItems()
+}
+
 final class RestaurantsViewController: UIViewController {
     private let viewModel = RestaurantsViewModel(service: GyeonggiRestaurantsSearcher())
     private let searchBar = UISearchBar()
@@ -28,7 +32,7 @@ final class RestaurantsViewController: UIViewController {
     private func searchBarConfiguraiton() {
         view.addSubview(searchBar)
         searchBar.barStyle = .black
-        searchBar.placeholder = "식당이름, 도시이름, 음식이름"
+        searchBar.placeholder = viewModel.searchBarPlaceHolder
     }
 
     private func setUpSearchBarLayout() {
@@ -42,21 +46,12 @@ final class RestaurantsViewController: UIViewController {
         ])
     }
 
-    private func requestNextItems() {
-        viewModel.fetch { [weak self] isSuccess in
-            guard let self = self else { return }
-            if isSuccess {
-                let result = self.viewModel.nextItems
-                self.dataSource.append(result)
-                self.tableView.reloadData()
-            }
-        }
-    }
-
     private func tableViewConfiguration() {
         view.addSubview(tableView)
         tableView.dataSource = dataSource
         tableView.delegate = delegate
+
+        delegate.setUpContainer(with: self)
 
         tableView.register(RestaurantsViewCell.self, forCellReuseIdentifier: RestaurantsViewCell.identifier)
     }
@@ -69,5 +64,19 @@ final class RestaurantsViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+    }
+}
+
+extension RestaurantsViewController: RestaurantsViewModelContainer {
+    func requestNextItems() {
+        viewModel.fetch { [weak self] isSuccess in
+            guard let self = self else { return }
+            if isSuccess {
+                let result = self.viewModel.nextItems
+                let indexPathsToRefresh = self.viewModel.nextIndexPaths
+                self.dataSource.append(result)
+                self.tableView.insertRows(at: indexPathsToRefresh, with: .top)
+            }
+        }
     }
 }

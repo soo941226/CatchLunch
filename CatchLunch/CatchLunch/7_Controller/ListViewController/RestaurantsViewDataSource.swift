@@ -22,6 +22,7 @@ final class RestaurantsViewDataSource: NSObject, UITableViewDataSource {
             return RestaurantsViewCell()
         }
 
+        cell.accessoryType = .disclosureIndicator
         cell.configure(with: managingData[indexPath.row])
         return cell
     }
