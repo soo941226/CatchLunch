@@ -17,6 +17,14 @@ struct RestaurantInformation: Restaurant, Coordinate2D, Bookmarkable, Decodable 
     private(set) var latitude: Double?
     private(set) var longitude: Double?
 
+    var descriptionOfMainFoodNames: String? {
+        var foodNames = mainFoodNames?.reduce("", { partialResult, name in
+            return partialResult + ", " + name
+        })
+        foodNames?.removeFirst(2)
+        return foodNames
+    }
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         setUpRestaurant(with: container)
