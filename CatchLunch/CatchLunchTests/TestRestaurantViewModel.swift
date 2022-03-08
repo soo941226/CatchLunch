@@ -57,7 +57,6 @@ final class TestRestaurantViewModel: XCTestCase {
         }
 
         wait(for: [dispatch], timeout: 5.0)
-        XCTAssertEqual(viewModelUnderTest.count, expectaion)
         XCTAssertNil(viewModelUnderTest[expectaion+1])
     }
 
@@ -70,7 +69,7 @@ final class TestRestaurantViewModel: XCTestCase {
                 let from = from + 1
                 if from == to {
                     if isSuccess {
-                        XCTFail(self.viewModelUnderTest.count.description)
+                        XCTFail(self.viewModelUnderTest.debugDescription)
                     } else {
                         resultToExpect = self.viewModelUnderTest.error
                     }
