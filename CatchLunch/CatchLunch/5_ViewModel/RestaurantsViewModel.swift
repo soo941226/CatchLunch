@@ -36,15 +36,11 @@ where Service.Response == [RestaurantInformation] {
 
 // MARK: - Facade
 extension RestaurantsViewModel {
-    var count: Int {
-        return managingItems.count
-    }
-
     var searchBarPlaceHolder: String {
         return "식당이름, 도시이름, 음식이름"
     }
 
-    var nextItems: [(restaurant: RestaurantInformation, image: UIImage)] {
+    var nextItems: [RestaurantSummary] {
         guard let startIndex = itemStartIndex else {
             return []
         }
@@ -76,7 +72,7 @@ extension RestaurantsViewModel {
         }
     }
 
-    subscript(_ index: Int) -> (restaurant: RestaurantInformation, image: UIImage)? {
+    subscript(_ index: Int) -> RestaurantSummary? {
         guard managingItems.indices ~= index else {
             return nil
         }
