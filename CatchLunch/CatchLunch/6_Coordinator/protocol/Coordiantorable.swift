@@ -4,8 +4,13 @@
 //
 //  Created by kjs on 2022/03/02.
 //
+import UIKit
 
-// TODO: - 해야함
-protocol Coordiantorable {
+protocol Coordiantorable: AnyObject {
+    var childCoordinators: [Coordiantorable] { get }
 
+    init(on navigationController: UINavigationController)
+
+    func start()
+    func next()
 }

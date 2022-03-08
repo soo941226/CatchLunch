@@ -9,6 +9,7 @@ import UIKit
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let indicator = UIActivityIndicatorView(style: .medium)
+    private var coordinator: Coordiantorable?
     var window: UIWindow?
 
     func scene(
@@ -17,19 +18,42 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         options connectionOptions: UIScene.ConnectionOptions
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        setUpWindw(with: windowScene)
+        setUpWindowAndRootCoordinator(with: windowScene)
         setUpIndicator()
         addNotificationObservers()
     }
 
-    private func setUpWindw(with windowScene: UIWindowScene) {
+    private func setUpWindowAndRootCoordinator(with windowScene: UIWindowScene) {
+        let navigationController = UINavigationController()
+
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = RestaurantsViewController()
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
+
+        coordinator = RootCoordinator(on: navigationController)
+        coordinator?.start()
     }
 }
 
 // MARK: - Notfication
+extension SceneDelegate {
+    private func addNotificationObservers() {
+        addObserver(about: .startNetwokring, with: #selector(showIndicator))
+        addObserver(about: .finishNetworking, with: #selector(hideIndicator))
+        addObserver(
+            about: .finishNetworkingOnError,
+            with: #selector(hideIndicatorAndShowAlert(_:))
+        )
+    }
+
+    private func addObserver(about name: Notification.Name, with selector: Selector) {
+        NotificationCenter
+            .default
+            .addObserver(self, selector: selector, name: name, object: nil)
+    }
+}
+
+// MARK: - Alert and Indicator
 extension SceneDelegate {
     @objc func showIndicator() {
         guard let window = window else { return }
@@ -54,28 +78,11 @@ extension SceneDelegate {
         showAlert(with: message)
     }
 
-    private func addNotificationObservers() {
-        addObserver(about: .startNetwokring, with: #selector(showIndicator))
-        addObserver(about: .finishNetworking, with: #selector(hideIndicator))
-        addObserver(
-            about: .finishNetworkingOnError,
-            with: #selector(hideIndicatorAndShowAlert(_:))
-        )
-    }
-
-    private func addObserver(about name: Notification.Name, with selector: Selector) {
-        NotificationCenter.default.addObserver(
-            self, selector: selector,
-            name: name, object: nil
-        )
-    }
-}
-
-// MARK: - Alert and Indicator
-extension SceneDelegate {
     private func setUpIndicator() {
+        let basicMargin: CGFloat = -8.0
         indicator.backgroundColor = .darkGray
         indicator.color = .white
+        indicator.frame = indicator.frame.insetBy(dx: basicMargin, dy: basicMargin)
         indicator.layer.cornerRadius = .pi
         window?.addSubview(indicator)
     }
