@@ -8,7 +8,7 @@
 import UIKit
 
 final class RestaurantsViewDataSource: NSObject, UITableViewDataSource {
-    private var managingData = [(restaurant: RestaurantInformation, image: UIImage)]()
+    private var managingData = [RestaurantSummary]()
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return managingData.count
@@ -27,7 +27,7 @@ final class RestaurantsViewDataSource: NSObject, UITableViewDataSource {
         return cell
     }
 
-    func append(_ restaurants: [(restaurant: RestaurantInformation, image: UIImage)]) {
+    func append(_ restaurants: [RestaurantSummary]) {
         self.managingData += restaurants
     }
 }

@@ -10,6 +10,10 @@ import UIKit
 final class RestaurantsViewDelegate: NSObject, UITableViewDelegate {
     private weak var container: RestaurantsViewModelContainer?
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        container?.select()
+    }
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         prefetch(on: tableView, with: indexPath)
     }

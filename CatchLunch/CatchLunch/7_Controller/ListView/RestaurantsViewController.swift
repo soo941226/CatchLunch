@@ -7,16 +7,26 @@
 
 import UIKit
 
-protocol RestaurantsViewModelContainer: AnyObject {
-    func requestNextItems()
-}
+final class RestaurantsViewController<
+    ViewModel: JustSearchViewModelable
+>: UIViewController where ViewModel.Item == RestaurantSummary {
 
-final class RestaurantsViewController: UIViewController {
-    private let viewModel = RestaurantsViewModel(service: GyeonggiRestaurantsSearcher())
+    private let viewModel: ViewModel
     private let searchBar = UISearchBar()
     private let tableView = UITableView()
     private let dataSource = RestaurantsViewDataSource()
     private let delegate = RestaurantsViewDelegate()
+    private let coordinator: Coordiantorable
+
+    init(with viewModel: ViewModel, under coordinator: Coordiantorable) {
+        self.viewModel = viewModel
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +78,18 @@ final class RestaurantsViewController: UIViewController {
 }
 
 extension RestaurantsViewController: RestaurantsViewModelContainer {
+    var selectedModel: RestaurantSummary? {
+        guard let indexPath = tableView.indexPathForSelectedRow else {
+            return nil
+        }
+
+        return viewModel[indexPath.row]
+    }
+
+    func select() {
+        coordinator.next()
+    }
+
     func requestNextItems() {
         viewModel.fetch { [weak self] isSuccess in
             guard let self = self else { return }
