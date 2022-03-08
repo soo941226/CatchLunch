@@ -60,8 +60,8 @@ final class RestaurantsViewCell: UITableViewCell {
         ])
     }
 
-    func configure(with data: (restaurant: RestaurantInformation, image: UIImage)) {
-        let restaurant = data.restaurant
+    func configure(with data: RestaurantSummary) {
+        let restaurant = data.information
         let image = data.image
 
         titleLabel.text = restaurant.restaurantName
