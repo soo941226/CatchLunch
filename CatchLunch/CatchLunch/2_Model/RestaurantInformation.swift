@@ -5,6 +5,10 @@
 //  Created by kjs on 2022/02/24.
 //
 
+import UIKit
+
+typealias RestaurantSummary = (information: RestaurantInformation, image: UIImage)
+
 struct RestaurantInformation: Restaurant, Coordinate2D, Bookmarkable, Decodable {
     private(set) var isBookmarked: Bool = false
     private(set) var cityName: String?
