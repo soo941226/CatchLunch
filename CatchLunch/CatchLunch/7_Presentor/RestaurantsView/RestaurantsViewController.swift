@@ -40,20 +40,20 @@ final class RestaurantsViewController<
     }
 
     private func searchBarConfiguraiton() {
-        view.addSubview(searchBar)
-        searchBar.barStyle = .black
+        navigationItem.titleView = searchBar
+        searchBar.barStyle = .default
         searchBar.placeholder = viewModel.searchBarPlaceHolder
     }
 
     private func setUpSearchBarLayout() {
-        let safeArea = view.safeAreaLayoutGuide
-
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
-        ])
+//        let safeArea = view.safeAreaLayoutGuide
+//
+//        searchBar.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            searchBar.topAnchor.constraint(equalTo: safeArea.topAnchor),
+//            searchBar.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+//            searchBar.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
+//        ])
     }
 
     private func tableViewConfiguration() {
@@ -67,9 +67,10 @@ final class RestaurantsViewController<
     }
 
     private func setUpTableViewLayout() {
+        let safeArea = view.safeAreaLayoutGuide
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -97,7 +98,7 @@ extension RestaurantsViewController: RestaurantsViewModelContainer {
                 let result = self.viewModel.nextItems
                 let indexPathsToRefresh = self.viewModel.nextIndexPaths
                 self.dataSource.append(result)
-                self.tableView.insertRows(at: indexPathsToRefresh, with: .top)
+                self.tableView.insertRows(at: indexPathsToRefresh, with: .right)
             }
         }
     }

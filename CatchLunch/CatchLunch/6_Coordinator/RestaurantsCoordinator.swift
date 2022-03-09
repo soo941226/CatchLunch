@@ -17,7 +17,15 @@ final class RestaurantsCoordinator: Coordiantorable {
     }
 
     func start() {
-        navigationController.pushViewController(DetailViewController(), animated: true)
+        guard let mainViewController = navigationController.topViewController as? RestaurantsViewModelContainer else {
+            return
+        }
+        guard let model = mainViewController.selectedModel else {
+            return
+        }
+
+        let nextViewController = DetailViewController(with: model)
+        navigationController.pushViewController(nextViewController, animated: false)
     }
 
     func next() {
