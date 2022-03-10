@@ -26,4 +26,12 @@ extension UIStackView {
             self.addArrangedSubview(view)
         }
     }
+
+    func addBorder(color: UIColor) {
+        self.subviews.forEach { view in
+            view.backgroundColor = .systemBackground
+        }
+
+        self.backgroundColor = color
+    }
 }

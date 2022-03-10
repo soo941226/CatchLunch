@@ -22,7 +22,6 @@ final class DetailViewController: UIViewController {
 
     override func loadView() {
         view = detailView
-        view.backgroundColor = .systemBackground
     }
 
     override func viewDidLoad() {

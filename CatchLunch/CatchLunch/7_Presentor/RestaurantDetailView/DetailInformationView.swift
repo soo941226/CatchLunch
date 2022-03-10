@@ -7,45 +7,81 @@
 
 import UIKit
 
-final class DetailInformationView: UIView {
-    private let stackView = UIStackView()
+final class DetailInformationView: UIScrollView {
     private let imageView = UIImageView()
+
+    private let labelContainer = UIStackView()
+
+    private let nameSectionContainer = UIStackView()
     private let cityNameLabel = UILabel()
     private let restaurantNameLabel = UILabel()
+    private let mainFoodsLabel = UILabel()
+
     private let phoneNumberLabel = UILabel()
     private let roadAddressLabel = UILabel()
     private let locationAddressLabel = UILabel()
-    private let mainFoodsLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        stackView
-            .configure(
-                axis: .vertical, distribution: .fillProportionally,
-                alignment: .leading, spacing: 8.0)
-            .addArrangedSubviews(
-                imageView, cityNameLabel, restaurantNameLabel, phoneNumberLabel,
-                roadAddressLabel, locationAddressLabel, mainFoodsLabel
-            )
-
-        let safeArea = safeAreaLayoutGuide
-
-        addSubview(stackView)
-
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
-        ])
+        setUpImageView()
+        setUpContainers()
+        stylingStackViews()
+        setUpConstraints()
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError(.meesageAboutInterfaceBuilder)
     }
 
+    private func setUpImageView() {
+        addSubview(imageView)
+    }
+
+    private func setUpContainers() {
+        nameSectionContainer
+            .configure(
+                axis: .horizontal, distribution: .fillProportionally,
+                alignment: .leading, spacing: 1.0
+            )
+            .addArrangedSubviews(cityNameLabel, restaurantNameLabel)
+
+        labelContainer
+            .configure(
+                axis: .vertical, distribution: .fillProportionally,
+                alignment: .fill, spacing: 1.0
+            )
+            .addArrangedSubviews(
+                nameSectionContainer, mainFoodsLabel, phoneNumberLabel,
+                roadAddressLabel, locationAddressLabel
+            )
+
+        addSubview(labelContainer)
+    }
+
+    private func stylingStackViews() {
+        labelContainer.addBorder(color: .lightGray)
+        nameSectionContainer.addBorder(color: .lightGray)
+    }
+
+    private func setUpConstraints() {
+        let safeArea = safeAreaLayoutGuide
+
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        labelContainer.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            labelContainer.topAnchor.constraint(equalTo: imageView.bottomAnchor),
+            labelContainer.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            labelContainer.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
+        ])
+    }
+}
+
+// MARK: - Facade
+extension DetailInformationView {
     func configure(with summary: RestaurantSummary) {
         imageView.image = summary.image
         cityNameLabel.text = summary.information.cityName
