@@ -9,7 +9,7 @@ import UIKit
 
 final class RootCoordinator: Coordiantorable {
     private unowned var navigationController: UINavigationController!
-    private(set) var childCoordinators = [Coordiantorable]()
+    private var childCoordinators = [Coordiantorable]()
 
     init(on navigationController: UINavigationController) {
         self.navigationController = navigationController
