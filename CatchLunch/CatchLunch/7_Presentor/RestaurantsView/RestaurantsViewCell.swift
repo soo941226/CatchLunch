@@ -10,8 +10,8 @@ import UIKit
 final class RestaurantsViewCell: UITableViewCell {
     static let identifier = #fileID
 
-    private let outerStackView = UIStackView()
-    private let innerStackView = UIStackView()
+    private let contentsStackView = UIStackView()
+    private let labelStackView = UIStackView()
     private let foodImageView = UIImageView()
     private let titleLabel = UILabel()
     private let locationLabel = UILabel()
@@ -19,7 +19,7 @@ final class RestaurantsViewCell: UITableViewCell {
 
     private let labelSpacing: CGFloat = 8.0
     private let imageSpacing: CGFloat = 8.0
-    private let imageViewWidthPercentageAtCell: CGFloat = 0.3
+    private let widthPercentageAboutImageView: CGFloat = 0.3
 
     required init?(coder: NSCoder) {
         fatalError(.meesageAboutInterfaceBuilder)
@@ -28,38 +28,45 @@ final class RestaurantsViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpSubviews()
+        setUpConstraints()
     }
 
     private func setUpSubviews() {
-        innerStackView
+        labelStackView
             .configure(
                 axis: .vertical, distribution: .fillProportionally,
                 alignment: .fill, spacing: labelSpacing
             )
             .addArrangedSubviews(titleLabel, locationLabel, foodNamesLabel)
 
-        outerStackView
+        contentsStackView
             .configure(
                 axis: .horizontal, distribution: .fillProportionally,
                 alignment: .fill, spacing: imageSpacing
             )
-            .addArrangedSubviews(foodImageView, innerStackView)
+            .addArrangedSubviews(foodImageView, labelStackView)
 
-        contentView.addSubview(outerStackView)
+        contentView.addSubview(contentsStackView)
+    }
 
-        outerStackView.translatesAutoresizingMaskIntoConstraints = false
+    private func setUpConstraints() {
+        contentsStackView.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             foodImageView.widthAnchor.constraint(
                 equalTo: contentView.widthAnchor,
-                multiplier: imageViewWidthPercentageAtCell
+                multiplier: widthPercentageAboutImageView
             ),
-            outerStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            outerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            outerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            outerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            contentsStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            contentsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            contentsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            contentsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
     }
+}
 
+// MARK: - Facade
+extension RestaurantsViewCell {
     func configure(with data: RestaurantSummary) {
         let restaurant = data.information
         let image = data.image
