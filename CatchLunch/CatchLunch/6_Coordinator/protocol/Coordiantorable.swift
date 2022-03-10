@@ -7,8 +7,6 @@
 import UIKit
 
 protocol Coordiantorable: AnyObject {
-    var childCoordinators: [Coordiantorable] { get }
-
     init(on navigationController: UINavigationController)
 
     func start()

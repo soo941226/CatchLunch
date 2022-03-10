@@ -10,8 +10,6 @@ import UIKit
 final class RestaurantsCoordinator: Coordiantorable {
     private unowned var navigationController: UINavigationController!
 
-    private(set) var childCoordinators = [Coordiantorable]()
-
     init(on navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
