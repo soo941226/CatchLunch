@@ -27,5 +27,15 @@ final class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         detailView.configure(with: summary)
+
+        let bookmarkButton = UIBarButtonItem(
+            image: .init(systemName: "star.fill"),
+            style: .plain,
+            target: nil,
+            action: nil
+        )
+
+        navigationItem.title = summary.information.restaurantName
+        navigationItem.setRightBarButton(bookmarkButton, animated: false)
     }
 }

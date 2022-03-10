@@ -25,7 +25,7 @@ final class RestaurantsViewController<
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(.meesageAboutInterfaceBuilder)
     }
 
     override func viewDidLoad() {
@@ -33,7 +33,6 @@ final class RestaurantsViewController<
         requestNextItems()
 
         searchBarConfiguraiton()
-        setUpSearchBarLayout()
 
         tableViewConfiguration()
         setUpTableViewLayout()
@@ -45,19 +44,8 @@ final class RestaurantsViewController<
         searchBar.placeholder = viewModel.searchBarPlaceHolder
     }
 
-    private func setUpSearchBarLayout() {
-//        let safeArea = view.safeAreaLayoutGuide
-//
-//        searchBar.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            searchBar.topAnchor.constraint(equalTo: safeArea.topAnchor),
-//            searchBar.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-//            searchBar.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
-//        ])
-    }
-
     private func tableViewConfiguration() {
-        view.addSubview(tableView)
+        tableView.insert(into: view)
         tableView.dataSource = dataSource
         tableView.delegate = delegate
 
@@ -98,7 +86,7 @@ extension RestaurantsViewController: RestaurantsViewModelContainer {
                 let result = self.viewModel.nextItems
                 let indexPathsToRefresh = self.viewModel.nextIndexPaths
                 self.dataSource.append(result)
-                self.tableView.insertRows(at: indexPathsToRefresh, with: .right)
+                self.tableView.insertRows(at: indexPathsToRefresh, with: .bottom)
             }
         }
     }

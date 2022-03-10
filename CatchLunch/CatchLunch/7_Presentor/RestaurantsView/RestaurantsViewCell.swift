@@ -29,6 +29,7 @@ final class RestaurantsViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpSubviews()
         setUpConstraints()
+        foodImageView.contentMode = .scaleAspectFit
     }
 
     private func setUpSubviews() {
@@ -40,13 +41,12 @@ final class RestaurantsViewCell: UITableViewCell {
             .addArrangedSubviews(titleLabel, locationLabel, foodNamesLabel)
 
         contentsStackView
+            .insert(into: contentView)
             .configure(
                 axis: .horizontal, distribution: .fillProportionally,
                 alignment: .fill, spacing: imageSpacing
             )
             .addArrangedSubviews(foodImageView, labelStackView)
-
-        contentView.addSubview(contentsStackView)
     }
 
     private func setUpConstraints() {

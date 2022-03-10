@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIStackView {
+    @discardableResult
     func configure(
         axis: NSLayoutConstraint.Axis,
         distribution: Distribution,
@@ -21,17 +22,21 @@ extension UIStackView {
         return self
     }
 
-    func addArrangedSubviews(_ subviews: UIView...) {
+    @discardableResult
+    func addArrangedSubviews(_ subviews: UIView...) -> Self {
         subviews.forEach { view in
             self.addArrangedSubview(view)
         }
+        return self
     }
 
-    func addBorder(color: UIColor) {
+    @discardableResult
+    func addBorder(color: UIColor) -> Self {
         self.subviews.forEach { view in
             view.backgroundColor = .systemBackground
         }
-
         self.backgroundColor = color
+
+        return self
     }
 }

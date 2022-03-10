@@ -9,15 +9,18 @@ import UIKit
 import MapKit
 
 final class DetailInformationView: UIView {
-    private let imageView = UIImageView()
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        NSLayoutConstraint.activate([
+            imageView.heightAnchor.constraint(greaterThanOrEqualToConstant: 60.0)
+        ])
+        return imageView
+    }()
 
     private let labelContainer = UIStackView()
 
-    private let nameSectionContainer = UIStackView()
-    private let cityNameLabel = UILabel()
-    private let restaurantNameLabel = UILabel()
     private let mainFoodsLabel = UILabel()
-
     private let phoneNumberLabel = UILabel()
     private let roadAddressLabel = UILabel()
     private let locationAddressLabel = UILabel()
@@ -25,71 +28,54 @@ final class DetailInformationView: UIView {
     private let mapView = MKMapView()
 
     private let viewSpacing: CGFloat = 1.0
+    private let temporayCameraRange: CGFloat = 500.0
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUpImageView()
-        setUpContainers()
-        setUpMapView()
-        stylingStackViews()
-        setUpConstraints()
+
+        setUpSubviews()
+        setUpLabelContainer()
     }
 
     required init?(coder: NSCoder) {
         fatalError(.meesageAboutInterfaceBuilder)
     }
 
-    private func setUpImageView() {
-        addSubview(imageView)
-    }
-
-    private func setUpContainers() {
-        nameSectionContainer
-            .configure(
-                axis: .horizontal, distribution: .fillProportionally,
-                alignment: .leading, spacing: viewSpacing
-            )
-            .addArrangedSubviews(cityNameLabel, restaurantNameLabel)
-
+    private func setUpLabelContainer() {
         labelContainer
             .configure(
-                axis: .vertical, distribution: .fillProportionally,
+                axis: .vertical, distribution: .fill,
                 alignment: .fill, spacing: viewSpacing
             )
             .addArrangedSubviews(
-                nameSectionContainer, mainFoodsLabel, phoneNumberLabel,
+                mainFoodsLabel, phoneNumberLabel,
                 roadAddressLabel, locationAddressLabel
             )
-
-        addSubview(labelContainer)
+            .addBorder(color: .darkGray)
     }
 
-    private func setUpMapView() {
-        addSubview(mapView)
-    }
-
-    private func stylingStackViews() {
-        labelContainer.addBorder(color: .lightGray)
-        nameSectionContainer.addBorder(color: .lightGray)
-    }
-
-    private func setUpConstraints() {
+    private func setUpSubviews() {
         let safeArea = safeAreaLayoutGuide
+        let outerStackView = UIStackView()
 
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        labelContainer.translatesAutoresizingMaskIntoConstraints = false
-        mapView.translatesAutoresizingMaskIntoConstraints = false
+        outerStackView
+            .insert(into: self)
+            .configure(
+                axis: .vertical, distribution: .fill,
+                alignment: .fill, spacing: viewSpacing
+            )
+            .addArrangedSubviews(
+                imageView, labelContainer, mapView
+            )
+            .addBorder(color: .lightGray)
+
+        outerStackView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            labelContainer.topAnchor.constraint(equalTo: imageView.bottomAnchor),
-            labelContainer.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            labelContainer.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            mapView.topAnchor.constraint(equalTo: labelContainer.bottomAnchor),
-            mapView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            mapView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            mapView.heightAnchor.constraint(equalToConstant: 200.0)
+            outerStackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            outerStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            outerStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            outerStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
         ])
     }
 }
@@ -98,21 +84,19 @@ final class DetailInformationView: UIView {
 extension DetailInformationView {
     func configure(with summary: RestaurantSummary) {
         imageView.image = summary.image
-        cityNameLabel.text = summary.information.cityName
-        restaurantNameLabel.text = summary.information.restaurantName
         phoneNumberLabel.text = summary.information.phoneNumber
         roadAddressLabel.text = summary.information.roadNameAddress
         locationAddressLabel.text = summary.information.locationNameAddress
         mainFoodsLabel.text = summary.information.descriptionOfMainFoodNames
 
-        if let longitude = summary.information.longitude,
-           let latitude = summary.information.latitude {
+        guard let longitude = summary.information.longitude,
+           let latitude = summary.information.latitude else {
+               return
+           }
 
-            mapView.cameraZoomRange = .init(maxCenterCoordinateDistance: 500.0)
-
-            mapView.addAnnotation(TempAnnotation(latitdue: latitude, longitude: longitude))
-            mapView.centerCoordinate = .init(latitude: latitude, longitude: longitude)
-        }
+        mapView.cameraZoomRange = .init(maxCenterCoordinateDistance: temporayCameraRange)
+        mapView.addAnnotation(TempAnnotation(latitdue: latitude, longitude: longitude))
+        mapView.centerCoordinate = .init(latitude: latitude, longitude: longitude)
     }
 }
 

@@ -85,7 +85,7 @@ extension SceneDelegate {
         indicator.color = .white
         indicator.frame = indicator.frame.insetBy(dx: basicMargin, dy: basicMargin)
         indicator.layer.cornerRadius = .pi
-        window?.addSubview(indicator)
+        indicator.insert(into: window)
     }
 
     private func showAlert(with message: String?) {
