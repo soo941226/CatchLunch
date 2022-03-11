@@ -20,24 +20,28 @@ final class DetailInformationView: UIView {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.adjustsFontSizeToFitWidth = true
+        label.accessibilityLabel =  "주메뉴: "
         return label
     }()
     private let phoneNumberLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.adjustsFontSizeToFitWidth = true
+        label.accessibilityLabel =  "전화번호: "
         return label
     }()
     private let roadAddressLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.adjustsFontSizeToFitWidth = true
+        label.accessibilityLabel = "도로명주소: "
         return label
     }()
     private let locationAddressLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.adjustsFontSizeToFitWidth = true
+        label.accessibilityLabel = "지번주소: "
         return label
     }()
 
@@ -48,11 +52,6 @@ final class DetailInformationView: UIView {
     }()
 
     private let viewSpacing: CGFloat = 1.0
-
-    private let foodNamePrefix = "주메뉴: "
-    private let phoneNumberPrefix = "전화번호: "
-    private let roadAddressPrefix = "도로명주소: "
-    private let locationAddressPrefix = "지번주소: "
 
     required init?(coder: NSCoder) {
         fatalError(.meesageAboutInterfaceBuilder)
@@ -100,10 +99,19 @@ extension DetailInformationView {
         let (data, image) = summary
         imageView.image = image
 
-        mainFoodsLabel.text = data.descriptionOfMainFoodNames?.prepended(foodNamePrefix)
-        phoneNumberLabel.text = data.phoneNumber?.prepended(phoneNumberPrefix)
-        roadAddressLabel.text = data.roadNameAddress?.prepended(roadAddressPrefix)
-        locationAddressLabel.text = data.locationNameAddress?.prepended(locationAddressPrefix)
+        mainFoodsLabel.text = data.descriptionOfMainFoodNames?
+            .prepended(mainFoodsLabel.accessibilityLabel)
+        phoneNumberLabel.text = data.phoneNumber?
+            .prepended(phoneNumberLabel.accessibilityLabel)
+        roadAddressLabel.text = data.roadNameAddress?
+            .prepended(roadAddressLabel.accessibilityLabel)
+        locationAddressLabel.text = data.locationNameAddress?
+            .prepended(locationAddressLabel.accessibilityLabel)
+
+        mainFoodsLabel.accessibilityValue = data.descriptionOfMainFoodNames
+        phoneNumberLabel.accessibilityValue = data.phoneNumber
+        roadAddressLabel.accessibilityValue = data.roadNameAddress
+        locationAddressLabel.accessibilityValue = data.locationNameAddress
 
         guard let longitude = summary.information.longitude,
            let latitude = summary.information.latitude else {
