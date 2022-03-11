@@ -12,46 +12,67 @@ final class DetailInformationView: UIView {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        NSLayoutConstraint.activate([
-            imageView.heightAnchor.constraint(greaterThanOrEqualToConstant: 60.0)
-        ])
         return imageView
     }()
 
     private let labelContainer = UIStackView()
+    private let mainFoodsLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .body)
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
+    private let phoneNumberLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .body)
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
+    private let roadAddressLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .body)
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
+    private let locationAddressLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .body)
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
 
-    private let mainFoodsLabel = UILabel()
-    private let phoneNumberLabel = UILabel()
-    private let roadAddressLabel = UILabel()
-    private let locationAddressLabel = UILabel()
-
-    private let mapView = MKMapView()
+    private let mapView: MKMapView = {
+        let mapView = MKMapView()
+        mapView.cameraZoomRange = .init(maxCenterCoordinateDistance: 500.0)
+        return mapView
+    }()
 
     private let viewSpacing: CGFloat = 1.0
-    private let temporayCameraRange: CGFloat = 500.0
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        setUpSubviews()
-        setUpLabelContainer()
-    }
+    private let foodNamePrefix = "주메뉴: "
+    private let phoneNumberPrefix = "전화번호: "
+    private let roadAddressPrefix = "도로명주소: "
+    private let locationAddressPrefix = "지번주소: "
 
     required init?(coder: NSCoder) {
         fatalError(.meesageAboutInterfaceBuilder)
     }
 
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUpLabelContainer()
+        setUpSubviews()
+    }
+
     private func setUpLabelContainer() {
+        labelContainer.isLayoutMarginsRelativeArrangement = true
+        labelContainer.directionalLayoutMargins = .init(top: .zero, leading: 10.0, bottom: .zero, trailing: 10.0)
         labelContainer
-            .configure(
-                axis: .vertical, distribution: .fill,
-                alignment: .fill, spacing: viewSpacing
-            )
             .addArrangedSubviews(
                 mainFoodsLabel, phoneNumberLabel,
                 roadAddressLabel, locationAddressLabel
             )
-            .addBorder(color: .darkGray)
+            .configure(axis: .vertical, distribution: .fillEqually, alignment: .fill)
     }
 
     private func setUpSubviews() {
@@ -59,23 +80,16 @@ final class DetailInformationView: UIView {
         let outerStackView = UIStackView()
 
         outerStackView
+            .addArrangedSubviews(imageView, labelContainer, mapView)
+            .configure(axis: .vertical, distribution: .fillEqually, alignment: .fill)
             .insert(into: self)
-            .configure(
-                axis: .vertical, distribution: .fill,
-                alignment: .fill, spacing: viewSpacing
-            )
-            .addArrangedSubviews(
-                imageView, labelContainer, mapView
-            )
-            .addBorder(color: .lightGray)
 
         outerStackView.translatesAutoresizingMaskIntoConstraints = false
-
         NSLayoutConstraint.activate([
             outerStackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            outerStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-            outerStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            outerStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
+            outerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            outerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            outerStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
 }
@@ -83,27 +97,20 @@ final class DetailInformationView: UIView {
 // MARK: - Facade
 extension DetailInformationView {
     func configure(with summary: RestaurantSummary) {
-        imageView.image = summary.image
-        phoneNumberLabel.text = summary.information.phoneNumber
-        roadAddressLabel.text = summary.information.roadNameAddress
-        locationAddressLabel.text = summary.information.locationNameAddress
-        mainFoodsLabel.text = summary.information.descriptionOfMainFoodNames
+        let (data, image) = summary
+        imageView.image = image
+
+        mainFoodsLabel.text = data.descriptionOfMainFoodNames?.prepended(foodNamePrefix)
+        phoneNumberLabel.text = data.phoneNumber?.prepended(phoneNumberPrefix)
+        roadAddressLabel.text = data.roadNameAddress?.prepended(roadAddressPrefix)
+        locationAddressLabel.text = data.locationNameAddress?.prepended(locationAddressPrefix)
 
         guard let longitude = summary.information.longitude,
            let latitude = summary.information.latitude else {
                return
            }
 
-        mapView.cameraZoomRange = .init(maxCenterCoordinateDistance: temporayCameraRange)
-        mapView.addAnnotation(TempAnnotation(latitdue: latitude, longitude: longitude))
+        mapView.addAnnotation(MapMarker(latitdue: latitude, longitude: longitude))
         mapView.centerCoordinate = .init(latitude: latitude, longitude: longitude)
-    }
-}
-
-final class TempAnnotation: NSObject, MKAnnotation {
-    private(set) var coordinate: CLLocationCoordinate2D
-
-    init(latitdue: CGFloat, longitude: CGFloat) {
-        self.coordinate = .init(latitude: latitdue, longitude: longitude)
     }
 }

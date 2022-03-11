@@ -29,14 +29,4 @@ extension UIStackView {
         }
         return self
     }
-
-    @discardableResult
-    func addBorder(color: UIColor) -> Self {
-        self.subviews.forEach { view in
-            view.backgroundColor = .systemBackground
-        }
-        self.backgroundColor = color
-
-        return self
-    }
 }
