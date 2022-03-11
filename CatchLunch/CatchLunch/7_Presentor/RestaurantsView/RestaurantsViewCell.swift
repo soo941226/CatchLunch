@@ -11,15 +11,44 @@ final class RestaurantsViewCell: UITableViewCell {
     static let identifier = #fileID
 
     private let contentsStackView = UIStackView()
-    private let labelStackView = UIStackView()
-    private let foodImageView = UIImageView()
-    private let titleLabel = UILabel()
-    private let locationLabel = UILabel()
-    private let foodNamesLabel = UILabel()
+    private let foodImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.isAccessibilityElement = false
+        return imageView
+    }()
 
+    private let labelStackView = UIStackView()
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .body)
+        label.adjustsFontSizeToFitWidth = true
+        label.isAccessibilityElement = false
+        return label
+    }()
+    private let locationLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .caption2)
+        label.adjustsFontSizeToFitWidth = true
+        label.isAccessibilityElement = false
+        return label
+    }()
+    private let foodNamesLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .caption2)
+        label.adjustsFontSizeToFitWidth = true
+        label.isAccessibilityElement = false
+        return label
+    }()
+
+    private let cellSpacing: CGFloat = 8.0
     private let labelSpacing: CGFloat = 8.0
     private let imageSpacing: CGFloat = 8.0
     private let widthPercentageAboutImageView: CGFloat = 0.3
+
+    private let titleLabelPrefix = "상호: "
+    private let locationLabelPrefix = "위치: "
+    private let foodNamesLabelPrefix = "주메뉴: "
 
     required init?(coder: NSCoder) {
         fatalError(.meesageAboutInterfaceBuilder)
@@ -27,26 +56,26 @@ final class RestaurantsViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        isAccessibilityElement = true
         setUpSubviews()
         setUpConstraints()
-        foodImageView.contentMode = .scaleAspectFit
     }
 
     private func setUpSubviews() {
         labelStackView
+            .addArrangedSubviews(titleLabel, locationLabel, foodNamesLabel)
             .configure(
                 axis: .vertical, distribution: .fillProportionally,
                 alignment: .fill, spacing: labelSpacing
             )
-            .addArrangedSubviews(titleLabel, locationLabel, foodNamesLabel)
 
         contentsStackView
-            .insert(into: contentView)
+            .addArrangedSubviews(foodImageView, labelStackView)
             .configure(
                 axis: .horizontal, distribution: .fillProportionally,
                 alignment: .fill, spacing: imageSpacing
             )
-            .addArrangedSubviews(foodImageView, labelStackView)
+            .insert(into: contentView)
     }
 
     private func setUpConstraints() {
@@ -57,23 +86,44 @@ final class RestaurantsViewCell: UITableViewCell {
                 equalTo: contentView.widthAnchor,
                 multiplier: widthPercentageAboutImageView
             ),
-            contentsStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            contentsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            contentsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            contentsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            contentsStackView.topAnchor.constraint(
+                equalTo: contentView.topAnchor,
+                constant: cellSpacing
+            ),
+            contentsStackView.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -cellSpacing
+            ),
+            contentsStackView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: cellSpacing
+            ),
+            contentsStackView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -cellSpacing
+            )
         ])
+    }
+
+    private func setUpAccessbilityMessage(with data: RestaurantInformation) {
+        let city = data.cityName
+        let foods = data.descriptionOfMainFoodNames
+        let cityDesciprtion = city?.isEmpty == false ? locationLabelPrefix + city! : ""
+        let foodsDescription = foods?.isEmpty == false ? foodNamesLabelPrefix + foods! : ""
+
+        accessibilityLabel = data.restaurantName?.prepend(titleLabelPrefix)
+        accessibilityValue = cityDesciprtion + ", " + foodsDescription
     }
 }
 
 // MARK: - Facade
 extension RestaurantsViewCell {
     func configure(with data: RestaurantSummary) {
-        let restaurant = data.information
-        let image = data.image
+        let (restaurant, image) = data
 
-        titleLabel.text = restaurant.restaurantName
-        locationLabel.text = restaurant.cityName
-        foodNamesLabel.text = restaurant.descriptionOfMainFoodNames
         foodImageView.image = image
+        titleLabel.text = restaurant.restaurantName?.prepend(titleLabelPrefix)
+        locationLabel.text = restaurant.cityName?.prepend(locationLabelPrefix)
+        foodNamesLabel.text = restaurant.descriptionOfMainFoodNames?.prepend(foodNamesLabelPrefix)
     }
 }
