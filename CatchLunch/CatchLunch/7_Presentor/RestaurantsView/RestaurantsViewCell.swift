@@ -57,6 +57,7 @@ final class RestaurantsViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         isAccessibilityElement = true
+        accessibilityTraits = .link
         setUpSubviews()
         setUpConstraints()
     }
@@ -111,7 +112,7 @@ final class RestaurantsViewCell: UITableViewCell {
         let cityDesciprtion = city?.isEmpty == false ? locationLabelPrefix + city! : ""
         let foodsDescription = foods?.isEmpty == false ? foodNamesLabelPrefix + foods! : ""
 
-        accessibilityLabel = data.restaurantName?.prepend(titleLabelPrefix)
+        accessibilityLabel = data.restaurantName
         accessibilityValue = cityDesciprtion + ", " + foodsDescription
     }
 }
@@ -122,8 +123,9 @@ extension RestaurantsViewCell {
         let (restaurant, image) = data
 
         foodImageView.image = image
-        titleLabel.text = restaurant.restaurantName?.prepend(titleLabelPrefix)
-        locationLabel.text = restaurant.cityName?.prepend(locationLabelPrefix)
-        foodNamesLabel.text = restaurant.descriptionOfMainFoodNames?.prepend(foodNamesLabelPrefix)
+        titleLabel.text = restaurant.restaurantName?.prepended(titleLabelPrefix)
+        locationLabel.text = restaurant.cityName?.prepended(locationLabelPrefix)
+        foodNamesLabel.text = restaurant.descriptionOfMainFoodNames?.prepended(foodNamesLabelPrefix)
+        setUpAccessbilityMessage(with: restaurant)
     }
 }
