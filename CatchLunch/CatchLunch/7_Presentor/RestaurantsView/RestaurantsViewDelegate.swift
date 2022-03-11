@@ -18,7 +18,7 @@ final class RestaurantsViewDelegate: NSObject, UITableViewDelegate {
         prefetch(on: tableView, with: indexPath)
     }
 
-    func setUpContainer(with container: RestaurantsViewModelContainer) {
+    func container(is container: RestaurantsViewModelContainer) {
         self.container = container
     }
 

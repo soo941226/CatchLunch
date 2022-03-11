@@ -48,8 +48,7 @@ final class RestaurantsViewController<
         tableView.insert(into: view)
         tableView.dataSource = dataSource
         tableView.delegate = delegate
-
-        delegate.setUpContainer(with: self)
+        delegate.container(is: self)
 
         tableView.register(RestaurantsViewCell.self, forCellReuseIdentifier: RestaurantsViewCell.identifier)
     }
