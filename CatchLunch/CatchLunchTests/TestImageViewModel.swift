@@ -26,6 +26,7 @@ final class TestImageViewModel: XCTestCase {
 
     func test_fetch_성공_이후에_viewModel의_subscript로접근하면_이미지가_잘_나온다() {
         // given
+        setUpHandler(data: DummyImageSearchResult().goodObject, code: 200)
         let dispatch = XCTestExpectation()
         let findImageName = "goodImage"
 
@@ -46,6 +47,7 @@ final class TestImageViewModel: XCTestCase {
 
     func test_fetch_실패_이후에_viewModel_error로_접근하면_에러가_남아있다() {
         // given
+        setUpHandler(data: DummyImageSearchResult().wrongDataObject, code: 400)
         let dispatch = XCTestExpectation()
         let wrongImageName = "notAnImage"
 
@@ -66,6 +68,7 @@ final class TestImageViewModel: XCTestCase {
 
     func test_한번_요청을해서_가져온_이미지는_캐싱하여_동기적으로_곧장_가져올_수_있다() {
         // given
+        setUpHandler(data: DummyImageSearchResult().goodObject, code: 200)
         let dispatch = XCTestExpectation()
         let findImageName = "goodImage"
         var expectation: UIImage?
