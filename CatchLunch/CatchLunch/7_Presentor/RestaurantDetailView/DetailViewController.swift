@@ -10,7 +10,7 @@ import UIKit
 final class DetailViewController: UIViewController {
     private let summary: RestaurantSummary
     private let detailView = DetailInformationView()
-
+    
     init(with model: RestaurantSummary) {
         self.summary = model
         super.init(nibName: nil, bundle: nil)

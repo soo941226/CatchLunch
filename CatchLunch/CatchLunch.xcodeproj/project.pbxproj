@@ -21,7 +21,7 @@
 		63419AB327D1134E008F28D4 /* TestGyeonggiRestaurantsSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63419AB227D1134E008F28D4 /* TestGyeonggiRestaurantsSearcher.swift */; };
 		634C229227DB78240011EDBB /* MapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634C229127DB78240011EDBB /* MapMarker.swift */; };
 		634C229527DB8B170011EDBB /* CatchLunch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 634C229327DB8B170011EDBB /* CatchLunch.xcdatamodeld */; };
-		634C229927DB8CBC0011EDBB /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634C229827DB8CBC0011EDBB /* CoreDataManager.swift */; };
+		634C229927DB8CBC0011EDBB /* CDModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634C229827DB8CBC0011EDBB /* CDModelManager.swift */; };
 		63667CF227CDDE71008677C2 /* TestRestaurantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63667CF127CDDE71008677C2 /* TestRestaurantViewModel.swift */; };
 		63667CF427CDDEEE008677C2 /* MockGyeonggiRestaurantSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63667CF327CDDEEE008677C2 /* MockGyeonggiRestaurantSearcher.swift */; };
 		6367CED627C7F60F007E0735 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6367CEC227C7F60F007E0735 /* Assets.xcassets */; };
@@ -55,7 +55,7 @@
 		6396388A27DA20C00099C872 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6396388927DA20C00099C872 /* UIView+.swift */; };
 		63A6B33B27CCB3F10059C283 /* HiddenConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A6B33A27CCB3F10059C283 /* HiddenConfiguration.swift */; };
 		63A71BC727C7FB2900820C0C /* StubJsonToTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A71BC627C7FB2900820C0C /* StubJsonToTest.swift */; };
-		63A71BCA27C7FC3300820C0C /* Pods_CatchLunch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A71BC927C7FC3300820C0C /* Pods_CatchLunch.framework */; };
+		63A71BCA27C7FC3300820C0C /* Pods_CatchLunch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A71BC927C7FC3300820C0C /* Pods_CatchLunch.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		63C448D027C7F37300F7063B /* TestRestaurantInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C448CF27C7F37300F7063B /* TestRestaurantInformation.swift */; };
 		63C448DD27C7F38800F7063B /* CatchLunchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C448DC27C7F38800F7063B /* CatchLunchUITests.swift */; };
 		63C448DF27C7F38800F7063B /* CatchLunchUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C448DE27C7F38800F7063B /* CatchLunchUITestsLaunchTests.swift */; };
@@ -70,6 +70,7 @@
 		63DE3E3E27C8A81D00A32868 /* GyeonggiRestaurantsSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE3E3D27C8A81D00A32868 /* GyeonggiRestaurantsSearcher.swift */; };
 		63DE3E4227C8C71B00A32868 /* MockRestaurantNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE3E4127C8C71B00A32868 /* MockRestaurantNetworkManager.swift */; };
 		63E0347327CCA5E700CB7613 /* RestaurantsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E0347227CCA5E700CB7613 /* RestaurantsViewModel.swift */; };
+		63E98B7127DD07C700088FBE /* TestCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E98B7027DD07C700088FBE /* TestCoreDataManager.swift */; };
 		63FE058127CF5AF9006AB8D2 /* AsyncAfter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FE058027CF5AF9006AB8D2 /* AsyncAfter.swift */; };
 /* End PBXBuildFile section */
 
@@ -106,7 +107,7 @@
 		63419AB227D1134E008F28D4 /* TestGyeonggiRestaurantsSearcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestGyeonggiRestaurantsSearcher.swift; sourceTree = "<group>"; };
 		634C229127DB78240011EDBB /* MapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarker.swift; sourceTree = "<group>"; };
 		634C229427DB8B170011EDBB /* Restaurants.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Restaurants.xcdatamodel; sourceTree = "<group>"; };
-		634C229827DB8CBC0011EDBB /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		634C229827DB8CBC0011EDBB /* CDModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDModelManager.swift; sourceTree = "<group>"; };
 		63667CF127CDDE71008677C2 /* TestRestaurantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRestaurantViewModel.swift; sourceTree = "<group>"; };
 		63667CF327CDDEEE008677C2 /* MockGyeonggiRestaurantSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGyeonggiRestaurantSearcher.swift; sourceTree = "<group>"; };
 		6367CEC227C7F60F007E0735 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -157,6 +158,8 @@
 		63DE3E3D27C8A81D00A32868 /* GyeonggiRestaurantsSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyeonggiRestaurantsSearcher.swift; sourceTree = "<group>"; };
 		63DE3E4127C8C71B00A32868 /* MockRestaurantNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRestaurantNetworkManager.swift; sourceTree = "<group>"; };
 		63E0347227CCA5E700CB7613 /* RestaurantsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewModel.swift; sourceTree = "<group>"; };
+		63E98B7027DD07C700088FBE /* TestCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataManager.swift; sourceTree = "<group>"; };
+		63E98B7527DD0CEE00088FBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63F0271A27C7F2A900680D0B /* CatchLunch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatchLunch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63FE058027CF5AF9006AB8D2 /* AsyncAfter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAfter.swift; sourceTree = "<group>"; };
 		777644171959F8BA17EAF3E9 /* Pods-CatchLunch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchLunch.debug.xcconfig"; path = "Target Support Files/Pods-CatchLunch/Pods-CatchLunch.debug.xcconfig"; sourceTree = "<group>"; };
@@ -289,7 +292,7 @@
 		634C229727DB8CAB0011EDBB /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				634C229827DB8CBC0011EDBB /* CoreDataManager.swift */,
+				634C229827DB8CBC0011EDBB /* CDModelManager.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 			children = (
 				6367CEC227C7F60F007E0735 /* Assets.xcassets */,
 				63A6B33A27CCB3F10059C283 /* HiddenConfiguration.swift */,
+				63E98B7527DD0CEE00088FBE /* Info.plist */,
 			);
 			path = Asset;
 			sourceTree = "<group>";
@@ -412,6 +416,7 @@
 				6375C8BF27CA7EDD00F1D60F /* TestImageSearcher.swift */,
 				63667CF127CDDE71008677C2 /* TestRestaurantViewModel.swift */,
 				63852DDE27D1E9B4004D90C6 /* TestImageViewModel.swift */,
+				63E98B7027DD07C700088FBE /* TestCoreDataManager.swift */,
 			);
 			path = CatchLunchTests;
 			sourceTree = "<group>";
@@ -787,6 +792,7 @@
 				63018DEA27C9064F00363F00 /* MockSession.swift in Sources */,
 				63C448D027C7F37300F7063B /* TestRestaurantInformation.swift in Sources */,
 				63FE058127CF5AF9006AB8D2 /* AsyncAfter.swift in Sources */,
+				63E98B7127DD07C700088FBE /* TestCoreDataManager.swift in Sources */,
 				631BAA2927DB959C00A59AAA /* MockURLProtocol.swift in Sources */,
 				6375C8C027CA7EDD00F1D60F /* TestImageSearcher.swift in Sources */,
 				63852DD927D1D1AA004D90C6 /* DummyImageSearchResult.swift in Sources */,
@@ -834,7 +840,7 @@
 				6369AC9A27D725D50076719E /* RestaurantsCoordinator.swift in Sources */,
 				6379AFC027C8FE0000F84A91 /* Sessionable.swift in Sources */,
 				634C229227DB78240011EDBB /* MapMarker.swift in Sources */,
-				634C229927DB8CBC0011EDBB /* CoreDataManager.swift in Sources */,
+				634C229927DB8CBC0011EDBB /* CDModelManager.swift in Sources */,
 				636A7C2E27D64971000EA2FE /* RootCoordinator.swift in Sources */,
 				6396388A27DA20C00099C872 /* UIView+.swift in Sources */,
 				6367CED927C7F60F007E0735 /* SceneDelegate.swift in Sources */,
@@ -1093,6 +1099,7 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CatchLunch/Asset/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -1123,6 +1130,7 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CatchLunch/Asset/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
