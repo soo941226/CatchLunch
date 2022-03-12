@@ -24,65 +24,75 @@ final class TestRestaurantViewModel: XCTestCase {
         XCTAssertNil(viewModelUnderTest[0])
     }
 
+    func test_fetch_이전에_nextItems에_접근하면_빈_배열이_나온다() {
+        // just
+        XCTAssertEqual(viewModelUnderTest.nextItems.count, .zero)
+    }
+
     func test_fetch가_성공한_후에는_subsript로_접근하면_아이템이_존재한다() {
+        //given
+        setUpHandler(data: DummyGyeonggiAPIResult().objectWithCount10, code: 200)
         let dispatch = XCTestExpectation()
+
+        //when
         viewModelUnderTest.fetch { isSuccess in
             if isSuccess {
-                XCTAssertNotNil(self.viewModelUnderTest[0])
-                XCTAssertGreaterThan(self.viewModelUnderTest[0]!.image.size.width, .zero)
-                XCTAssertGreaterThan(self.viewModelUnderTest[0]!.image.size.height, .zero)
+                dispatch.fulfill()
             } else {
                 XCTFail(self.viewModelUnderTest.error!.localizedDescription)
             }
-            dispatch.fulfill()
+
         }
         wait(for: [dispatch], timeout: 5.0)
+
+        //then
+        XCTAssertNotNil(viewModelUnderTest[0])
+        XCTAssertGreaterThan(viewModelUnderTest[0]!.image.size.width, .zero)
+        XCTAssertGreaterThan(viewModelUnderTest[0]!.image.size.height, .zero)
     }
 
     func test_fetch를_연달아해도_쓰로틀링이_걸려서_한번만_동작한다() {
+        //given
+        setUpHandler(data: DummyGyeonggiAPIResult().objectWithCount10, code: 200)
         let dispatch = XCTestExpectation()
         let expectaion = 10
 
+        //when
         for _ in 0..<10 {
             viewModelUnderTest.fetch { isSuccess in
                 if isSuccess {
-                    XCTAssertNotNil(self.viewModelUnderTest[0])
-                    XCTAssertGreaterThan(self.viewModelUnderTest[0]!.image.size.width, .zero)
-                    XCTAssertGreaterThan(self.viewModelUnderTest[0]!.image.size.height, .zero)
+                    dispatch.fulfill()
                 } else {
                     XCTFail(self.viewModelUnderTest.error!.localizedDescription)
                 }
-                dispatch.fulfill()
+
             }
         }
-
         wait(for: [dispatch], timeout: 5.0)
+
+        //then
         XCTAssertNil(viewModelUnderTest[expectaion+1])
+        XCTAssertNotNil(self.viewModelUnderTest[0])
+        XCTAssertGreaterThan(self.viewModelUnderTest[0]!.image.size.width, .zero)
+        XCTAssertGreaterThan(self.viewModelUnderTest[0]!.image.size.height, .zero)
     }
 
     func test_viewModel의_fetch중_어떻게든_에러가_나오면_에러를_저장해놓는다() {
         // given
-        let disaptch = XCTestExpectation()
+        setUpHandler(data: Data(), code: 400)
+        let dispatch = XCTestExpectation()
         var resultToExpect: Error?
-        func recursiveFetch(with dispatch: XCTestExpectation, to: Int, from: Int = .zero) {
-            viewModelUnderTest.fetch { isSuccess in
-                let from = from + 1
-                if from == to {
-                    if isSuccess {
-                        XCTFail(self.viewModelUnderTest.debugDescription)
-                    } else {
-                        resultToExpect = self.viewModelUnderTest.error
-                    }
-                    dispatch.fulfill()
-                } else {
-                    recursiveFetch(with: dispatch, to: to, from: from)
-                }
+        viewModelUnderTest.fetch { isSuccess in
+            if isSuccess {
+                XCTFail(self.viewModelUnderTest.debugDescription)
+            } else {
+                resultToExpect = self.viewModelUnderTest.error
             }
+            dispatch.fulfill()
         }
 
         // when
-        recursiveFetch(with: disaptch, to: 5)
-        wait(for: [disaptch], timeout: 10)
+        wait(for: [dispatch], timeout: 10)
 
         // then
         XCTAssertNotNil(resultToExpect)
