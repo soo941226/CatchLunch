@@ -90,7 +90,7 @@ extension RestaurantsViewModel {
         if nowLoading { return }
         nowLoading = true
 
-        NotificationCenter.default.post(name: .startNetwokring, object: nil)
+        NotificationCenter.default.post(name: .startTask, object: nil)
 
         service.fetch(
             itemPageIndex: pageIndex,
@@ -107,7 +107,7 @@ extension RestaurantsViewModel {
                     completionHandler(false)
 
                     NotificationCenter.default.post(
-                        name: .finishNetworkingOnError, object: nil,
+                        name: .finishTaskWithError, object: nil,
                         userInfo: ["message": "더이상 요청할 수 없습니다"]
                     )
                 }
@@ -137,7 +137,7 @@ extension RestaurantsViewModel {
             self?.pageIndex += 1
             self?.managingItems += restaurants
             completionHandler(true)
-            NotificationCenter.default.post(name: .finishNetworking, object: nil)
+            NotificationCenter.default.post(name: .finishTask, object: nil)
         }
     }
 }

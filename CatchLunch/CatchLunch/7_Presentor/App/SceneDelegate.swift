@@ -39,10 +39,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 // MARK: - Notfication
 extension SceneDelegate {
     private func addNotificationObservers() {
-        addObserver(about: .startNetwokring, with: #selector(showIndicator))
-        addObserver(about: .finishNetworking, with: #selector(hideIndicator))
+        addObserver(about: .startTask, with: #selector(showIndicator))
+        addObserver(about: .finishTask, with: #selector(hideIndicator))
         addObserver(
-            about: .finishNetworkingOnError,
+            about: .finishTaskWithError,
             with: #selector(hideIndicatorAndShowAlert(_:))
         )
     }
