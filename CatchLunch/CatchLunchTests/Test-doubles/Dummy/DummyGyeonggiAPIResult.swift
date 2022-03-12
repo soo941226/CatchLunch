@@ -163,6 +163,32 @@ struct DummyGyeonggiAPIResult {
     }
     """.data(using: .utf8)!
 
+    let objectWithCount0 = """
+    {
+        "PlaceThatDoATasteyFoodSt": [
+            {
+                "head": [
+                    {
+                        "list_total_count": 137
+                    },
+                    {
+                        "RESULT": {
+                            "CODE": "INFO-000",
+                            "MESSAGE": "정상 처리되었습니다."
+                        }
+                    },
+                    {
+                        "api_version": "1.0"
+                    }
+                ]
+            },
+            {
+                "row": []
+            }
+        ]
+    }
+    """.data(using: .utf8)!
+
     let objectWithWrongFormmat = """
     {
         "PlaceThatDoATasteyFoodSt": [

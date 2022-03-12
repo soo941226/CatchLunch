@@ -27,6 +27,12 @@ final class TestRestaurantViewModel: XCTestCase {
     func test_fetch_이전에_nextItems에_접근하면_빈_배열이_나온다() {
         // just
         XCTAssertEqual(viewModelUnderTest.nextItems.count, .zero)
+
+    }
+
+    func test_fetch_이전에_nextIndexPaths에_접근하면_빈_배열이_나온다() {
+        // just
+        XCTAssertEqual(viewModelUnderTest.nextIndexPaths.count, .zero)
     }
 
     func test_fetch가_성공한_후에는_subsript로_접근하면_아이템이_존재한다() {
@@ -96,5 +102,30 @@ final class TestRestaurantViewModel: XCTestCase {
 
         // then
         XCTAssertNotNil(resultToExpect)
+    }
+
+    func test_viewModel의_fetch이후_결과데이터의갯수가_0이면_에러없이_더이상_fetch의_후행클로저가_동작하지_않는다() {
+        // given
+        setUpHandler(data: DummyGyeonggiAPIResult().objectWithCount0, code: 200)
+        let dispatch = XCTestExpectation()
+        var resultToExpect: Error?
+
+        viewModelUnderTest.fetch { isSuccess in
+            if isSuccess {
+                XCTFail(self.viewModelUnderTest.debugDescription)
+            } else {
+                resultToExpect = self.viewModelUnderTest.error
+            }
+            dispatch.fulfill()
+        }
+
+        // when
+        wait(for: [dispatch], timeout: 10)
+
+        // then
+        XCTAssertNil(resultToExpect)
+        viewModelUnderTest.fetch { _ in
+            XCTFail("failed")
+        }
     }
 }
