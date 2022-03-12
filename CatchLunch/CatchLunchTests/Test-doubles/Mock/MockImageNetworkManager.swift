@@ -10,44 +10,14 @@ import Foundation
 
 final class MockImageNetworkManager: NetworkManagable {
     private var request: URLRequest?
-    private var session: MockSessionAboutImage
+    private var session: Sessionable
 
-    init(session: MockSessionAboutImage = MockSessionAboutImage()) {
+    init(session: Sessionable = MockSession()) {
         self.session = session
     }
 
     func setUpRequest(with request: URLRequest) {
-        let query = request
-            .url?
-            .query?
-            .split(separator: "&")
-            .filter({ substring in
-                let range = substring.range(of: "query")
-                return range != nil
-            })
-            .first?
-            .split(separator: "=")
-            .last
-        let searchParam = String(query ?? "")
-
-        switch searchParam {
-        case "goodImage":
-            self.request = .goodImage
-        case "failToParse":
-            self.request = .failToParse
-        case "emptyResponse":
-            self.request = .emptyResponse
-        case "emptyLink":
-            self.request = .emptyLink
-        case "invalidLink":
-            self.request = .invalidLink
-        case "invaildData":
-            self.request = .invaildData
-        case "notAnImage":
-            self.request = .notAnImage
-        default:
-            self.request = request
-        }
+        self.request = request
     }
 
     func dataTask(completionHandler: @escaping (Result<Data, Error>) -> Void) {

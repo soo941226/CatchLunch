@@ -10,46 +10,14 @@ import Foundation
 
 final class MockRestaurantNetworkManager: NetworkManagable {
     private var request: URLRequest?
-    private var session: MockSessionAboutRestaurant
+    private var session: Sessionable
 
-    init(session: MockSessionAboutRestaurant = MockSessionAboutRestaurant()) {
+    init(session: Sessionable = MockSession()) {
         self.session = session
     }
 
     func setUpRequest(with request: URLRequest) {
-        let pageSizeQuery = request.url!.query?
-            .split(separator: "&")
-            .filter({ substirng in
-                let index = substirng.range(of: "pSize")
-                return index == nil ? false : true
-            })[0]
-        let string = pageSizeQuery!.split(separator: "=").last!.description
-        let pageSize = Int(string)!
-
-        guard pageSize > .zero else {
-            return self.request = .emptyResaurantData
-        }
-
-        let pageIndexQuery = request.url!.query?
-            .split(separator: "&")
-            .filter({ substirng in
-                let index = substirng.range(of: "pIndex")
-                return index == nil ? false : true
-            })[0]
-        let numberString1 = pageIndexQuery!.split(separator: "=")[1].description
-        let pageIndex = Int(numberString1)!
-
-        if pageIndex < 0 {
-            self.request = .clientError
-        } else if pageIndex == 0 {
-            self.request = .dataIsNotExist
-        } else if 1...3 ~= pageIndex {
-            self.request = .dummyRestaurantData
-        } else if pageIndex == .max, pageSize == .max {
-            self.request = .wrongDataRequest
-        } else {
-            self.request = .serverError
-        }
+        self.request = request
     }
 
     func dataTask(
