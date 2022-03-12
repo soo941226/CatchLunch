@@ -12,7 +12,7 @@ final class TestNetworkManager: XCTestCase {
     private var networkManagerUnderTest: NetworkManager!
 
     override func setUp() {
-        networkManagerUnderTest = NetworkManager(session: MockSessionAboutRestaurant())
+        networkManagerUnderTest = NetworkManager(session: MockSession())
     }
 
     override func tearDown() {
@@ -46,28 +46,10 @@ final class TestNetworkManager: XCTestCase {
         XCTAssertEqual(expectation, testResult)
     }
 
-    func test_request에_에러가있으면_에러가뜬다() {
+    func test_200번대로_응답데이터가비어있으면_데이터가없다는_에러가_뜬다() {
         // given
-        networkManagerUnderTest.setUpRequest(with: .errorRequest)
-        let dispatch = XCTestExpectation(description: "expect error")
-
-        // when
-        networkManagerUnderTest.dataTask { result in
-            switch result {
-            case .success(let data):
-                XCTFail(data.description)
-            case .failure(let error):
-                // then
-                XCTAssert(true, error.localizedDescription)
-            }
-            dispatch.fulfill()
-        }
-        wait(for: [dispatch], timeout: 5.0)
-    }
-
-    func test_request를_잘설정했는데_응답데이터가없으면_데이터가없다는_에러가_뜬다() {
-        // given
-        networkManagerUnderTest.setUpRequest(with: .dataIsNotExist)
+        setUpHandler(data: Data(), code: 200)
+        networkManagerUnderTest.setUpRequest(with: dummyURLRequest)
         let dispatch = XCTestExpectation(description: "expect error")
         let expectation = NetworkError.dataIsNotExist.errorDescription
         var testResult = ""
@@ -93,9 +75,10 @@ final class TestNetworkManager: XCTestCase {
         XCTAssertEqual(expectation, testResult)
     }
 
-    func test_request가_잘설정되어있어도_400번대응답이오면_클라이언트에러가_발생한다() {
+    func test_400번대응답이오면_클라이언트에러가_발생한다() {
         // given
-        networkManagerUnderTest.setUpRequest(with: .clientError)
+        setUpHandler(data: Data(), code: 400)
+        networkManagerUnderTest.setUpRequest(with: dummyURLRequest)
         let dispatch = XCTestExpectation(description: "expect error")
         let expectation = NetworkError.clientError(code: 400).errorDescription
         var testResult = ""
@@ -121,9 +104,10 @@ final class TestNetworkManager: XCTestCase {
         XCTAssertEqual(expectation, testResult)
     }
 
-    func test_request가_잘설정되어있어도_500번대응답이오면_서버에러가_발생한다() {
+    func test_500번대응답이오면_서버에러가_발생한다() {
         // given
-        networkManagerUnderTest.setUpRequest(with: .serverError)
+        setUpHandler(data: Data(), code: 500)
+        networkManagerUnderTest.setUpRequest(with: dummyURLRequest)
         let dispatch = XCTestExpectation(description: "expect error")
         let expectation = NetworkError.serverError(code: 500).errorDescription
         var testResult = ""
@@ -148,11 +132,13 @@ final class TestNetworkManager: XCTestCase {
         XCTAssertEqual(expectation, testResult)
     }
 
-    func test_request가_잘설정되어있어도_서버에문제가있을경우_data가없다고처리된다() {
+    func test_알수없는응답이오면_알수없는에러로_처리가된다() {
         // given
-        networkManagerUnderTest.setUpRequest(with: .otherResponseError)
+        let randomNumber = Int.random(in: 000...100)
+        setUpHandler(data: Data(), code: randomNumber)
+        networkManagerUnderTest.setUpRequest(with: dummyURLRequest)
         let dispatch = XCTestExpectation(description: "expect error")
-        let expection = NetworkError.uknownError(code: .zero).errorDescription
+        let expection = NetworkError.uknownError(code: randomNumber).errorDescription
         var testResult = ""
 
         // when
@@ -175,9 +161,31 @@ final class TestNetworkManager: XCTestCase {
         XCTAssertEqual(testResult, expection)
     }
 
+    func test_서버로부터_에러가_오면_에러처리를_한다() {
+        setUpHandler(data: Data(), code: 200, error: DummyError())
+        networkManagerUnderTest.setUpRequest(with: dummyURLRequest)
+        let dispatch = XCTestExpectation(description: "expect error")
+        var resultToExpect: Error?
+
+        networkManagerUnderTest.dataTask { result in
+            switch result {
+            case .success:
+                XCTFail("error")
+            case .failure(let error):
+                resultToExpect = error
+            }
+            dispatch.fulfill()
+        }
+        wait(for: [dispatch], timeout: 5.0)
+
+        // then
+        XCTAssertNotNil(resultToExpect)
+    }
+
     func test_request가_잘설정되어있고_응답데이터도있으면_잘동작한다() {
         // given
-        networkManagerUnderTest.setUpRequest(with: .dummyRestaurantData)
+        setUpHandler(data: DummyGyeonggiAPIResult().objectWithCount10, code: 200)
+        networkManagerUnderTest.setUpRequest(with: dummyURLRequest)
         let dispatch = XCTestExpectation(description: "expect error")
         let expectation = Int.zero
         var testResult = Int.min
