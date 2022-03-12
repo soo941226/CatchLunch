@@ -8,7 +8,7 @@
 import Foundation
 
 extension Notification.Name {
-    static let startNetwokring = Notification.Name(rawValue: "SNetwokring")
-    static let finishNetworking = Notification.Name(rawValue: "FNetworking")
-    static let finishNetworkingOnError = Notification.Name(rawValue: "FNetworkingOnError")
+    static let startTask = Notification.Name(rawValue: "startTask")
+    static let finishTask = Notification.Name(rawValue: "finishTask")
+    static let finishTaskWithError = Notification.Name(rawValue: "finishTaskWithError")
 }
