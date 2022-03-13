@@ -36,6 +36,12 @@ struct RestaurantInformation: Restaurant, Coordinate2D, Bookmarkable, Decodable 
         setUpBookmarkable(with: container)
     }
 
+    @discardableResult
+    mutating func toggledBookmark() -> Bool {
+        isBookmarked.toggle()
+        return isBookmarked
+    }
+
     private mutating func setUpRestaurant(
         with container: KeyedDecodingContainer<CodingKeys>
     ) {
