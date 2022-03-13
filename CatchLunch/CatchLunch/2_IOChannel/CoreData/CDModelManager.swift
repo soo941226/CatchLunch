@@ -24,6 +24,14 @@ final class CDModelManager<Model: NSManagedObject> {
         }
     }
 
+    func count(with filter: NSPredicate? = nil) -> Int? {
+        let request = Model.fetchRequest()
+        if let filter = filter {
+            request.predicate = filter
+        }
+        return try? context.count(for: request)
+    }
+
     func retrieve(
         with filter: NSPredicate? = nil,
         completionHandler: @escaping (Result<[Model], Error>) -> Void
@@ -72,6 +80,29 @@ final class CDModelManager<Model: NSManagedObject> {
         }
     }
 
+    func update(
+        with filter: NSPredicate? = nil,
+        setter: @escaping ([Model]) -> Void,
+        completionHandler: @escaping (Error?) -> Void
+    ) {
+        DispatchQueue.global().async { [weak self] in
+            let request = Model.fetchRequest()
+
+            if let filter = filter {
+                request.predicate = filter
+            }
+
+            do {
+                if let models = try self?.context.fetch(request) as? [Model] {
+                    setter(models)
+                }
+            } catch {
+                completionHandler(error)
+            }
+            completionHandler(self?.tryToSaveContext())
+        }
+    }
+
     func deleteAll(
         with filter: NSPredicate? = nil,
         completionHandler: @escaping (Error?) -> Void
@@ -89,7 +120,7 @@ final class CDModelManager<Model: NSManagedObject> {
         }
     }
 
-    private func tryToSaveContext() -> Error? {
+    @objc private func tryToSaveContext() -> Error? {
         if context.hasChanges {
             do {
                 try context.save()
