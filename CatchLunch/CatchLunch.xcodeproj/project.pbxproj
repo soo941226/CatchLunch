@@ -70,7 +70,6 @@
 		63DE3E3E27C8A81D00A32868 /* GyeonggiRestaurantsSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE3E3D27C8A81D00A32868 /* GyeonggiRestaurantsSearcher.swift */; };
 		63DE3E4227C8C71B00A32868 /* MockRestaurantNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE3E4127C8C71B00A32868 /* MockRestaurantNetworkManager.swift */; };
 		63E0347327CCA5E700CB7613 /* RestaurantsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E0347227CCA5E700CB7613 /* RestaurantsViewModel.swift */; };
-		63E98B7127DD07C700088FBE /* TestCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E98B7027DD07C700088FBE /* TestCoreDataManager.swift */; };
 		63FE058127CF5AF9006AB8D2 /* AsyncAfter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FE058027CF5AF9006AB8D2 /* AsyncAfter.swift */; };
 /* End PBXBuildFile section */
 
@@ -106,7 +105,7 @@
 		632B2D0E27CFC6760018BECC /* GyeonggiAPIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyeonggiAPIResult.swift; sourceTree = "<group>"; };
 		63419AB227D1134E008F28D4 /* TestGyeonggiRestaurantsSearcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestGyeonggiRestaurantsSearcher.swift; sourceTree = "<group>"; };
 		634C229127DB78240011EDBB /* MapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarker.swift; sourceTree = "<group>"; };
-		634C229427DB8B170011EDBB /* Restaurants.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Restaurants.xcdatamodel; sourceTree = "<group>"; };
+		634C229427DB8B170011EDBB /* Restaurants.xcdatamodel */ = {isa = PBXFileReference; explicitFileType = wrapper.xcdatamodel; path = Restaurants.xcdatamodel; sourceTree = "<group>"; };
 		634C229827DB8CBC0011EDBB /* CDModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDModelManager.swift; sourceTree = "<group>"; };
 		63667CF127CDDE71008677C2 /* TestRestaurantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRestaurantViewModel.swift; sourceTree = "<group>"; };
 		63667CF327CDDEEE008677C2 /* MockGyeonggiRestaurantSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGyeonggiRestaurantSearcher.swift; sourceTree = "<group>"; };
@@ -158,7 +157,6 @@
 		63DE3E3D27C8A81D00A32868 /* GyeonggiRestaurantsSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyeonggiRestaurantsSearcher.swift; sourceTree = "<group>"; };
 		63DE3E4127C8C71B00A32868 /* MockRestaurantNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRestaurantNetworkManager.swift; sourceTree = "<group>"; };
 		63E0347227CCA5E700CB7613 /* RestaurantsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewModel.swift; sourceTree = "<group>"; };
-		63E98B7027DD07C700088FBE /* TestCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataManager.swift; sourceTree = "<group>"; };
 		63E98B7527DD0CEE00088FBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63F0271A27C7F2A900680D0B /* CatchLunch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatchLunch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63FE058027CF5AF9006AB8D2 /* AsyncAfter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAfter.swift; sourceTree = "<group>"; };
@@ -416,7 +414,6 @@
 				6375C8BF27CA7EDD00F1D60F /* TestImageSearcher.swift */,
 				63667CF127CDDE71008677C2 /* TestRestaurantViewModel.swift */,
 				63852DDE27D1E9B4004D90C6 /* TestImageViewModel.swift */,
-				63E98B7027DD07C700088FBE /* TestCoreDataManager.swift */,
 			);
 			path = CatchLunchTests;
 			sourceTree = "<group>";
@@ -792,7 +789,6 @@
 				63018DEA27C9064F00363F00 /* MockSession.swift in Sources */,
 				63C448D027C7F37300F7063B /* TestRestaurantInformation.swift in Sources */,
 				63FE058127CF5AF9006AB8D2 /* AsyncAfter.swift in Sources */,
-				63E98B7127DD07C700088FBE /* TestCoreDataManager.swift in Sources */,
 				631BAA2927DB959C00A59AAA /* MockURLProtocol.swift in Sources */,
 				6375C8C027CA7EDD00F1D60F /* TestImageSearcher.swift in Sources */,
 				63852DD927D1D1AA004D90C6 /* DummyImageSearchResult.swift in Sources */,

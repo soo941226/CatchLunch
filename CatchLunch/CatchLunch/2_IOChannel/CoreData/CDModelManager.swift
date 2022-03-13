@@ -9,7 +9,7 @@ import CoreData
 
 final class CDModelManager<Model: NSManagedObject> {
     private let container: NSPersistentContainer
-    private let context: NSManagedObjectContext
+    private lazy var context = container.newBackgroundContext()
 
     init(about model: Model.Type, inDataModelFileName name: String = "CatchLunch") {
         container = NSPersistentContainer(name: name)
@@ -22,7 +22,6 @@ final class CDModelManager<Model: NSManagedObject> {
                 )
             }
         }
-        context = container.newBackgroundContext()
     }
 
     func retrieve(
@@ -74,7 +73,7 @@ final class CDModelManager<Model: NSManagedObject> {
     }
 
     func deleteAll(
-        filter: NSPredicate? = nil,
+        with filter: NSPredicate? = nil,
         completionHandler: @escaping (Error?) -> Void
     ) {
         retrieve(with: filter) { [weak self] result in
