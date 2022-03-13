@@ -6,5 +6,8 @@
 //
 
 protocol BookmarkService {
-    func toggleBookmark(about restaurant: Restaurant)
+    associatedtype Element
+
+    func toggleBookmark(about: Element, completionHandler: @escaping (Error?) -> Void)
+    func checkBookmark(about: Element, completionHandler: @escaping (Bool) -> Void)
 }
