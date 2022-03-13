@@ -22,7 +22,9 @@ final class RestaurantsCoordinator: Coordiantorable {
             return
         }
 
-        let nextViewController = DetailViewController(with: model)
+        let viewModel = RestaurantsBookmarkViewModel(under: RestaurantsBookmarkService())
+        let nextViewController = DetailViewController(with: viewModel)
+        nextViewController.configure(with: model)
         navigationController.pushViewController(nextViewController, animated: false)
     }
 

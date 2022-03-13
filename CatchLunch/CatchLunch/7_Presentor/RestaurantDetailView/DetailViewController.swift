@@ -7,12 +7,14 @@
 
 import UIKit
 
-final class DetailViewController: UIViewController {
-    private let summary: RestaurantSummary
+final class DetailViewController<ViewModel: BookmarkViewModel>: UIViewController
+where ViewModel.Element == RestaurantInformation {
     private let detailView = DetailInformationView()
-    
-    init(with model: RestaurantSummary) {
-        self.summary = model
+    private let viewModel: ViewModel
+    private var summary: RestaurantSummary?
+
+    init(with viewModel: ViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -24,18 +26,42 @@ final class DetailViewController: UIViewController {
         view = detailView
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        detailView.configure(with: summary)
+    func configure(with summary: RestaurantSummary) {
+        self.summary = summary
 
+        viewModel.check(about: summary.information) { [weak self] isBookmarked in
+            if isBookmarked != summary.information.isBookmarked {
+                self?.summary?.information.toggledBookmark()
+            }
+
+            self?.toggleButton(on: isBookmarked)
+
+            DispatchQueue.main.async {
+                self?.navigationItem.title = summary.information.restaurantName
+                self?.detailView.configure(with: summary)
+            }
+        }
+    }
+
+    private func toggleButton(on isBookmarked: Bool) {
+        let image = isBookmarked ? viewModel.button.on : viewModel.button.off
         let bookmarkButton = UIBarButtonItem(
-            image: .init(systemName: "star.fill"),
+            image: image,
             style: .plain,
-            target: nil,
-            action: nil
+            target: self,
+            action: #selector(toggleBookmark)
         )
 
-        navigationItem.title = summary.information.restaurantName
-        navigationItem.setRightBarButton(bookmarkButton, animated: false)
+        DispatchQueue.main.async { [weak self] in
+            self?.navigationItem.setRightBarButton(bookmarkButton, animated: false)
+        }
+    }
+
+    @objc private func toggleBookmark() {
+        self.summary?.information.toggledBookmark()
+
+        guard let summary = summary else { return }
+        viewModel.toggle(about: summary.information)
+        toggleButton(on: summary.information.isBookmarked)
     }
 }
