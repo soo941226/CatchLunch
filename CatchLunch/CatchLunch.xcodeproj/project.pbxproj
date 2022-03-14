@@ -232,7 +232,7 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		630B81CB27D7C48B00B7CC17 /* 7_Presentor */ = {
+		630B81CB27D7C48B00B7CC17 /* 6_Presentor */ = {
 			isa = PBXGroup;
 			children = (
 				634C229027DB781B0011EDBB /* Common */,
@@ -242,7 +242,7 @@
 				63CB89AE27D5C957007300C8 /* RestaurantsView */,
 				6369AC9B27D729710076719E /* RestaurantDetailView */,
 			);
-			path = 7_Presentor;
+			path = 6_Presentor;
 			sourceTree = "<group>";
 		};
 		6322BF7327D61D8B002A96C5 /* App */ = {
@@ -255,14 +255,14 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		632B2B0A27CF9E6600B7AB94 /* 6_Coordinator */ = {
+		632B2B0A27CF9E6600B7AB94 /* 5_Coordinator */ = {
 			isa = PBXGroup;
 			children = (
 				632B2B0D27CF9E9C00B7AB94 /* protocol */,
 				636A7C2D27D64971000EA2FE /* RootCoordinator.swift */,
 				6369AC9927D725D50076719E /* RestaurantCoordinator.swift */,
 			);
-			path = 6_Coordinator;
+			path = 5_Coordinator;
 			sourceTree = "<group>";
 		};
 		632B2B0D27CF9E9C00B7AB94 /* protocol */ = {
@@ -317,8 +317,8 @@
 				63DE3E3727C898A200A32868 /* 2_IOChannel */,
 				6367CED127C7F60F007E0735 /* 3_Service */,
 				6375C8C127CA85A500F1D60F /* 4_ViewModel */,
-				632B2B0A27CF9E6600B7AB94 /* 6_Coordinator */,
-				630B81CB27D7C48B00B7CC17 /* 7_Presentor */,
+				632B2B0A27CF9E6600B7AB94 /* 5_Coordinator */,
+				630B81CB27D7C48B00B7CC17 /* 6_Presentor */,
 			);
 			path = CatchLunch;
 			sourceTree = "<group>";
