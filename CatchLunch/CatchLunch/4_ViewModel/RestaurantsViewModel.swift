@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RestaurantsViewModel<Service: PagingSearchService>: JustSearchViewModelable
+final class RestaurantsViewModel<Service: PagingSearchService>: PagingSearchViewModelable
 where Service.Response == [RestaurantInformation] {
     private let service: Service
     private let imageSearchViewModel = ImageViewModel(service: NaverImageSearcher())

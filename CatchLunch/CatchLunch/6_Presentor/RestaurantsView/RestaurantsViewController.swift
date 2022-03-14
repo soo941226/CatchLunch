@@ -7,10 +7,8 @@
 
 import UIKit
 
-final class RestaurantsViewController<
-    ViewModel: JustSearchViewModelable
->: UIViewController where ViewModel.Item == RestaurantSummary {
-
+final class RestaurantsViewController<ViewModel: PagingSearchViewModelable>: UIViewController
+where ViewModel.Item == RestaurantInformation {
     private let viewModel: ViewModel
     private let tableView = UITableView()
     private let dataSource = RestaurantsViewDataSource()
