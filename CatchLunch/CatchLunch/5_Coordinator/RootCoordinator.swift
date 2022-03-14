@@ -34,7 +34,7 @@ final class RootCoordinator: Coordiantorable {
         let coordinator = RestaurantCoordinator(on: navigationController)
         let viewModel = RestaurantsViewModel(service: GyeonggiRestaurantsSearcher())
         let controller = RestaurantsViewController(with: viewModel, under: coordinator)
-        coordinator.delegate = self
+        coordinator.parent = self
         childCoodinator.append(coordinator)
 
         let itemImage = UIImage(named: "yum")?.withRenderingMode(.alwaysOriginal)
@@ -46,7 +46,12 @@ final class RootCoordinator: Coordiantorable {
     }
 
     private func setUpBookmarkViewController(into container: inout [UIViewController]) {
-        let controller = UIViewController()
+        let coordinator = RestaurantCoordinator(on: navigationController)
+        let viewModel = BookmarkedListViewModel(service: RestaurantsBookmarkService.shared)
+        let controller = BookmarkdListViewController(viewModel: viewModel, under: coordinator)
+        coordinator.parent = self
+        childCoodinator.append(coordinator)
+
         let itemImage = UIImage(systemName: "star.fill")?.filled(with: .systemYellow)
 
         controller.tabBarItem = .init(title: "즐겨찾기", image: itemImage, selectedImage: nil)
@@ -71,16 +76,14 @@ final class RootCoordinator: Coordiantorable {
     }
 }
 
-extension RootCoordinator: RestaurantCoordinatorDelegate {
-    private typealias TargetViewModel = RestaurantsViewModel<GyeonggiRestaurantsSearcher>
-    private typealias TargetViewController = RestaurantsViewController<TargetViewModel>
-
+extension RootCoordinator: ParentCoordinator {
     var model: RestaurantSummary? {
-        guard let mainViewController = searchBarController.viewControllers?.first else {
+
+        guard let viewController = searchBarController.selectedViewController else {
             return nil
         }
 
-        guard let restaurantsViewController = mainViewController as? TargetViewController else {
+        guard let restaurantsViewController = viewController as? RestaurantsViewModelContainer else {
             return nil
         }
 

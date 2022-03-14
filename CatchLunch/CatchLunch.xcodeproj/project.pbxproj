@@ -57,6 +57,7 @@
 		6386669D27DF2C8A0060ACE5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386669C27DF2C8A0060ACE5 /* SearchViewController.swift */; };
 		6386669F27DF51E60060ACE5 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386669E27DF51E60060ACE5 /* UIImage+.swift */; };
 		638666A227DF58C90060ACE5 /* BookmarkedListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638666A127DF58C90060ACE5 /* BookmarkedListViewModel.swift */; };
+		638666A427DF6D6C0060ACE5 /* BookmarkdListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638666A327DF6D6C0060ACE5 /* BookmarkdListViewController.swift */; };
 		6396388A27DA20C00099C872 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6396388927DA20C00099C872 /* UIView+.swift */; };
 		63A6B33B27CCB3F10059C283 /* HiddenConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A6B33A27CCB3F10059C283 /* HiddenConfiguration.swift */; };
 		63A71BC727C7FB2900820C0C /* StubJsonToTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A71BC627C7FB2900820C0C /* StubJsonToTest.swift */; };
@@ -149,6 +150,7 @@
 		6386669C27DF2C8A0060ACE5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		6386669E27DF51E60060ACE5 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		638666A127DF58C90060ACE5 /* BookmarkedListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkedListViewModel.swift; sourceTree = "<group>"; };
+		638666A327DF6D6C0060ACE5 /* BookmarkdListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkdListViewController.swift; sourceTree = "<group>"; };
 		6396388927DA20C00099C872 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		63A6B33A27CCB3F10059C283 /* HiddenConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenConfiguration.swift; sourceTree = "<group>"; };
 		63A71BC627C7FB2900820C0C /* StubJsonToTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubJsonToTest.swift; sourceTree = "<group>"; };
@@ -416,6 +418,7 @@
 		638666A027DF542D0060ACE5 /* BookmarkedView */ = {
 			isa = PBXGroup;
 			children = (
+				638666A327DF6D6C0060ACE5 /* BookmarkdListViewController.swift */,
 			);
 			path = BookmarkedView;
 			sourceTree = "<group>";
@@ -858,6 +861,7 @@
 				6369AC9D27D7298D0076719E /* DetailViewController.swift in Sources */,
 				6332C41D27DDD3B0005F0ED5 /* RestaurantsBookmarkService.swift in Sources */,
 				63F3D15127DE0A6200A18554 /* BookmarkViewModel.swift in Sources */,
+				638666A427DF6D6C0060ACE5 /* BookmarkdListViewController.swift in Sources */,
 				6386669A27DF2A4B0060ACE5 /* UIEdgeInsets+.swift in Sources */,
 				63E0347327CCA5E700CB7613 /* RestaurantsViewModel.swift in Sources */,
 				63CB89BA27D5E24A007300C8 /* RestaurantsViewDelegate.swift in Sources */,
