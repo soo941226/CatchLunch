@@ -12,9 +12,7 @@ where Service.Response == [RestaurantInformation] {
     private let service: Service
     private let imageSearchViewModel = ImageViewModel(service: NaverImageSearcher())
     private let imagePlaceHolder = UIImage(systemName: "fork.knife.circle")!
-
-    private var managingItems = [RestaurantInformation]()
-
+    private var asset = [RestaurantInformation]()
     private let amount = 10
     private var pageIndex = 1
     private var nowLoading = false
@@ -40,13 +38,30 @@ extension RestaurantsViewModel {
         return "식당이름, 도시이름, 음식이름"
     }
 
+    var managingItems: [RestaurantSummary] {
+        return asset
+            .map { restaurant in
+                let image = restaurant.mainFoodNames?
+                    .first
+                    .flatMap({ name in
+                        imageSearchViewModel[name]
+                    })
+
+                if let image = image {
+                    return (restaurant, image)
+                } else {
+                    return (restaurant, imagePlaceHolder)
+                }
+            }
+    }
+    
     var nextItems: [RestaurantSummary] {
         guard let startIndex = itemStartIndex else {
             return []
         }
-        let nextIndices = startIndex*amount..<managingItems.count
+        let nextIndices = startIndex*amount..<asset.count
 
-        return managingItems[nextIndices]
+        return asset[nextIndices]
             .map { restaurant in
                 let image = restaurant.mainFoodNames?
                     .first
@@ -66,23 +81,23 @@ extension RestaurantsViewModel {
         guard let startIndex = itemStartIndex else {
             return []
         }
-        let nextIndices = startIndex*amount..<managingItems.count
+        let nextIndices = startIndex*amount..<asset.count
         return nextIndices.map { index in
             return IndexPath(row: index, section: .zero)
         }
     }
 
     subscript(_ index: Int) -> RestaurantSummary? {
-        guard managingItems.indices ~= index else {
+        guard asset.indices ~= index else {
             return nil
         }
 
-        let image = managingItems[index].mainFoodNames?.first
+        let image = asset[index].mainFoodNames?.first
             .flatMap({ name in
                 imageSearchViewModel[name]
             })
 
-        return (managingItems[index], image ?? imagePlaceHolder)
+        return (asset[index], image ?? imagePlaceHolder)
     }
 
     func fetch(completionHandler: @escaping (Bool) -> Void) {
@@ -135,7 +150,7 @@ extension RestaurantsViewModel {
         dispatchGroup.notify(queue: .main) { [weak self] in
             self?.error = nil
             self?.pageIndex += 1
-            self?.managingItems += restaurants
+            self?.asset += restaurants
             completionHandler(true)
             NotificationCenter.default.post(name: .finishTask, object: nil)
         }
