@@ -8,7 +8,7 @@
 import UIKit
 
 final class RestaurantsBookmarkViewModel<Service: BookmarkService>: BookmarkViewModel
-where Service.Element == RestaurantInformation {
+where Service.Response == RestaurantInformation {
 
     private let service: Service
     private var nowUpdate = false

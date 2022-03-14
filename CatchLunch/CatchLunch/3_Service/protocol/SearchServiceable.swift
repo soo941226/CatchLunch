@@ -11,7 +11,8 @@ protocol SearchServiceable {
 }
 
 protocol SingleItemSearchService: SearchServiceable {
-    func fetch(about name: String, completionHandler: @escaping CompletionHandler)
+    associatedtype Request
+    func fetch(about request: Request, completionHandler: @escaping CompletionHandler)
 }
 
 protocol PagingSearchService: SearchServiceable {

@@ -8,7 +8,31 @@
 import Foundation
 
 final class RestaurantsBookmarkService: BookmarkService {
+    typealias Response = RestaurantInformation
+
+    static let shared = RestaurantsBookmarkService()
+    private init() {}
+
     private let manager = CDModelManager(about: CDRestaurant.self)
+
+    func fetch(
+        whereBookmarkedIs flag: Bool,
+        completionHandler: @escaping (Result<[RestaurantInformation], Error>) -> Void
+    ) {
+        let filter = NSPredicate(format: "isBookmarked = \(flag)")
+
+        manager.retrieve(with: filter) { result in
+            switch result {
+            case .success(let restaurnats):
+                let restaurants = restaurnats.map { cdRestaurant in
+                    return RestaurantInformation(from: cdRestaurant)
+                }
+                completionHandler(.success(restaurants))
+            case .failure(let error):
+                completionHandler(.failure(error))
+            }
+        }
+    }
 
     func checkBookmark(
         about restaurant: RestaurantInformation,
