@@ -13,6 +13,13 @@ protocol ViewModelable {
 }
 
 protocol JustSearchViewModelable: ViewModelable {
+    associatedtype Item
+    typealias ItemSummary = (information: Item, image: UIImage)
+
+    subscript(_ index: Int) -> ItemSummary? { get }
+    var searchBarPlaceHolder: String { get }
+
+    var managingItems: [ItemSummary] { get }
     func fetch(completionHandler: @escaping (Bool) -> Void)
 }
 
@@ -21,11 +28,6 @@ protocol NameSearchViewModelable: ViewModelable {
 }
 
 protocol PagingSearchViewModelable: JustSearchViewModelable {
-    associatedtype Item
-
-    var searchBarPlaceHolder: String { get }
-    var nextItems: [(information: Item, image: UIImage)] { get }
+    var nextItems: [ItemSummary] { get }
     var nextIndexPaths: [IndexPath] { get }
-
-    subscript(_ index: Int) -> (information: Item, image: UIImage)? { get }
 }
