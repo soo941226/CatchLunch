@@ -29,6 +29,20 @@ struct RestaurantInformation: Restaurant, Coordinate2D, Bookmarkable, Decodable 
         return foodNames
     }
 
+    init(from cdRestaurant: CDRestaurant) {
+        let mainFoodNames = cdRestaurant.mainFoodNames?.components(separatedBy: ", ")
+        self.isBookmarked = cdRestaurant.isBookmarked
+        self.cityName = cdRestaurant.cityName
+        self.restaurantName = cdRestaurant.restaurantName
+        self.phoneNumber = cdRestaurant.phoneNumber
+        self.refinedZipCode = cdRestaurant.refinedZipCode
+        self.roadNameAddress = cdRestaurant.roadNameAddress
+        self.locationNameAddress = cdRestaurant.locationNameAddress
+        self.mainFoodNames = mainFoodNames
+        self.latitude = cdRestaurant.latitude
+        self.longitude = cdRestaurant.longitude
+    }
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         setUpRestaurant(with: container)
