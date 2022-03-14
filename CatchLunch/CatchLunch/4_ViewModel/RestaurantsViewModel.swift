@@ -54,28 +54,6 @@ extension RestaurantsViewModel {
                 }
             }
     }
-    
-    var nextItems: [RestaurantSummary] {
-        guard let startIndex = itemStartIndex else {
-            return []
-        }
-        let nextIndices = startIndex*amount..<asset.count
-
-        return asset[nextIndices]
-            .map { restaurant in
-                let image = restaurant.mainFoodNames?
-                    .first
-                    .flatMap({ name in
-                        imageSearchViewModel[name]
-                    })
-
-                if let image = image {
-                    return (restaurant, image)
-                } else {
-                    return (restaurant, imagePlaceHolder)
-                }
-            }
-    }
 
     var nextIndexPaths: [IndexPath] {
         guard let startIndex = itemStartIndex else {

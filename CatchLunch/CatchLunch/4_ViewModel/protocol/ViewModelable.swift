@@ -28,6 +28,5 @@ protocol NameSearchViewModelable: ViewModelable {
 }
 
 protocol PagingSearchViewModelable: JustSearchViewModelable {
-    var nextItems: [ItemSummary] { get }
     var nextIndexPaths: [IndexPath] { get }
 }
