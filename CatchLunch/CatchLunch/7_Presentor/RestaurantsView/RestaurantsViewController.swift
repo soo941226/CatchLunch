@@ -12,11 +12,10 @@ final class RestaurantsViewController<
 >: UIViewController where ViewModel.Item == RestaurantSummary {
 
     private let viewModel: ViewModel
-    private let searchBar = UISearchBar()
     private let tableView = UITableView()
     private let dataSource = RestaurantsViewDataSource()
     private let delegate = RestaurantsViewDelegate()
-    private let coordinator: Coordiantorable
+    private weak var coordinator: Coordiantorable?
 
     init(with viewModel: ViewModel, under coordinator: Coordiantorable) {
         self.viewModel = viewModel
@@ -32,16 +31,8 @@ final class RestaurantsViewController<
         super.viewDidLoad()
         requestNextItems()
 
-        searchBarConfiguraiton()
-
         tableViewConfiguration()
         setUpTableViewLayout()
-    }
-
-    private func searchBarConfiguraiton() {
-        navigationItem.titleView = searchBar
-        searchBar.barStyle = .default
-        searchBar.placeholder = viewModel.searchBarPlaceHolder
     }
 
     private func tableViewConfiguration() {
@@ -75,7 +66,7 @@ extension RestaurantsViewController: RestaurantsViewModelContainer {
     }
 
     func select() {
-        coordinator.next()
+        coordinator?.start()
     }
 
     func requestNextItems() {
