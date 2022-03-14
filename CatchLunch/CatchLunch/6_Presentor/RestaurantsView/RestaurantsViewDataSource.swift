@@ -27,7 +27,7 @@ final class RestaurantsViewDataSource: NSObject, UITableViewDataSource {
         return cell
     }
 
-    func append(_ restaurants: [RestaurantSummary]) {
-        self.managingData += restaurants
+    func configure(with restaurants: [RestaurantSummary]) {
+        self.managingData = restaurants
     }
 }

@@ -71,9 +71,9 @@ extension RestaurantsViewController: RestaurantsViewModelContainer {
         viewModel.fetch { [weak self] isSuccess in
             guard let self = self else { return }
             if isSuccess {
-                let result = self.viewModel.nextItems
+                let result = self.viewModel.managingItems
                 let indexPathsToRefresh = self.viewModel.nextIndexPaths
-                self.dataSource.append(result)
+                self.dataSource.configure(with: result)
                 self.tableView.insertRows(at: indexPathsToRefresh, with: .bottom)
             }
         }
