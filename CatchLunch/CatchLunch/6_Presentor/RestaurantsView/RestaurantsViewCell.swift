@@ -46,7 +46,6 @@ final class RestaurantsViewCell: UITableViewCell {
     private let imageSpacing: CGFloat = 8.0
     private let widthPercentageAboutImageView: CGFloat = 0.3
 
-    private let titleLabelPrefix = "상호: "
     private let locationLabelPrefix = "위치: "
     private let foodNamesLabelPrefix = "주메뉴: "
 
@@ -123,7 +122,7 @@ extension RestaurantsViewCell {
         let (restaurant, image) = data
 
         foodImageView.image = image
-        titleLabel.text = restaurant.restaurantName?.prepended(titleLabelPrefix)
+        titleLabel.text = restaurant.restaurantName
         locationLabel.text = restaurant.cityName?.prepended(locationLabelPrefix)
         foodNamesLabel.text = restaurant.descriptionOfMainFoodNames?.prepended(foodNamesLabelPrefix)
         setUpAccessbilityMessage(with: restaurant)
