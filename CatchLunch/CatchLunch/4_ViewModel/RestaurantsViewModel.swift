@@ -10,7 +10,7 @@ import UIKit
 final class RestaurantsViewModel<Service: PagingSearchService>: PagingSearchViewModelable
 where Service.Response == [RestaurantInformation] {
     private let service: Service
-    private let imageSearchViewModel = ImageViewModel(service: NaverImageSearcher())
+    private let imageSearchViewModel = ImageViewModel(service: NaverImageSearcher(), DaumImageSearcher())
     private let imagePlaceHolder = UIImage(systemName: "fork.knife.circle")!
     private var asset = [RestaurantInformation]()
     private let amount = 10
