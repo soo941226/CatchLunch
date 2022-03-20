@@ -52,8 +52,6 @@ final class ImageViewModel: NameSearchViewModelable {
                 self.cachedImages.setObject(response, forKey: nsName)
                 completionHandler(true)
             case .failure:
-                print(service, name, services)
-
                 self.fetch(about: name, under: services.makeIterator(), completionHandler: completionHandler)
             }
         }
