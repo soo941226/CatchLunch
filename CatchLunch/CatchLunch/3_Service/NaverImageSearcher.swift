@@ -57,7 +57,7 @@ struct NaverImageSearcher: SingleItemSearchService {
                 }
 
                 guard let link = first.thumbnail,
-                      let url = URL(string: link) else {
+                      let url = URLFactory.make(from: link) else {
                           return completionHandler(.failure(ImageSearchError.linkIsNotExists))
                       }
 
