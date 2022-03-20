@@ -8,7 +8,7 @@
 import UIKit
 @testable import CatchLunch
 
-struct MockNaverImageSearcher: SingleItemSearchService {
+final class MockNaverImageSearcher: AbstarctImageSearcher {
     typealias Response = UIImage
     private let manager: NetworkManagable
     private let decoder = JSONDecoder()
@@ -38,17 +38,17 @@ struct MockNaverImageSearcher: SingleItemSearchService {
         return request
     }
 
-    func fetch(
+    override func fetch(
         about name: String,
         completionHandler: @escaping (Result<UIImage, Error>) -> Void
     ) {
         let request = nextRequest(about: name)
         manager.setUpRequest(with: request)
-        manager.dataTask { result in
+        manager.dataTask { [weak self] result in
             switch result {
             case .success(let data):
-                guard let response = try? decoder.decode(
-                    ImageSearchResult.self, from: data
+                guard let response = try? self?.decoder.decode(
+                    NaverImageSearchResult.self, from: data
                 ) else {
                     return completionHandler(.failure(ImageSearchError.searchResultIsWrong))
                 }

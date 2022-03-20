@@ -24,12 +24,6 @@ final class TestRestaurantViewModel: XCTestCase {
         XCTAssertNil(viewModelUnderTest[0])
     }
 
-    func test_fetch_이전에_nextItems에_접근하면_빈_배열이_나온다() {
-        // just
-        XCTAssertEqual(viewModelUnderTest.nextItems.count, .zero)
-
-    }
-
     func test_fetch_이전에_nextIndexPaths에_접근하면_빈_배열이_나온다() {
         // just
         XCTAssertEqual(viewModelUnderTest.nextIndexPaths.count, .zero)

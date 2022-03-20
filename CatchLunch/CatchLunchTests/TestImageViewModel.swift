@@ -9,7 +9,7 @@ import XCTest
 @testable import CatchLunch
 
 final class TestImageViewModel: XCTestCase {
-    private var viewModelUnderTest: ImageViewModel<MockNaverImageSearcher>!
+    private var viewModelUnderTest: ImageViewModel!
 
     override func setUp() {
         viewModelUnderTest = ImageViewModel(service: MockNaverImageSearcher())
