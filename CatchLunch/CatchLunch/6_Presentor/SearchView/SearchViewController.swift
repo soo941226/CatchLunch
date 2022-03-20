@@ -13,6 +13,10 @@ final class SearchViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBar.layer.borderColor = UIColor.lightGray.cgColor
+        tabBar.layer.borderWidth = 0.5
+
+        navigationItem.rightBarButtonItem = .init(title: "Ⓒ", style: .plain, target: self, action: #selector(showModal))
     }
 
     override var selectedViewController: UIViewController? {
@@ -22,4 +26,11 @@ final class SearchViewController: UITabBarController {
     }
 
     @objc dynamic var selectedItemIndex = Int.zero
+
+    @objc func showModal() {
+        let copyRightViewController = CopyRightViewController()
+        copyRightViewController.view.backgroundColor = .lightGray
+        copyRightViewController.view.layer.borderWidth = 0.5
+        present(copyRightViewController, animated: true)
+    }
 }
