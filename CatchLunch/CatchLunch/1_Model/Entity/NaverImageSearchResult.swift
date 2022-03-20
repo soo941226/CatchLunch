@@ -1,11 +1,11 @@
 //
-//  ImageSearchResult.swift
+//  NaverImageSearchResult.swift
 //  CatchLunch
 //
 //  Created by kjs on 2022/02/27.
 //
 
-struct ImageSearchResult: Decodable {
+struct NaverImageSearchResult: Decodable {
     let items: [Item]?
 
     struct Item: Decodable {

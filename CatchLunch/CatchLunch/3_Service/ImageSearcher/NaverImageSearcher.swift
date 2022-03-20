@@ -7,8 +7,7 @@
 
 import UIKit
 
-struct NaverImageSearcher: SingleItemSearchService {
-    typealias Response = UIImage
+final class NaverImageSearcher: AbstarctImageSearcher {
     private let manager: NetworkManagable
     private let decoder = JSONDecoder()
 
@@ -37,17 +36,17 @@ struct NaverImageSearcher: SingleItemSearchService {
         return request
     }
 
-    func fetch(
+    override func fetch(
         about name: String,
         completionHandler: @escaping (Result<UIImage, Error>) -> Void
     ) {
         let request = nextRequest(about: name)
         manager.setUpRequest(with: request)
-        manager.dataTask { result in
+        manager.dataTask { [weak self] result in
             switch result {
             case .success(let data):
-                guard let response = try? decoder.decode(
-                    ImageSearchResult.self, from: data
+                guard let response = try? self?.decoder.decode(
+                    NaverImageSearchResult.self, from: data
                 ) else {
                     return completionHandler(.failure(ImageSearchError.searchResultIsWrong))
                 }
