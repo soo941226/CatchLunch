@@ -7,12 +7,7 @@
 
 import UIKit
 
-protocol ViewModelable {
-    associatedtype Service
-    init(service: Service)
-}
-
-protocol JustSearchViewModelable: ViewModelable {
+protocol JustSearchViewModelable {
     associatedtype Item
     typealias ItemSummary = (information: Item, image: UIImage)
 
@@ -23,7 +18,7 @@ protocol JustSearchViewModelable: ViewModelable {
     func fetch(completionHandler: @escaping (Bool) -> Void)
 }
 
-protocol NameSearchViewModelable: ViewModelable {
+protocol NameSearchViewModelable {
     func fetch(about name: String, completionHandler: @escaping (Bool) -> Void)
 }
 
