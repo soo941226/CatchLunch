@@ -5,7 +5,7 @@
 //  Created by kjs on 2022/03/03.
 //
 
-struct GyeonggiAPIResult: Decodable {
+struct GyeonggiRestaurantsAPIResult: Decodable {
     let place: [Place]?
 
     enum CodingKeys: String, CodingKey {

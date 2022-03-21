@@ -42,7 +42,7 @@ final class MockGyeonggiRestaurantSearcher: PagingSearchService {
             case .success(let data):
                 do {
                     let result = try self.decoder
-                        .decode(GyeonggiAPIResult.self, from: data).place?.last?
+                        .decode(GyeonggiRestaurantsAPIResult.self, from: data).place?.last?
                         .row
 
                     if let result = result {
