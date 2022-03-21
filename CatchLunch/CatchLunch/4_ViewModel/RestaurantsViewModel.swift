@@ -34,10 +34,6 @@ where Service.Response == [RestaurantSummary] {
 
 // MARK: - Facade
 extension RestaurantsViewModel {
-    var searchBarPlaceHolder: String {
-        return "식당이름, 도시이름, 음식이름"
-    }
-
     var managingItems: [RestaurantInformation] {
         return asset
             .map { restaurant in

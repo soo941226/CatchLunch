@@ -12,7 +12,6 @@ protocol JustSearchViewModelable {
     typealias ItemInformation = (summary: Item, image: UIImage)
 
     subscript(_ index: Int) -> ItemInformation? { get }
-    var searchBarPlaceHolder: String { get }
 
     var managingItems: [ItemInformation] { get }
     func fetch(completionHandler: @escaping (Bool) -> Void)
