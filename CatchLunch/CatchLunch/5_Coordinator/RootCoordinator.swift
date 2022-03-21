@@ -21,9 +21,10 @@ final class RootCoordinator: Coordiantorable {
     func start() {
         var container = [UIViewController]()
 
-        setUpMainViewController(into: &container)
-        setUpBookmarkViewController(into: &container)
-        setUpConfigurationController(into: &container)
+        setUpRestaurantView(into: &container)
+        setUpParagonRestaurantView(into: &container)
+        setUpBookmarkView(into: &container)
+        setUpConfigurationView(into: &container)
 
         searchBarController.title = "맛집"
         searchBarController.setViewControllers(container, animated: false)
@@ -31,7 +32,7 @@ final class RootCoordinator: Coordiantorable {
         addObserverToChangeTitle(on: searchBarController)
     }
 
-    private func setUpMainViewController(into container: inout [UIViewController]) {
+    private func setUpRestaurantView(into container: inout [UIViewController]) {
         let coordinator = RestaurantCoordinator(on: navigationController)
         let viewModel = RestaurantsViewModel(service: GyeonggiRestaurantsSearcher())
         let controller = RestaurantsViewController(with: viewModel, under: coordinator)
@@ -46,7 +47,22 @@ final class RootCoordinator: Coordiantorable {
         container.append(controller)
     }
 
-    private func setUpBookmarkViewController(into container: inout [UIViewController]) {
+    private func setUpParagonRestaurantView(into container: inout [UIViewController]) {
+        let coordinator = RestaurantCoordinator(on: navigationController)
+        let viewModel = RestaurantsViewModel(service: GyeonggiParagonRestaurantSearcher())
+        let controller = RestaurantsViewController(with: viewModel, under: coordinator)
+        coordinator.parent = self
+        childCoodinator.append(coordinator)
+
+        let itemImage = UIImage(named: "cook")?.withRenderingMode(.alwaysOriginal)
+        let insetAmount = 6.0
+
+        controller.tabBarItem = .init(title: "모범식당", image: itemImage, selectedImage: nil)
+        controller.tabBarItem.imageInsets = .init(dx: insetAmount, dy: insetAmount)
+        container.append(controller)
+    }
+
+    private func setUpBookmarkView(into container: inout [UIViewController]) {
         let coordinator = RestaurantCoordinator(on: navigationController)
         let viewModel = BookmarkedListViewModel(service: RestaurantsBookmarkService.shared)
         let controller = BookmarkdListViewController(viewModel: viewModel, under: coordinator)
@@ -59,7 +75,7 @@ final class RootCoordinator: Coordiantorable {
         container.append(controller)
     }
 
-    private func setUpConfigurationController(into container: inout [UIViewController]) {
+    private func setUpConfigurationView(into container: inout [UIViewController]) {
         let coordinator = ConfigurationCoordinator(on: navigationController)
         let controller = ConfigurationViewController(under: coordinator)
         childCoodinator.append(coordinator)
@@ -78,8 +94,10 @@ final class RootCoordinator: Coordiantorable {
 
             switch controllerIndex {
             case 1:
-                self?.searchBarController.title = "즐겨찾기"
+                self?.searchBarController.title = "모범식당"
             case 2:
+                self?.searchBarController.title = "즐겨찾기"
+            case 3:
                 self?.searchBarController.title = "설정"
             default:
                 self?.searchBarController.title = "맛집"
