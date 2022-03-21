@@ -23,6 +23,7 @@ final class RootCoordinator: Coordiantorable {
 
         setUpMainViewController(into: &container)
         setUpBookmarkViewController(into: &container)
+        setUpConfigurationController(into: &container)
 
         searchBarController.title = "맛집"
         searchBarController.setViewControllers(container, animated: false)
@@ -58,10 +59,19 @@ final class RootCoordinator: Coordiantorable {
         container.append(controller)
     }
 
+    private func setUpConfigurationController(into container: inout [UIViewController]) {
+        let coordinator = ConfigurationCoordinator(on: navigationController)
+        let controller = ConfigurationViewController(under: coordinator)
+        childCoodinator.append(coordinator)
+
+        let itemImage = UIImage(systemName: "gearshape.fill")?.filled(with: .lightGray)
+        let selectedImage = UIImage(systemName: "gearshape.fill")?.filled(with: .systemBlue)
+        controller.tabBarItem = .init(title: "설정", image: itemImage, selectedImage: selectedImage)
+        container.append(controller)
+    }
+
     private func addObserverToChangeTitle(on controller: SearchViewController) {
-        observer = controller.observe(
-            \.selectedItemIndex, options: .new
-        ) { [weak self] _, value in
+        observer = controller.observe(\.selectedItemIndex, options: .new) { [weak self] _, value in
             guard let controllerIndex = value.newValue else {
                 return
             }
@@ -69,6 +79,8 @@ final class RootCoordinator: Coordiantorable {
             switch controllerIndex {
             case 1:
                 self?.searchBarController.title = "즐겨찾기"
+            case 2:
+                self?.searchBarController.title = "설정"
             default:
                 self?.searchBarController.title = "맛집"
             }
