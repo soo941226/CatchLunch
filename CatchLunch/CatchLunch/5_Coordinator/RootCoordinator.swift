@@ -87,6 +87,8 @@ final class RootCoordinator: Coordiantorable {
     }
 
     private func addObserverToChangeTitle(on controller: SearchViewController) {
+        NotificationCenter.default.post(name: .finishTask, object: nil)
+    
         observer = controller.observe(\.selectedItemIndex, options: .new) { [weak self] _, value in
             guard let controllerIndex = value.newValue else {
                 return
@@ -108,7 +110,6 @@ final class RootCoordinator: Coordiantorable {
 
 extension RootCoordinator: ParentCoordinator {
     var model: RestaurantInformation? {
-
         guard let viewController = searchBarController.selectedViewController else {
             return nil
         }

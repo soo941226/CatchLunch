@@ -9,7 +9,8 @@ import UIKit
 
 final class ConfigurationViewController: UIViewController {
     private var coordinator: Coordiantorable?
-    private let stackView = UIStackView()
+    private let upperStackView = UIStackView()
+    private let lowerStackView = UIStackView()
     private let copyrightButton = GuideButton()
 
     init(under coordinator: Coordiantorable) {
@@ -24,23 +25,28 @@ final class ConfigurationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpCopyrightButton()
-        setUpStackView()
+        setUpButtonStackView()
+        setUpCommentStackView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let safeArea = view.safeAreaLayoutGuide
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        upperStackView.translatesAutoresizingMaskIntoConstraints = false
+        lowerStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
+            upperStackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            upperStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            upperStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            lowerStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            lowerStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            lowerStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
         ])
     }
 
     private func setUpCopyrightButton() {
         copyrightButton.insert(into: self.view)
-        copyrightButton.setTitle("오픈소스\n라이센스", for: .normal)
+        copyrightButton.setTitle("라이센스", for: .normal)
         copyrightButton.setImage(.init(systemName: "scroll.fill"), for: .normal)
         copyrightButton.addTarget(self, action: #selector(start), for: .touchUpInside)
 
@@ -52,10 +58,22 @@ final class ConfigurationViewController: UIViewController {
         copyrightButton.titleLabel?.font = .preferredFont(forTextStyle: .body)
     }
 
-    private func setUpStackView() {
-        stackView.insert(into: self.view)
+    private func setUpButtonStackView() {
+        upperStackView.insert(into: self.view)
             .addArrangedSubviews(copyrightButton, UIView(), UIView())
             .configure(axis: .horizontal, distribution: .fillEqually, alignment: .fill)
+    }
+
+    private func setUpCommentStackView() {
+        let versionLabel = UILabel()
+        versionLabel.text = "v0.0.2"
+        versionLabel.font = .preferredFont(forTextStyle: .caption2)
+        versionLabel.textAlignment = .center
+        versionLabel.textColor = .secondaryLabel
+
+        lowerStackView.insert(into: self.view)
+            .addArrangedSubviews(versionLabel)
+            .configure(axis: .vertical, distribution: .fillEqually, alignment: .fill)
     }
 
     @objc private func start() {

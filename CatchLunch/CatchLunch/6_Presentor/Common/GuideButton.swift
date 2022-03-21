@@ -45,5 +45,6 @@ final class GuideButton: UIButton {
 
     private func setup() {
         titleLabel?.textAlignment = .center
+        titleLabel?.adjustsFontSizeToFitWidth = true
     }
 }
