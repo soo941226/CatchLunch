@@ -8,13 +8,6 @@
 import UIKit
 
 final class DaumImageSearcher: AbstarctImageSearcher {
-    typealias Response = UIImage
-    private let manager: NetworkManagable
-    private let decoder = JSONDecoder()
-
-    init(manager: NetworkManagable = NetworkManager()) {
-        self.manager = manager
-    }
 
     private func nextRequest(about name: String) -> URLRequest {
         var urlComponent = URLComponents(string: DaumAPIConfig.httpURL)!
