@@ -8,7 +8,6 @@
 import UIKit
 
 final class DaumImageSearcher: AbstarctImageSearcher {
-
     private func nextRequest(about name: String) -> URLRequest {
         var urlComponent = URLComponents(string: DaumAPIConfig.httpURL)!
         urlComponent.queryItems = [

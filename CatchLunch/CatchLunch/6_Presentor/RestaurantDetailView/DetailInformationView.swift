@@ -96,22 +96,22 @@ final class DetailInformationView: UIView {
 // MARK: - Facade
 extension DetailInformationView {
     func configure(with information: RestaurantInformation) {
-        let (data, image) = information
+        let (summary, image) = information
         imageView.image = image
 
-        mainFoodsLabel.text = data.descriptionOfMainFoodNames?
+        mainFoodsLabel.text = summary.descriptionOfMainFoodNames?
             .prepended(mainFoodsLabel.accessibilityLabel)
-        phoneNumberLabel.text = data.phoneNumber?
+        phoneNumberLabel.text = summary.phoneNumber?
             .prepended(phoneNumberLabel.accessibilityLabel)
-        roadAddressLabel.text = data.roadNameAddress?
+        roadAddressLabel.text = summary.roadNameAddress?
             .prepended(roadAddressLabel.accessibilityLabel)
-        locationAddressLabel.text = data.locationNameAddress?
+        locationAddressLabel.text = summary.locationNameAddress?
             .prepended(locationAddressLabel.accessibilityLabel)
 
-        mainFoodsLabel.accessibilityValue = data.descriptionOfMainFoodNames
-        phoneNumberLabel.accessibilityValue = data.phoneNumber
-        roadAddressLabel.accessibilityValue = data.roadNameAddress
-        locationAddressLabel.accessibilityValue = data.locationNameAddress
+        mainFoodsLabel.accessibilityValue = summary.descriptionOfMainFoodNames
+        phoneNumberLabel.accessibilityValue = summary.phoneNumber
+        roadAddressLabel.accessibilityValue = summary.roadNameAddress
+        locationAddressLabel.accessibilityValue = summary.locationNameAddress
 
         guard let longitude = information.summary.longitude,
            let latitude = information.summary.latitude else {
