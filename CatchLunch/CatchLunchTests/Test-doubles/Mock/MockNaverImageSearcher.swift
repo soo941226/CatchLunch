@@ -9,14 +9,6 @@ import UIKit
 @testable import CatchLunch
 
 final class MockNaverImageSearcher: AbstarctImageSearcher {
-    typealias Response = UIImage
-    private let manager: NetworkManagable
-    private let decoder = JSONDecoder()
-
-    init(manager: NetworkManagable = MockImageNetworkManager()) {
-        self.manager = manager
-    }
-
     private func nextRequest(about name: String) -> URLRequest {
         var urlComponent = URLComponents(string: NaverAPIConfig.httpURL)!
         urlComponent.queryItems = [
