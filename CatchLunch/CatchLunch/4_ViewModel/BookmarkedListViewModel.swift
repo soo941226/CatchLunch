@@ -24,21 +24,8 @@ where Service.Response == RestaurantSummary {
 
 // MARK: - Facade
 extension BookmarkedListViewModel {
-    var managingItems: [RestaurantInformation] {
-        return asset
-            .map { restaurant in
-                let image = restaurant.mainFoodNames?
-                    .first
-                    .flatMap({ name in
-                        imageSearchViewModel[name]
-                    })
-
-                if let image = image {
-                    return (restaurant, image)
-                } else {
-                    return (restaurant, imagePlaceHolder)
-                }
-            }
+    var count: Int {
+        return asset.count
     }
 
     subscript(_ index: Int) -> RestaurantInformation? {

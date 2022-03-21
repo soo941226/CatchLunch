@@ -11,7 +11,7 @@ final class BookmarkdListViewController<ViewModel: JustSearchViewModelable>: UIV
 where ViewModel.Item == RestaurantSummary {
     private let viewModel: ViewModel
     private let tableView = UITableView()
-    private let dataSource = RestaurantsViewDataSource()
+    private let dataSource = RestaurantsViewDataSource<ViewModel>()
     private let delegate = RestaurantsViewDelegate()
     private weak var coordinator: Coordiantorable?
 
@@ -33,6 +33,7 @@ where ViewModel.Item == RestaurantSummary {
     }
 
     private func tableViewConfiguration() {
+        dataSource.viewModel(is: viewModel)
         delegate.container(is: self)
         tableView.insert(into: view)
         tableView.dataSource = dataSource
@@ -55,11 +56,6 @@ where ViewModel.Item == RestaurantSummary {
         super.viewWillAppear(animated)
         viewModel.fetch { [weak self] isSuccess in
             if isSuccess {
-                guard let result = self?.viewModel.managingItems else {
-                    return
-                }
-
-                self?.dataSource.configure(with: result)
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }

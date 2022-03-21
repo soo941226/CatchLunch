@@ -11,7 +11,7 @@ final class RestaurantsViewController<ViewModel: PagingSearchViewModelable>: UIV
 where ViewModel.Item == RestaurantSummary {
     private let viewModel: ViewModel
     private let tableView = UITableView()
-    private let dataSource = RestaurantsViewDataSource()
+    private let dataSource = RestaurantsViewDataSource<ViewModel>()
     private let delegate = RestaurantsViewDelegate()
     private weak var coordinator: Coordiantorable?
 
@@ -34,6 +34,7 @@ where ViewModel.Item == RestaurantSummary {
     }
 
     private func tableViewConfiguration() {
+        dataSource.viewModel(is: viewModel)
         tableView.insert(into: view)
         tableView.dataSource = dataSource
         tableView.delegate = delegate
@@ -71,9 +72,7 @@ extension RestaurantsViewController: RestaurantsViewModelContainer {
         viewModel.fetch { [weak self] isSuccess in
             guard let self = self else { return }
             if isSuccess {
-                let result = self.viewModel.managingItems
                 let indexPathsToRefresh = self.viewModel.nextIndexPaths
-                self.dataSource.configure(with: result)
                 self.tableView.insertRows(at: indexPathsToRefresh, with: .bottom)
             }
         }

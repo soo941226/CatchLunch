@@ -7,11 +7,12 @@
 
 import UIKit
 
-final class RestaurantsViewDataSource: NSObject, UITableViewDataSource {
-    private var managingData = [RestaurantInformation]()
+final class RestaurantsViewDataSource<ViewModel: JustSearchViewModelable>: NSObject, UITableViewDataSource
+where ViewModel.Item == RestaurantSummary {
+    private unowned var viewModel: ViewModel!
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return managingData.count
+        return viewModel.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -23,11 +24,11 @@ final class RestaurantsViewDataSource: NSObject, UITableViewDataSource {
         }
 
         cell.accessoryType = .disclosureIndicator
-        cell.configure(with: managingData[indexPath.row])
+        cell.configure(with: viewModel[indexPath.row])
         return cell
     }
 
-    func configure(with restaurants: [RestaurantInformation]) {
-        self.managingData = restaurants
+    func viewModel(is viewModel: ViewModel) {
+        self.viewModel = viewModel
     }
 }

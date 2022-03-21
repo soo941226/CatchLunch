@@ -118,8 +118,10 @@ final class RestaurantsViewCell: UITableViewCell {
 
 // MARK: - Facade
 extension RestaurantsViewCell {
-    func configure(with data: RestaurantInformation) {
-        let (restaurant, image) = data
+    func configure(with data: RestaurantInformation?) {
+        guard let (restaurant, image) = data else {
+            return
+        }
 
         foodImageView.image = image
         titleLabel.text = restaurant.restaurantName
