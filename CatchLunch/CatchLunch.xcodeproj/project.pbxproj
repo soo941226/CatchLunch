@@ -68,7 +68,7 @@
 		63A71BC727C7FB2900820C0C /* StubJsonToTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A71BC627C7FB2900820C0C /* StubJsonToTest.swift */; };
 		63A71BCA27C7FC3300820C0C /* Pods_CatchLunch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A71BC927C7FC3300820C0C /* Pods_CatchLunch.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		63AB1D5B27E07D6000ABA48E /* CopyRightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AB1D5A27E07D6000ABA48E /* CopyRightViewController.swift */; };
-		63C448D027C7F37300F7063B /* TestRestaurantInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C448CF27C7F37300F7063B /* TestRestaurantInformation.swift */; };
+		63C448D027C7F37300F7063B /* TestRestaurantSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C448CF27C7F37300F7063B /* TestRestaurantSummary.swift */; };
 		63C448DD27C7F38800F7063B /* CatchLunchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C448DC27C7F38800F7063B /* CatchLunchUITests.swift */; };
 		63C448DF27C7F38800F7063B /* CatchLunchUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C448DE27C7F38800F7063B /* CatchLunchUITestsLaunchTests.swift */; };
 		63CB89B027D5C979007300C8 /* RestaurantsViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CB89AF27D5C979007300C8 /* RestaurantsViewDataSource.swift */; };
@@ -168,7 +168,7 @@
 		63A71BC927C7FC3300820C0C /* Pods_CatchLunch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_CatchLunch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63AB1D5A27E07D6000ABA48E /* CopyRightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyRightViewController.swift; sourceTree = "<group>"; };
 		63C448CD27C7F37300F7063B /* CatchLunchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CatchLunchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		63C448CF27C7F37300F7063B /* TestRestaurantInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRestaurantInformation.swift; sourceTree = "<group>"; };
+		63C448CF27C7F37300F7063B /* TestRestaurantSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRestaurantSummary.swift; sourceTree = "<group>"; };
 		63C448DA27C7F38800F7063B /* CatchLunchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CatchLunchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C448DC27C7F38800F7063B /* CatchLunchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchLunchUITests.swift; sourceTree = "<group>"; };
 		63C448DE27C7F38800F7063B /* CatchLunchUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchLunchUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -386,8 +386,8 @@
 			children = (
 				633B069527E44C21007024B5 /* error */,
 				6367CED227C7F60F007E0735 /* protocol */,
-				63DE3E3D27C8A81D00A32868 /* GyeonggiRestaurantsSearcher.swift */,
 				63768F1D27E7048E009E3380 /* ImageSearcher */,
+				63DE3E3D27C8A81D00A32868 /* GyeonggiRestaurantsSearcher.swift */,
 				6332C41C27DDD3B0005F0ED5 /* RestaurantsBookmarkService.swift */,
 			);
 			path = 3_Service;
@@ -497,7 +497,7 @@
 			isa = PBXGroup;
 			children = (
 				63DE3E4327C8C72000A32868 /* Test-doubles */,
-				63C448CF27C7F37300F7063B /* TestRestaurantInformation.swift */,
+				63C448CF27C7F37300F7063B /* TestRestaurantSummary.swift */,
 				63018DED27C9126900363F00 /* TestNetworkManager.swift */,
 				63419AB227D1134E008F28D4 /* TestGyeonggiRestaurantsSearcher.swift */,
 				6375C8BF27CA7EDD00F1D60F /* TestImageSearcher.swift */,
@@ -877,7 +877,7 @@
 				63667CF427CDDEEE008677C2 /* MockGyeonggiRestaurantSearcher.swift in Sources */,
 				63852DDD27D1E96D004D90C6 /* MockNaverImageSearcher.swift in Sources */,
 				63018DEA27C9064F00363F00 /* MockSession.swift in Sources */,
-				63C448D027C7F37300F7063B /* TestRestaurantInformation.swift in Sources */,
+				63C448D027C7F37300F7063B /* TestRestaurantSummary.swift in Sources */,
 				63FE058127CF5AF9006AB8D2 /* AsyncAfter.swift in Sources */,
 				631BAA2927DB959C00A59AAA /* MockURLProtocol.swift in Sources */,
 				6375C8C027CA7EDD00F1D60F /* TestImageSearcher.swift in Sources */,

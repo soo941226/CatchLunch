@@ -8,11 +8,11 @@
 import UIKit
 
 final class BookmarkedListViewModel<Service: BookmarkService>: JustSearchViewModelable
-where Service.Response == RestaurantInformation {
+where Service.Response == RestaurantSummary {
     private let service: Service
     private let imageSearchViewModel = ImageViewModel(service: NaverImageSearcher())
     private let imagePlaceHolder = UIImage(systemName: "fork.knife.circle")!
-    private var asset = [RestaurantInformation]()
+    private var asset = [RestaurantSummary]()
     private var nowLoading = false
 
     private(set) var error: Error?
@@ -28,7 +28,7 @@ extension BookmarkedListViewModel {
         return "식당이름, 도시이름, 음식이름"
     }
 
-    var managingItems: [RestaurantSummary] {
+    var managingItems: [RestaurantInformation] {
         return asset
             .map { restaurant in
                 let image = restaurant.mainFoodNames?
@@ -45,7 +45,7 @@ extension BookmarkedListViewModel {
             }
     }
 
-    subscript(_ index: Int) -> RestaurantSummary? {
+    subscript(_ index: Int) -> RestaurantInformation? {
         guard asset.indices ~= index else {
             return nil
         }
@@ -78,7 +78,7 @@ extension BookmarkedListViewModel {
     }
 
     private func fetchImagesToFinish(
-        from restaurants: [RestaurantInformation],
+        from restaurants: [RestaurantSummary],
         with completionHandler: @escaping (Bool) -> Void
     ) {
         guard restaurants.count > .zero else {

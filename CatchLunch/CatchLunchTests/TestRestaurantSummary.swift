@@ -1,5 +1,5 @@
 //
-//  TestRestaurantInformation.swift
+//  TestRestaurantSummary.swift
 //  CatchLunchTests
 //
 //  Created by kjs on 2022/02/23.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import CatchLunch
 
-final class TestRestaurantInformation: XCTestCase {
+final class TestRestaurantSummary: XCTestCase {
     private var structUnderTest: StubJsonToTest!
 
     override func setUp() {
@@ -40,7 +40,7 @@ final class TestRestaurantInformation: XCTestCase {
                 XCTFail("Something wrong")
                 return
             }
-            let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
+            let result = try JSONDecoder().decode(RestaurantSummary.self, from: jsonData)
 
             // then
             XCTAssertEqual(result.isBookmarked, false)
@@ -70,7 +70,7 @@ final class TestRestaurantInformation: XCTestCase {
                 XCTFail("Something wrong")
                 return
             }
-            let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
+            let result = try JSONDecoder().decode(RestaurantSummary.self, from: jsonData)
 
             // then
             XCTAssertEqual(result.restaurantName, structUnderTest.restaurantName)
@@ -92,7 +92,7 @@ final class TestRestaurantInformation: XCTestCase {
                 XCTFail("Something wrong")
                 return
             }
-            let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
+            let result = try JSONDecoder().decode(RestaurantSummary.self, from: jsonData)
 
             // then
             XCTAssertNil(result.latitude)
@@ -113,7 +113,7 @@ final class TestRestaurantInformation: XCTestCase {
                 XCTFail("Something wrong")
                 return
             }
-            let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
+            let result = try JSONDecoder().decode(RestaurantSummary.self, from: jsonData)
 
             // then
             XCTAssertNil(result.longitude)
@@ -144,7 +144,7 @@ final class TestRestaurantInformation: XCTestCase {
                 XCTFail("Something wrong")
                 return
             }
-            let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
+            let result = try JSONDecoder().decode(RestaurantSummary.self, from: jsonData)
 
             // then
             XCTAssertNil(result.cityName)
@@ -177,7 +177,7 @@ final class TestRestaurantInformation: XCTestCase {
                 XCTFail("Something wrong")
                 return
             }
-            let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
+            let result = try JSONDecoder().decode(RestaurantSummary.self, from: jsonData)
 
             // then
             XCTAssertNil(result.cityName)
@@ -210,7 +210,7 @@ final class TestRestaurantInformation: XCTestCase {
                 XCTFail("Something wrong")
                 return
             }
-            let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
+            let result = try JSONDecoder().decode(RestaurantSummary.self, from: jsonData)
 
             // then
             XCTAssertEqual(result.cityName, structUnderTest.cityName)
@@ -244,7 +244,7 @@ final class TestRestaurantInformation: XCTestCase {
                 XCTFail("Something wrong")
                 return
             }
-            let result = try JSONDecoder().decode(RestaurantInformation.self, from: jsonData)
+            let result = try JSONDecoder().decode(RestaurantSummary.self, from: jsonData)
 
             // then
             XCTAssertEqual(result.cityName, structUnderTest.cityName)

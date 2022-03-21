@@ -8,11 +8,11 @@
 import UIKit
 
 final class RestaurantsViewModel<Service: PagingSearchService>: PagingSearchViewModelable
-where Service.Response == [RestaurantInformation] {
+where Service.Response == [RestaurantSummary] {
     private let service: Service
     private let imageSearchViewModel = ImageViewModel(service: NaverImageSearcher(), DaumImageSearcher())
     private let imagePlaceHolder = UIImage(systemName: "fork.knife.circle")!
-    private var asset = [RestaurantInformation]()
+    private var asset = [RestaurantSummary]()
     private let amount = 10
     private var pageIndex = 1
     private var nowLoading = false
@@ -38,7 +38,7 @@ extension RestaurantsViewModel {
         return "식당이름, 도시이름, 음식이름"
     }
 
-    var managingItems: [RestaurantSummary] {
+    var managingItems: [RestaurantInformation] {
         return asset
             .map { restaurant in
                 let image = restaurant.mainFoodNames?
@@ -65,7 +65,7 @@ extension RestaurantsViewModel {
         }
     }
 
-    subscript(_ index: Int) -> RestaurantSummary? {
+    subscript(_ index: Int) -> RestaurantInformation? {
         guard asset.indices ~= index else {
             return nil
         }
@@ -112,7 +112,7 @@ extension RestaurantsViewModel {
     }
 
     private func fetchImages(
-        from restaurants: [RestaurantInformation],
+        from restaurants: [RestaurantSummary],
         with completionHandler: @escaping (Bool) -> Void
     ) {
         let dispatchGroup = DispatchGroup()

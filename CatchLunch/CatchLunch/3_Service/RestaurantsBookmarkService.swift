@@ -8,7 +8,7 @@
 import Foundation
 
 final class RestaurantsBookmarkService: BookmarkService {
-    typealias Response = RestaurantInformation
+    typealias Response = RestaurantSummary
 
     static let shared = RestaurantsBookmarkService()
     private init() {}
@@ -17,7 +17,7 @@ final class RestaurantsBookmarkService: BookmarkService {
 
     func fetch(
         whereBookmarkedIs flag: Bool,
-        completionHandler: @escaping (Result<[RestaurantInformation], Error>) -> Void
+        completionHandler: @escaping (Result<[RestaurantSummary], Error>) -> Void
     ) {
         let filter = NSPredicate(format: "isBookmarked = \(flag)")
 
@@ -25,7 +25,7 @@ final class RestaurantsBookmarkService: BookmarkService {
             switch result {
             case .success(let restaurnats):
                 let restaurants = restaurnats.map { cdRestaurant in
-                    return RestaurantInformation(from: cdRestaurant)
+                    return RestaurantSummary(from: cdRestaurant)
                 }
                 completionHandler(.success(restaurants))
             case .failure(let error):
@@ -35,7 +35,7 @@ final class RestaurantsBookmarkService: BookmarkService {
     }
 
     func checkBookmark(
-        about restaurant: RestaurantInformation,
+        about restaurant: RestaurantSummary,
         completionHandler: @escaping (_ isBookmarked: Bool) -> Void
     ) {
         let filter = filter(about: restaurant)
@@ -55,7 +55,7 @@ final class RestaurantsBookmarkService: BookmarkService {
     }
 
     func toggleBookmark(
-        about restaurant: RestaurantInformation,
+        about restaurant: RestaurantSummary,
         completionHandler: @escaping (Error?) -> Void
     ) {
         let filter = filter(about: restaurant)
@@ -88,7 +88,7 @@ final class RestaurantsBookmarkService: BookmarkService {
         }
     }
 
-    private func filter(about restaurant: RestaurantInformation) -> NSPredicate? {
+    private func filter(about restaurant: RestaurantSummary) -> NSPredicate? {
         guard let restaurantName = restaurant.restaurantName,
               let latitude = restaurant.latitude,
               let longitude = restaurant.longitude else {

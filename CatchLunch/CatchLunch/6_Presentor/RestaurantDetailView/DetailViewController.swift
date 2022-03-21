@@ -8,10 +8,10 @@
 import UIKit
 
 final class DetailViewController<ViewModel: BookmarkViewModel>: UIViewController
-where ViewModel.Element == RestaurantInformation {
+where ViewModel.Element == RestaurantSummary {
     private let detailView = DetailInformationView()
     private let viewModel: ViewModel
-    private var summary: RestaurantSummary?
+    private var information: RestaurantInformation?
 
     init(with viewModel: ViewModel) {
         self.viewModel = viewModel
@@ -26,19 +26,19 @@ where ViewModel.Element == RestaurantInformation {
         view = detailView
     }
 
-    func configure(with summary: RestaurantSummary) {
-        self.summary = summary
+    func configure(with information: RestaurantInformation) {
+        self.information = information
 
-        viewModel.check(about: summary.information) { [weak self] isBookmarked in
-            if isBookmarked != summary.information.isBookmarked {
-                self?.summary?.information.toggledBookmark()
+        viewModel.check(about: information.summary) { [weak self] isBookmarked in
+            if isBookmarked != information.summary.isBookmarked {
+                self?.information?.summary.toggledBookmark()
             }
 
             self?.toggleButton(on: isBookmarked)
 
             DispatchQueue.main.async {
-                self?.navigationItem.title = summary.information.restaurantName
-                self?.detailView.configure(with: summary)
+                self?.navigationItem.title = information.summary.restaurantName
+                self?.detailView.configure(with: information)
             }
         }
     }
@@ -58,10 +58,10 @@ where ViewModel.Element == RestaurantInformation {
     }
 
     @objc private func toggleBookmark() {
-        self.summary?.information.toggledBookmark()
+        self.information?.summary.toggledBookmark()
 
-        guard let summary = summary else { return }
-        viewModel.toggle(about: summary.information)
-        toggleButton(on: summary.information.isBookmarked)
+        guard let information = information else { return }
+        viewModel.toggle(about: information.summary)
+        toggleButton(on: information.summary.isBookmarked)
     }
 }

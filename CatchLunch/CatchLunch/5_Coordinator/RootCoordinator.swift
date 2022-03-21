@@ -77,7 +77,7 @@ final class RootCoordinator: Coordiantorable {
 }
 
 extension RootCoordinator: ParentCoordinator {
-    var model: RestaurantSummary? {
+    var model: RestaurantInformation? {
 
         guard let viewController = searchBarController.selectedViewController else {
             return nil

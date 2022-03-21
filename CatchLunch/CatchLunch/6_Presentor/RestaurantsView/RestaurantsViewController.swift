@@ -8,7 +8,7 @@
 import UIKit
 
 final class RestaurantsViewController<ViewModel: PagingSearchViewModelable>: UIViewController
-where ViewModel.Item == RestaurantInformation {
+where ViewModel.Item == RestaurantSummary {
     private let viewModel: ViewModel
     private let tableView = UITableView()
     private let dataSource = RestaurantsViewDataSource()
@@ -55,7 +55,7 @@ where ViewModel.Item == RestaurantInformation {
 }
 
 extension RestaurantsViewController: RestaurantsViewModelContainer {
-    var selectedModel: RestaurantSummary? {
+    var selectedModel: RestaurantInformation? {
         guard let indexPath = tableView.indexPathForSelectedRow else {
             return nil
         }

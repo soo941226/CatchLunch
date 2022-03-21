@@ -8,7 +8,7 @@
 import Foundation
 
 protocol RestaurantsViewModelContainer: AnyObject {
-    var selectedModel: RestaurantSummary? { get }
+    var selectedModel: RestaurantInformation? { get }
     func select()
     func requestNextItems()
 }

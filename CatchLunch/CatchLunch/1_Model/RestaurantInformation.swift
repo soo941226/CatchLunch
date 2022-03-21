@@ -7,9 +7,9 @@
 
 import UIKit
 
-typealias RestaurantSummary = (information: RestaurantInformation, image: UIImage)
+typealias RestaurantInformation = (summary: RestaurantSummary, image: UIImage)
 
-struct RestaurantInformation: Restaurant, Coordinate2D, Bookmarkable, Decodable {
+struct RestaurantSummary: Restaurant, Coordinate2D, Bookmarkable, Decodable {
     private(set) var isBookmarked: Bool = false
     private(set) var cityName: String?
     private(set) var restaurantName: String?

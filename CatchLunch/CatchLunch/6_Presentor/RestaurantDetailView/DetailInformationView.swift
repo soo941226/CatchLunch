@@ -95,8 +95,8 @@ final class DetailInformationView: UIView {
 
 // MARK: - Facade
 extension DetailInformationView {
-    func configure(with summary: RestaurantSummary) {
-        let (data, image) = summary
+    func configure(with information: RestaurantInformation) {
+        let (data, image) = information
         imageView.image = image
 
         mainFoodsLabel.text = data.descriptionOfMainFoodNames?
@@ -113,8 +113,8 @@ extension DetailInformationView {
         roadAddressLabel.accessibilityValue = data.roadNameAddress
         locationAddressLabel.accessibilityValue = data.locationNameAddress
 
-        guard let longitude = summary.information.longitude,
-           let latitude = summary.information.latitude else {
+        guard let longitude = information.summary.longitude,
+           let latitude = information.summary.latitude else {
                return
            }
 

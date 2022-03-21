@@ -8,7 +8,7 @@
 import Foundation
 
 struct GyeonggiRestaurantsSearcher: PagingSearchService {
-    typealias Response = [RestaurantInformation]
+    typealias Response = [RestaurantSummary]
     private let decoder = JSONDecoder()
     private let manager: NetworkManagable
 

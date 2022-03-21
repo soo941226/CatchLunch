@@ -8,7 +8,7 @@
 import UIKit
 
 final class RestaurantsViewDataSource: NSObject, UITableViewDataSource {
-    private var managingData = [RestaurantSummary]()
+    private var managingData = [RestaurantInformation]()
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return managingData.count
@@ -27,7 +27,7 @@ final class RestaurantsViewDataSource: NSObject, UITableViewDataSource {
         return cell
     }
 
-    func configure(with restaurants: [RestaurantSummary]) {
+    func configure(with restaurants: [RestaurantInformation]) {
         self.managingData = restaurants
     }
 }

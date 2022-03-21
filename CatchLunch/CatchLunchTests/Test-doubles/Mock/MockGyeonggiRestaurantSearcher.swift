@@ -9,7 +9,7 @@ import Foundation
 @testable import CatchLunch
 
 final class MockGyeonggiRestaurantSearcher: PagingSearchService {
-    typealias Response = [RestaurantInformation]
+    typealias Response = [RestaurantSummary]
     private let decoder = JSONDecoder()
     private let manager: NetworkManagable
 

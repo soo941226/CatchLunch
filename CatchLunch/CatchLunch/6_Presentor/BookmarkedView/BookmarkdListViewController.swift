@@ -8,7 +8,7 @@
 import UIKit
 
 final class BookmarkdListViewController<ViewModel: JustSearchViewModelable>: UIViewController
-where ViewModel.Item == RestaurantInformation {
+where ViewModel.Item == RestaurantSummary {
     private let viewModel: ViewModel
     private let tableView = UITableView()
     private let dataSource = RestaurantsViewDataSource()
@@ -69,7 +69,7 @@ where ViewModel.Item == RestaurantInformation {
 }
 
 extension BookmarkdListViewController: RestaurantsViewModelContainer {
-    var selectedModel: RestaurantSummary? {
+    var selectedModel: RestaurantInformation? {
         guard let selectedIndex = tableView.indexPathForSelectedRow?.row else {
             return nil
         }

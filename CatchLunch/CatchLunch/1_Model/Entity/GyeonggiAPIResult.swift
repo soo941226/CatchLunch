@@ -13,6 +13,6 @@ struct GyeonggiAPIResult: Decodable {
     }
 
     struct Place: Decodable {
-        let row: [RestaurantInformation]?
+        let row: [RestaurantSummary]?
     }
 }

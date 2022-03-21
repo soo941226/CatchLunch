@@ -8,7 +8,7 @@
 import UIKit
 
 final class RestaurantsBookmarkViewModel<Service: BookmarkService>: BookmarkViewModel
-where Service.Response == RestaurantInformation {
+where Service.Response == RestaurantSummary {
 
     private let service: Service
     private var nowUpdate = false
@@ -24,7 +24,7 @@ where Service.Response == RestaurantInformation {
     }
 
     func check(
-        about restaurant: RestaurantInformation,
+        about restaurant: RestaurantSummary,
         then completionHandler: @escaping (_ isBookmarked: Bool) -> Void
     ) {
         service.checkBookmark(about: restaurant) { isBookmarked in
@@ -32,7 +32,7 @@ where Service.Response == RestaurantInformation {
         }
     }
 
-    func toggle(about restaurant: RestaurantInformation) {
+    func toggle(about restaurant: RestaurantSummary) {
         if nowUpdate { return }
         nowUpdate = true
         service.toggleBookmark(about: restaurant) { [weak self] error in

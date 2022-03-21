@@ -105,7 +105,7 @@ final class RestaurantsViewCell: UITableViewCell {
         ])
     }
 
-    private func setUpAccessbilityMessage(with data: RestaurantInformation) {
+    private func setUpAccessbilityMessage(with data: RestaurantSummary) {
         let city = data.cityName
         let foods = data.descriptionOfMainFoodNames
         let cityDesciprtion = city?.isEmpty == false ? locationLabelPrefix + city! : ""
@@ -118,7 +118,7 @@ final class RestaurantsViewCell: UITableViewCell {
 
 // MARK: - Facade
 extension RestaurantsViewCell {
-    func configure(with data: RestaurantSummary) {
+    func configure(with data: RestaurantInformation) {
         let (restaurant, image) = data
 
         foodImageView.image = image
