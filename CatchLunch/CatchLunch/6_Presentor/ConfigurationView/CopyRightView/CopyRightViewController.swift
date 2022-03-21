@@ -36,8 +36,6 @@ final class CopyRightViewController: UIViewController {
     }
 
     @objc private func go() {
-        UIApplication.shared.open(URL(string: "https://www.vecteezy.com/free-vector/meal")!, options: [:]) { bool in
-            print(bool)
-        }
+        UIApplication.shared.open(URL(string: "https://www.vecteezy.com/free-vector/meal")!, options: [:])
     }
 }

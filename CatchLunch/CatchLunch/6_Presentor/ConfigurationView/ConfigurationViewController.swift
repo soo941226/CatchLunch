@@ -40,7 +40,7 @@ final class ConfigurationViewController: UIViewController {
 
     private func setUpCopyrightButton() {
         copyrightButton.insert(into: self.view)
-        copyrightButton.setTitle("저작권", for: .normal)
+        copyrightButton.setTitle("오픈소스\n라이센스", for: .normal)
         copyrightButton.setImage(.init(systemName: "scroll.fill"), for: .normal)
         copyrightButton.addTarget(self, action: #selector(start), for: .touchUpInside)
 
@@ -48,6 +48,7 @@ final class ConfigurationViewController: UIViewController {
         copyrightButton.layer.borderWidth = 0.5
         copyrightButton.layer.borderColor = UIColor.lightGray.cgColor
         copyrightButton.layer.cornerRadius = 10.0
+        copyrightButton.titleLabel?.numberOfLines = .zero
         copyrightButton.titleLabel?.font = .preferredFont(forTextStyle: .body)
     }
 
