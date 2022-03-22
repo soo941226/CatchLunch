@@ -9,14 +9,25 @@ import UIKit
 
 final class ConfigurationCoordinator: Coordiantorable {
     private unowned var navigationController: UINavigationController!
+    private unowned var viewController: ConfigurationViewController!
     private(set) var childCoodinator = [Coordiantorable]()
 
     init(on navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
 
+    func take(_ viewController: ConfigurationViewController) {
+        self.viewController = viewController
+    }
+
     func start() {
-        let controller = CopyRightViewController()
-        navigationController.pushViewController(controller, animated: false)
+        switch viewController.selected {
+        case .caution:
+            let controller = CautionViewController()
+            navigationController.pushViewController(controller, animated: false)
+        case .copyright:
+            let controller = CopyRightViewController()
+            navigationController.pushViewController(controller, animated: false)
+        }
     }
 }
