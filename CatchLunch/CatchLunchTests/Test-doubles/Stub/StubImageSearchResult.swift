@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class DummyImageSearchResult {
+final class StubImageSearchResult {
     private lazy var bundle = Bundle(for: type(of: self))
     private(set) lazy var goodObject = """
     {

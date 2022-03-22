@@ -80,7 +80,7 @@ final class TestGyeonggiRestaurantsSearcher: XCTestCase {
 
     func test_itemAmount를0이하로요청하면_데이터가_오지_않는다() {
         // given
-        setUpHandler(data: DummyGyeonggiAPIResult().emptyObject, code: 200)
+        setUpHandler(data: StubGyeonggiAPIResult().emptyObject, code: 200)
         let dispatch = XCTestExpectation(description: "expect error")
         let expectation = Int.zero
         var resultToExpect = Int.zero
@@ -130,7 +130,7 @@ final class TestGyeonggiRestaurantsSearcher: XCTestCase {
 
     func test_서버에서_잘못된_데이터를_내려주면_디코딩에러가_난다() {
         // given
-        setUpHandler(data: DummyGyeonggiAPIResult().objectWithWrongFormmat, code: 200)
+        setUpHandler(data: StubGyeonggiAPIResult().objectWithWrongFormmat, code: 200)
         let dispatch = XCTestExpectation(description: "expect error")
         var resultToExpeect: DecodingError?
         // when
@@ -156,7 +156,7 @@ final class TestGyeonggiRestaurantsSearcher: XCTestCase {
 
     func test_상식적인pageIndex와amount를던지면_응답이잘온다() {
         // given
-        setUpHandler(data: DummyGyeonggiAPIResult().objectWithCount10, code: 200)
+        setUpHandler(data: StubGyeonggiAPIResult().objectWithCount10, code: 200)
         let dispatch = XCTestExpectation(description: "expect error")
         let expectation = 10
         var resultToExpect = Int.zero

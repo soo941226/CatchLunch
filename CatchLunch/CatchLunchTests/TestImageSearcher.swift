@@ -21,7 +21,7 @@ final class TestImageSearcher: XCTestCase {
 
     func test_요청에대한응답이_이미지가아니면_이미지가아니라고_에러가_뜬다() {
         // given
-        setUpHandler(data: DummyImageSearchResult().wrongDataObject, code: 200)
+        setUpHandler(data: StubImageSearchResult().wrongDataObject, code: 200)
         let dispatch = XCTestExpectation()
         let expectation = ImageSearchError.imageDataIsWrong.errorDescription
         var resultToExpect = ""
@@ -49,7 +49,7 @@ final class TestImageSearcher: XCTestCase {
 
     func test_요청에대한응답이_잘못되었으면_응답이_잘못되었다고_에러가_든다() {
         // given
-        setUpHandler(data: DummyImageSearchResult().invalidObject, code: 200)
+        setUpHandler(data: StubImageSearchResult().invalidObject, code: 200)
         let dispatch = XCTestExpectation()
         let expectation = ImageSearchError.searchResultIsWrong.errorDescription
         var resultToExpect = ""
@@ -77,7 +77,7 @@ final class TestImageSearcher: XCTestCase {
 
     func test_요청에대한응답에서_items가_비어있으면_비어있다고_에러가_뜬다() {
         // given
-        setUpHandler(data: DummyImageSearchResult().emptyItemsObject, code: 200)
+        setUpHandler(data: StubImageSearchResult().emptyItemsObject, code: 200)
         let dispatch = XCTestExpectation()
         let expectation = ImageSearchError.itemsIsNotExists.errorDescription
         var resultToExpect = ""
@@ -105,7 +105,7 @@ final class TestImageSearcher: XCTestCase {
 
     func test_요청에대한응답에서_thumbnail이_비어있으면_비어있다고_에러가_뜬다() {
         // given
-        setUpHandler(data: DummyImageSearchResult().emptyLinkObject, code: 200)
+        setUpHandler(data: StubImageSearchResult().emptyLinkObject, code: 200)
         let dispatch = XCTestExpectation()
         let expectation = ImageSearchError.linkIsNotExists.errorDescription
         var resultToExpect = ""
@@ -133,7 +133,7 @@ final class TestImageSearcher: XCTestCase {
 
     func test_요청에대한응답에서_thumbnail의_link가_잘못되었으면_잘못되었다고_에러가_뜬다() {
         // given
-        setUpHandler(data: DummyImageSearchResult().invalidLinkObject, code: 200)
+        setUpHandler(data: StubImageSearchResult().invalidLinkObject, code: 200)
         let dispatch = XCTestExpectation()
         let expectation = ImageSearchError.urlIsWrong.errorDescription
         var resultToExpect = ""
@@ -189,7 +189,7 @@ final class TestImageSearcher: XCTestCase {
 
     func test_요청에대한응답에서_thumbnail의_데이터가_이미지면_성공이다() {
         // given
-        setUpHandler(data: DummyImageSearchResult().goodObject, code: 200)
+        setUpHandler(data: StubImageSearchResult().goodObject, code: 200)
         let dispatch = XCTestExpectation()
         let expectation = CGFloat.zero
         var resultToExpect = CGFloat.leastNormalMagnitude

@@ -31,7 +31,7 @@ final class TestRestaurantViewModel: XCTestCase {
 
     func test_fetch가_성공한_후에는_subsript로_접근하면_아이템이_존재한다() {
         //given
-        setUpHandler(data: DummyGyeonggiAPIResult().objectWithCount10, code: 200)
+        setUpHandler(data: StubGyeonggiAPIResult().objectWithCount10, code: 200)
         let dispatch = XCTestExpectation()
 
         //when
@@ -53,7 +53,7 @@ final class TestRestaurantViewModel: XCTestCase {
 
     func test_fetch를_연달아해도_쓰로틀링이_걸려서_한번만_동작한다() {
         //given
-        setUpHandler(data: DummyGyeonggiAPIResult().objectWithCount10, code: 200)
+        setUpHandler(data: StubGyeonggiAPIResult().objectWithCount10, code: 200)
         let dispatch = XCTestExpectation()
         let expectaion = 10
 
@@ -100,7 +100,7 @@ final class TestRestaurantViewModel: XCTestCase {
 
     func test_viewModel의_fetch이후_결과데이터의갯수가_0이면_에러없이_더이상_fetch의_후행클로저가_동작하지_않는다() {
         // given
-        setUpHandler(data: DummyGyeonggiAPIResult().objectWithCount0, code: 200)
+        setUpHandler(data: StubGyeonggiAPIResult().objectWithCount0, code: 200)
         let dispatch = XCTestExpectation()
         var resultToExpect: Error?
 

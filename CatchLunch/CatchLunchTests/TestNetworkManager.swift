@@ -184,7 +184,7 @@ final class TestNetworkManager: XCTestCase {
 
     func test_request가_잘설정되어있고_응답데이터도있으면_잘동작한다() {
         // given
-        setUpHandler(data: DummyGyeonggiAPIResult().objectWithCount10, code: 200)
+        setUpHandler(data: StubGyeonggiAPIResult().objectWithCount10, code: 200)
         networkManagerUnderTest.setUpRequest(with: dummyURLRequest)
         let dispatch = XCTestExpectation(description: "expect error")
         let expectation = Int.zero

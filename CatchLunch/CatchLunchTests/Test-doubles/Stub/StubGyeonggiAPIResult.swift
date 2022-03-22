@@ -1,11 +1,11 @@
 //
-//  DummyGyeonggiAPIResult.swift
+//  StubGyeonggiAPIResult.swift
 //  CatchLunchTests
 //
 //  Created by kjs on 2022/03/02.
 //
 
-struct DummyGyeonggiAPIResult {
+struct StubGyeonggiAPIResult {
     let objectWithCount10 = """
     {
         "PlaceThatDoATasteyFoodSt": [
