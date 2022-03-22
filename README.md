@@ -1,10 +1,8 @@
 # CatchLunch, 맛집찾는 앱
-I'm hungry... look for 🍚
 
-[계획](https://soo941226.notion.site/CatchLunch-4614ba8f91844695b8cb80124b234138)
-
-[App Store Link](https://apps.apple.com/kr/app/catchlunch/id1614336988)
-
+| Catch Lunch | I'm hungry... look for 🍚 |
+|:---:|:---:|
+|[Plan](https://soo941226.notion.site/CatchLunch-4614ba8f91844695b8cb80124b234138)|[App Store Link](https://apps.apple.com/kr/app/catchlunch/id1614336988)|
 ![App](./Chore/app.gif)
 
 ---
