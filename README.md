@@ -2,7 +2,8 @@
 
 | Catch Lunch | I'm hungry... look for 🍚 |
 |:---:|:---:|
-|[Plan](https://soo941226.notion.site/CatchLunch-4614ba8f91844695b8cb80124b234138)|[App Store Link](https://apps.apple.com/kr/app/catchlunch/id1614336988)|
+| [Plan](https://soo941226.notion.site/CatchLunch-4614ba8f91844695b8cb80124b234138) | [App Store Link](https://apps.apple.com/kr/app/catchlunch/id1614336988) |
+
 ![App](./Chore/app.gif)
 
 ---
@@ -102,3 +103,7 @@
 * Presentor 로직들은 아직 공부와 경험이 부족하여 테스트를 하지 못했습니다
 * 초기에는 coverage 100%를 목표로 TDD를 진행을 했지만, 이 과정에서 A타입에서 한번 테스트가 된 코드 블록이 B타입에서 다시 테스트되는 경우가 생겼습니다
 * 커버리지를 높이기 위해 실제로 테스트를 하거나, 혹은 이 둘을 일반화한 뒤 해당 타입을 테스트를 하는 일을 할 수 있었으나, 단기적인 생산성의 측면에서 그러한 일을 하는 것은 세워두었던 목표에 어긋났기에 그냥 진행을 하게 되었습니다
+
+---
+
+[로고 이미지 출처](https://www.vecteezy.com/free-vector/meal)
