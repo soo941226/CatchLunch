@@ -94,6 +94,10 @@ extension RestaurantsViewModel {
         }
     }
 
+    func willDisappear() {
+        NotificationCenter.default.post(name: .finishTask, object: nil)
+    }
+
     private func fetchImages(
         from restaurants: [RestaurantSummary],
         with completionHandler: @escaping (Bool) -> Void

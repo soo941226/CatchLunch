@@ -33,6 +33,11 @@ where ViewModel.Item == RestaurantSummary {
         setUpTableViewLayout()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.willDisappear()
+    }
+
     private func tableViewConfiguration() {
         dataSource.viewModel(is: viewModel)
         tableView.insert(into: view)

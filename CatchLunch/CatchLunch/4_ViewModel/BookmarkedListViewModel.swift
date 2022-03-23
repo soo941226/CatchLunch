@@ -60,6 +60,10 @@ extension BookmarkedListViewModel {
         }
     }
 
+    func willDisappear() {
+        NotificationCenter.default.post(name: .finishTask, object: nil)
+    }
+
     private func fetchImagesToFinish(
         from restaurants: [RestaurantSummary],
         with completionHandler: @escaping (Bool) -> Void

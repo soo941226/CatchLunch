@@ -14,6 +14,7 @@ protocol JustSearchViewModelable: AnyObject {
     var count: Int { get }
     subscript(_ index: Int) -> ItemInformation? { get }
     func fetch(completionHandler: @escaping (Bool) -> Void)
+    func willDisappear()
 }
 
 protocol NameSearchViewModelable: AnyObject {
