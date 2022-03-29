@@ -23,7 +23,7 @@ where Service.Response == RestaurantSummary {
 }
 
 // MARK: - Facade
-extension BookmarkedListViewModel {
+extension BookmarkedListViewModel: Notifier {
     var count: Int {
         return asset.count
     }
@@ -45,7 +45,7 @@ extension BookmarkedListViewModel {
         if nowLoading { return }
         nowLoading = true
 
-        NotificationCenter.default.post(name: .startTask, object: nil)
+        postStartTask()
 
         service.fetch(whereBookmarkedIs: true) { [weak self] result in
             self?.nowLoading = false
@@ -61,7 +61,7 @@ extension BookmarkedListViewModel {
     }
 
     func willDisappear() {
-        NotificationCenter.default.post(name: .finishTask, object: nil)
+        postStartTask()
     }
 
     private func fetchImagesToFinish(
@@ -70,7 +70,7 @@ extension BookmarkedListViewModel {
     ) {
         guard restaurants.count > .zero else {
             asset = []
-            NotificationCenter.default.post(name: .finishTask, object: nil)
+            postFinishTask()
             completionHandler(true)
             return
         }
@@ -89,7 +89,7 @@ extension BookmarkedListViewModel {
             self?.error = nil
             self?.asset = restaurants
             completionHandler(true)
-            NotificationCenter.default.post(name: .finishTask, object: nil)
+            self?.postFinishTask()
         }
     }
 }

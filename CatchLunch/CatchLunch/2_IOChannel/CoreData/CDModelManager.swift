@@ -7,19 +7,15 @@
 
 import CoreData
 
-final class CDModelManager<Model: NSManagedObject> {
+final class CDModelManager<Model: NSManagedObject>: Notifier {
     private let container: NSPersistentContainer
     private lazy var context = container.newBackgroundContext()
 
     init(about model: Model.Type, inDataModelFileName name: String = "CatchLunch") {
         container = NSPersistentContainer(name: name)
-        container.loadPersistentStores { _, error in
+        container.loadPersistentStores { [weak self] _, error in
             if let error = error {
-                NotificationCenter.default.post(
-                    name: .finishTaskWithError,
-                    object: nil,
-                    userInfo: ["message": error.localizedDescription]
-                )
+                self?.postFinishTaskWithError(message: error.localizedDescription)
             }
         }
     }

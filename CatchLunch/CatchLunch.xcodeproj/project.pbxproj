@@ -50,6 +50,8 @@
 		636A7C2927D62B11000EA2FE /* Notification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A7C2827D62B11000EA2FE /* Notification.Name+.swift */; };
 		636A7C2C27D64157000EA2FE /* RestaurantsViewModelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A7C2B27D64157000EA2FE /* RestaurantsViewModelContainer.swift */; };
 		636A7C2E27D64971000EA2FE /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A7C2D27D64971000EA2FE /* RootCoordinator.swift */; };
+		636DDE2E27F2BC6200D35E54 /* MapRoutingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636DDE2D27F2BC6200D35E54 /* MapRoutingService.swift */; };
+		636DDE3027F2BE2900D35E54 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636DDE2F27F2BE2900D35E54 /* Notifier.swift */; };
 		6375C8BC27CA7BCC00F1D60F /* MockImageNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375C8BB27CA7BCC00F1D60F /* MockImageNetworkManager.swift */; };
 		6375C8BE27CA7D6200F1D60F /* DummyImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6375C8BD27CA7D6200F1D60F /* DummyImage.jpg */; };
 		6375C8C027CA7EDD00F1D60F /* TestImageSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375C8BF27CA7EDD00F1D60F /* TestImageSearcher.swift */; };
@@ -155,6 +157,8 @@
 		636A7C2827D62B11000EA2FE /* Notification.Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+.swift"; sourceTree = "<group>"; };
 		636A7C2B27D64157000EA2FE /* RestaurantsViewModelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewModelContainer.swift; sourceTree = "<group>"; };
 		636A7C2D27D64971000EA2FE /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
+		636DDE2D27F2BC6200D35E54 /* MapRoutingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRoutingService.swift; sourceTree = "<group>"; };
+		636DDE2F27F2BE2900D35E54 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
 		6375C8BB27CA7BCC00F1D60F /* MockImageNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageNetworkManager.swift; sourceTree = "<group>"; };
 		6375C8BD27CA7D6200F1D60F /* DummyImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = DummyImage.jpg; sourceTree = "<group>"; };
 		6375C8BF27CA7EDD00F1D60F /* TestImageSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestImageSearcher.swift; sourceTree = "<group>"; };
@@ -431,6 +435,7 @@
 				63768F1D27E7048E009E3380 /* ImageSearcher */,
 				6331916527E89F55004E8ECB /* RestaurantSearcher */,
 				6332C41C27DDD3B0005F0ED5 /* RestaurantsBookmarkService.swift */,
+				636DDE2D27F2BC6200D35E54 /* MapRoutingService.swift */,
 			);
 			path = 3_Service;
 			sourceTree = "<group>";
@@ -477,6 +482,7 @@
 			isa = PBXGroup;
 			children = (
 				63768F1727E6FEC9009E3380 /* URLFactory.swift */,
+				636DDE2F27F2BE2900D35E54 /* Notifier.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -942,11 +948,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				636DDE3027F2BE2900D35E54 /* Notifier.swift in Sources */,
 				636A7C2927D62B11000EA2FE /* Notification.Name+.swift in Sources */,
 				6367CEDC27C7F60F007E0735 /* Bookmarkable.swift in Sources */,
 				6331916427E89E2C004E8ECB /* GyeonggiParagonRestaurantsAPIResult.swift in Sources */,
 				6379AFBB27C8E48300F84A91 /* NetworkError.swift in Sources */,
 				6367CEDA27C7F60F007E0735 /* RestaurantsViewController.swift in Sources */,
+				636DDE2E27F2BC6200D35E54 /* MapRoutingService.swift in Sources */,
 				63DE3E3C27C8996000A32868 /* NetworkManager.swift in Sources */,
 				636A7C2C27D64157000EA2FE /* RestaurantsViewModelContainer.swift in Sources */,
 				63CB89B327D5C9AA007300C8 /* RestaurantsViewCell.swift in Sources */,

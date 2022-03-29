@@ -33,7 +33,7 @@ where Service.Response == [RestaurantSummary] {
 }
 
 // MARK: - Facade
-extension RestaurantsViewModel {
+extension RestaurantsViewModel: Notifier {
     var nextIndexPaths: [IndexPath] {
         guard let startIndex = itemStartIndex else {
             return []
@@ -66,12 +66,10 @@ extension RestaurantsViewModel {
         if nowLoading { return }
         nowLoading = true
 
-        NotificationCenter.default.post(name: .startTask, object: nil)
+        postStartTask()
 
-        service.fetch(
-            itemPageIndex: pageIndex,
-            requestItemAmount: amount
-        ) { result in
+        service.fetch(itemPageIndex: pageIndex, requestItemAmount: amount) { [weak self] result in
+            guard let self = self else { return }
             self.nowLoading = false
 
             switch result {
@@ -82,10 +80,7 @@ extension RestaurantsViewModel {
                     self.thereIsNoMoreItem = true
                     completionHandler(false)
 
-                    NotificationCenter.default.post(
-                        name: .finishTaskWithError, object: nil,
-                        userInfo: ["message": "더이상 요청할 수 없습니다"]
-                    )
+                    self.postFinishTaskWithError(message: "더이상 요청할 수 없습니다")
                 }
             case .failure(let error):
                 self.error = error
@@ -95,7 +90,7 @@ extension RestaurantsViewModel {
     }
 
     func willDisappear() {
-        NotificationCenter.default.post(name: .finishTask, object: nil)
+        postFinishTask()
     }
 
     private func fetchImages(
@@ -117,7 +112,7 @@ extension RestaurantsViewModel {
             self?.pageIndex += 1
             self?.asset += restaurants
             completionHandler(true)
-            NotificationCenter.default.post(name: .finishTask, object: nil)
+            self?.postFinishTask()
         }
     }
 }
