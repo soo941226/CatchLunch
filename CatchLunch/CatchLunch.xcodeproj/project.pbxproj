@@ -52,6 +52,7 @@
 		636A7C2E27D64971000EA2FE /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A7C2D27D64971000EA2FE /* RootCoordinator.swift */; };
 		636DDE2E27F2BC6200D35E54 /* MapRoutingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636DDE2D27F2BC6200D35E54 /* MapRoutingService.swift */; };
 		636DDE3027F2BE2900D35E54 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636DDE2F27F2BE2900D35E54 /* Notifier.swift */; };
+		636DDE3327F2CF7900D35E54 /* MapRoutingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636DDE3227F2CF7900D35E54 /* MapRoutingError.swift */; };
 		6375C8BC27CA7BCC00F1D60F /* MockImageNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375C8BB27CA7BCC00F1D60F /* MockImageNetworkManager.swift */; };
 		6375C8BE27CA7D6200F1D60F /* DummyImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6375C8BD27CA7D6200F1D60F /* DummyImage.jpg */; };
 		6375C8C027CA7EDD00F1D60F /* TestImageSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375C8BF27CA7EDD00F1D60F /* TestImageSearcher.swift */; };
@@ -159,6 +160,7 @@
 		636A7C2D27D64971000EA2FE /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		636DDE2D27F2BC6200D35E54 /* MapRoutingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRoutingService.swift; sourceTree = "<group>"; };
 		636DDE2F27F2BE2900D35E54 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
+		636DDE3227F2CF7900D35E54 /* MapRoutingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRoutingError.swift; sourceTree = "<group>"; };
 		6375C8BB27CA7BCC00F1D60F /* MockImageNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageNetworkManager.swift; sourceTree = "<group>"; };
 		6375C8BD27CA7D6200F1D60F /* DummyImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = DummyImage.jpg; sourceTree = "<group>"; };
 		6375C8BF27CA7EDD00F1D60F /* TestImageSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestImageSearcher.swift; sourceTree = "<group>"; };
@@ -347,14 +349,6 @@
 			path = RestaurantSearcher;
 			sourceTree = "<group>";
 		};
-		633B069527E44C21007024B5 /* error */ = {
-			isa = PBXGroup;
-			children = (
-				633B069627E44C2C007024B5 /* ImageSearchError.swift */,
-			);
-			path = error;
-			sourceTree = "<group>";
-		};
 		634C229027DB781B0011EDBB /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -430,12 +424,11 @@
 		6367CED127C7F60F007E0735 /* 3_Service */ = {
 			isa = PBXGroup;
 			children = (
-				633B069527E44C21007024B5 /* error */,
 				6367CED227C7F60F007E0735 /* protocol */,
 				63768F1D27E7048E009E3380 /* ImageSearcher */,
 				6331916527E89F55004E8ECB /* RestaurantSearcher */,
+				636DDE3127F2CF5700D35E54 /* MapRouter */,
 				6332C41C27DDD3B0005F0ED5 /* RestaurantsBookmarkService.swift */,
-				636DDE2D27F2BC6200D35E54 /* MapRoutingService.swift */,
 			);
 			path = 3_Service;
 			sourceTree = "<group>";
@@ -466,6 +459,15 @@
 			path = protocol;
 			sourceTree = "<group>";
 		};
+		636DDE3127F2CF5700D35E54 /* MapRouter */ = {
+			isa = PBXGroup;
+			children = (
+				636DDE2D27F2BC6200D35E54 /* MapRoutingService.swift */,
+				636DDE3227F2CF7900D35E54 /* MapRoutingError.swift */,
+			);
+			path = MapRouter;
+			sourceTree = "<group>";
+		};
 		6375C8C127CA85A500F1D60F /* 4_ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -490,6 +492,7 @@
 		63768F1D27E7048E009E3380 /* ImageSearcher */ = {
 			isa = PBXGroup;
 			children = (
+				633B069627E44C2C007024B5 /* ImageSearchError.swift */,
 				63768F1B27E7048A009E3380 /* AbstarctImageSearcher.swift */,
 				63018DF127C92B6200363F00 /* NaverImageSearcher.swift */,
 				633B069827E477E6007024B5 /* DaumImageSearcher.swift */,
@@ -949,6 +952,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				636DDE3027F2BE2900D35E54 /* Notifier.swift in Sources */,
+				636DDE3327F2CF7900D35E54 /* MapRoutingError.swift in Sources */,
 				636A7C2927D62B11000EA2FE /* Notification.Name+.swift in Sources */,
 				6367CEDC27C7F60F007E0735 /* Bookmarkable.swift in Sources */,
 				6331916427E89E2C004E8ECB /* GyeonggiParagonRestaurantsAPIResult.swift in Sources */,
