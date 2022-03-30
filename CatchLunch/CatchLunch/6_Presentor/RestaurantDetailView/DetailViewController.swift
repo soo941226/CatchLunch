@@ -12,6 +12,7 @@ where ViewModel.Element == RestaurantSummary {
     private let detailView = DetailInformationView()
     private let viewModel: ViewModel
     private var information: RestaurantInformation?
+    private weak var coordinator: Coordiantorable?
 
     init(with viewModel: ViewModel) {
         self.viewModel = viewModel

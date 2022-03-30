@@ -8,7 +8,7 @@
 import UIKit
 
 final class ConfigurationViewController: UIViewController {
-    private var coordinator: Coordiantorable?
+    private weak var coordinator: Coordiantorable?
     private let upperStackView = UIStackView()
     private let lowerStackView = UIStackView()
     private let copyrightButton = GuideButton()
