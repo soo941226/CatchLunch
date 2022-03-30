@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class RootCoordinator: Coordiantorable {
+final class RootCoordinator: Coordinatorable {
     private unowned var navigationController: UINavigationController!
-    private(set) var childCoodinator = [Coordiantorable]()
+    private(set) var childCoodinator = [Coordinatorable]()
 
     private let searchBarController = SearchViewController()
     private var observer: NSKeyValueObservation?
@@ -34,7 +34,7 @@ final class RootCoordinator: Coordiantorable {
 
     private func setUpRestaurantView(into container: inout [UIViewController]) {
         let coordinator = RestaurantCoordinator(on: navigationController)
-        let viewModel = RestaurantsViewModel(service: GyeonggiRestaurantsSearcher())
+        let viewModel = RestaurantListViewModel(service: GyeonggiRestaurantsSearcher())
         let controller = RestaurantsViewController(with: viewModel, under: coordinator)
         coordinator.parent = self
         childCoodinator.append(coordinator)
@@ -49,7 +49,7 @@ final class RootCoordinator: Coordiantorable {
 
     private func setUpParagonRestaurantView(into container: inout [UIViewController]) {
         let coordinator = RestaurantCoordinator(on: navigationController)
-        let viewModel = RestaurantsViewModel(service: GyeonggiParagonRestaurantSearcher())
+        let viewModel = RestaurantListViewModel(service: GyeonggiParagonRestaurantSearcher())
         let controller = RestaurantsViewController(with: viewModel, under: coordinator)
         coordinator.parent = self
         childCoodinator.append(coordinator)

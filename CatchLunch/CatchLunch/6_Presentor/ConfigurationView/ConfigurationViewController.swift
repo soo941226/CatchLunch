@@ -8,7 +8,7 @@
 import UIKit
 
 final class ConfigurationViewController: UIViewController {
-    private weak var coordinator: Coordiantorable?
+    private var coordinator: Coordinatorable?
     private let upperStackView = UIStackView()
     private let lowerStackView = UIStackView()
     private let copyrightButton = GuideButton()
@@ -16,7 +16,7 @@ final class ConfigurationViewController: UIViewController {
 
     private(set) var selected = Selected.copyright
 
-    init(under coordinator: Coordiantorable) {
+    init(under coordinator: Coordinatorable) {
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
