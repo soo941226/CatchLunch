@@ -21,7 +21,7 @@ final class RestaurantCoordinator: Coordinatorable {
         }
 
         let viewModel = RestaurantsBookmarkViewModel(under: RestaurantsBookmarkService.shared)
-        let nextViewController = DetailViewController(with: viewModel)
+        let nextViewController = RestaurantDetailViewController(with: viewModel)
         nextViewController.configure(with: model)
         navigationController.pushViewController(nextViewController, animated: false)
     }

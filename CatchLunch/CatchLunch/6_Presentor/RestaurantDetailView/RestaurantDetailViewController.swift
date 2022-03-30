@@ -1,5 +1,5 @@
 //
-//  DetailViewController.swift
+//  RestaurantDetailViewController.swift
 //  CatchLunch
 //
 //  Created by kjs on 2022/03/08.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class DetailViewController<ViewModel: BookmarkViewModel>: UIViewController
+final class RestaurantDetailViewController<ViewModel: BookmarkViewModel>: UIViewController
 where ViewModel.Element == RestaurantSummary {
-    private let detailView = DetailInformationView()
+    private let detailView = RestaurantDetailInformationView()
     private let viewModel: ViewModel
     private var information: RestaurantInformation?
 

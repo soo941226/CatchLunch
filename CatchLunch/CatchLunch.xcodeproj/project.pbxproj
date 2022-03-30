@@ -45,8 +45,8 @@
 		6367CEE027C7F60F007E0735 /* SearchServiceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6367CED327C7F60F007E0735 /* SearchServiceable.swift */; };
 		6367CEE127C7F60F007E0735 /* BookmarkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6367CED427C7F60F007E0735 /* BookmarkService.swift */; };
 		6369AC9A27D725D50076719E /* RestaurantCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6369AC9927D725D50076719E /* RestaurantCoordinator.swift */; };
-		6369AC9D27D7298D0076719E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6369AC9C27D7298D0076719E /* DetailViewController.swift */; };
-		6369ACA027D7389F0076719E /* DetailInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6369AC9F27D7389F0076719E /* DetailInformationView.swift */; };
+		6369AC9D27D7298D0076719E /* RestaurantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6369AC9C27D7298D0076719E /* RestaurantDetailViewController.swift */; };
+		6369ACA027D7389F0076719E /* RestaurantDetailInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6369AC9F27D7389F0076719E /* RestaurantDetailInformationView.swift */; };
 		636A7C2927D62B11000EA2FE /* Notification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A7C2827D62B11000EA2FE /* Notification.Name+.swift */; };
 		636A7C2C27D64157000EA2FE /* RestaurantsViewModelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A7C2B27D64157000EA2FE /* RestaurantsViewModelContainer.swift */; };
 		636A7C2E27D64971000EA2FE /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A7C2D27D64971000EA2FE /* RootCoordinator.swift */; };
@@ -152,8 +152,8 @@
 		6367CED327C7F60F007E0735 /* SearchServiceable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchServiceable.swift; sourceTree = "<group>"; };
 		6367CED427C7F60F007E0735 /* BookmarkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkService.swift; sourceTree = "<group>"; };
 		6369AC9927D725D50076719E /* RestaurantCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantCoordinator.swift; sourceTree = "<group>"; };
-		6369AC9C27D7298D0076719E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		6369AC9F27D7389F0076719E /* DetailInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInformationView.swift; sourceTree = "<group>"; };
+		6369AC9C27D7298D0076719E /* RestaurantDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailViewController.swift; sourceTree = "<group>"; };
+		6369AC9F27D7389F0076719E /* RestaurantDetailInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailInformationView.swift; sourceTree = "<group>"; };
 		636A7C2827D62B11000EA2FE /* Notification.Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+.swift"; sourceTree = "<group>"; };
 		636A7C2B27D64157000EA2FE /* RestaurantsViewModelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewModelContainer.swift; sourceTree = "<group>"; };
 		636A7C2D27D64971000EA2FE /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
@@ -452,8 +452,8 @@
 		6369AC9B27D729710076719E /* RestaurantDetailView */ = {
 			isa = PBXGroup;
 			children = (
-				6369AC9C27D7298D0076719E /* DetailViewController.swift */,
-				6369AC9F27D7389F0076719E /* DetailInformationView.swift */,
+				6369AC9C27D7298D0076719E /* RestaurantDetailViewController.swift */,
+				6369AC9F27D7389F0076719E /* RestaurantDetailInformationView.swift */,
 			);
 			path = RestaurantDetailView;
 			sourceTree = "<group>";
@@ -961,7 +961,7 @@
 				63768F1C27E7048A009E3380 /* AbstarctImageSearcher.swift in Sources */,
 				63137BA027E9910500874F73 /* CautionViewController.swift in Sources */,
 				63F3D15327DE11B300A18554 /* RestaurantsBookmarkViewModel.swift in Sources */,
-				6369AC9D27D7298D0076719E /* DetailViewController.swift in Sources */,
+				6369AC9D27D7298D0076719E /* RestaurantDetailViewController.swift in Sources */,
 				6332C41D27DDD3B0005F0ED5 /* RestaurantsBookmarkService.swift in Sources */,
 				63F3D15127DE0A6200A18554 /* BookmarkViewModel.swift in Sources */,
 				638666A427DF6D6C0060ACE5 /* BookmarkdListViewController.swift in Sources */,
@@ -984,7 +984,7 @@
 				63CB89B627D5DF85007300C8 /* String+.swift in Sources */,
 				638666A227DF58C90060ACE5 /* BookmarkedListViewModel.swift in Sources */,
 				63A6B33B27CCB3F10059C283 /* HiddenConfiguration.swift in Sources */,
-				6369ACA027D7389F0076719E /* DetailInformationView.swift in Sources */,
+				6369ACA027D7389F0076719E /* RestaurantDetailInformationView.swift in Sources */,
 				6367CEE127C7F60F007E0735 /* BookmarkService.swift in Sources */,
 				6375C8C327CA880700F1D60F /* ViewModelable.swift in Sources */,
 				6369AC9A27D725D50076719E /* RestaurantCoordinator.swift in Sources */,
