@@ -125,6 +125,8 @@ private extension RestaurantDetailViewController {
 
     private func focusMap(onY latitude: Double, andX longitude: Double) {
         let placeHolder = 2000.0
+        mapView.isRotateEnabled = false
+        mapView.isPitchEnabled = false
         mapView.setCameraZoomRange(.init(maxCenterCoordinateDistance: placeHolder), animated: false)
         mapView.setCenter(.init(latitude: latitude, longitude: longitude), animated: false)
         mapView.addAnnotation(MapMarker(latitdue: latitude, longitude: longitude))
