@@ -19,7 +19,7 @@ final class CopyRightViewController: UIViewController {
         scrollView.addSubview(button)
         button.setTitle("Logo: Meal Vectors by Vecteezy", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
-        button.addTarget(self, action: #selector(go), for: .touchDown)
+        button.addTarget(self, action: #selector(go), for: .touchUpInside)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -27,11 +27,9 @@ final class CopyRightViewController: UIViewController {
         view.backgroundColor = .systemBackground
         button.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: view.topAnchor, constant: 20.0),
-            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 20.0),
-            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20.0),
-            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20.0)
-
+            button.topAnchor.constraint(equalTo: view.topAnchor, constant: .headInset),
+            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .headInset),
+            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: .tailInset)
         ])
     }
 

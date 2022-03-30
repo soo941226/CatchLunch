@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import MapKit
 
 final class RestaurantDetailView: UIView {
     private let imageView: UIImageView = {
@@ -45,12 +44,6 @@ final class RestaurantDetailView: UIView {
         return label
     }()
 
-    private let mapView: MKMapView = {
-        let mapView = MKMapView()
-        mapView.cameraZoomRange = .init(maxCenterCoordinateDistance: 500.0)
-        return mapView
-    }()
-
     private let viewSpacing: CGFloat = 1.0
 
     required init?(coder: NSCoder) {
@@ -65,7 +58,7 @@ final class RestaurantDetailView: UIView {
 
     private func setUpLabelContainer() {
         labelContainer.isLayoutMarginsRelativeArrangement = true
-        labelContainer.directionalLayoutMargins = .init(top: .zero, leading: 10.0, bottom: .zero, trailing: 10.0)
+        labelContainer.directionalLayoutMargins = .init(dx: .headInset, dy: .zero)
         labelContainer
             .addArrangedSubviews(
                 mainFoodsLabel, phoneNumberLabel,
@@ -79,7 +72,7 @@ final class RestaurantDetailView: UIView {
         let outerStackView = UIStackView()
 
         outerStackView
-            .addArrangedSubviews(imageView, labelContainer, mapView)
+            .addArrangedSubviews(imageView, labelContainer)
             .configure(axis: .vertical, distribution: .fillEqually, alignment: .fill)
             .insert(into: self)
 
@@ -112,13 +105,5 @@ extension RestaurantDetailView {
         phoneNumberLabel.accessibilityValue = summary.phoneNumber
         roadAddressLabel.accessibilityValue = summary.roadNameAddress
         locationAddressLabel.accessibilityValue = summary.locationNameAddress
-
-        guard let longitude = information.summary.longitude,
-           let latitude = information.summary.latitude else {
-               return
-           }
-
-        mapView.addAnnotation(MapMarker(latitdue: latitude, longitude: longitude))
-        mapView.centerCoordinate = .init(latitude: latitude, longitude: longitude)
     }
 }

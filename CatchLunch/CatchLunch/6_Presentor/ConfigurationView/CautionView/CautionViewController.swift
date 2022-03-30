@@ -11,7 +11,7 @@ final class CautionViewController: UIViewController {
     private let textView = UITextView()
     override func loadView() {
         view = textView
-        textView.directionalLayoutMargins = .init(top: 10.0, leading: 10.0, bottom: 10.0, trailing: 10.0)
+        textView.directionalLayoutMargins = .init(dx: .headInset, dy: .headInset)
         textView.font = .preferredFont(forTextStyle: .body)
         textView.text = """
 유의사항: CatchLunch 내에서 가져오는 모든 이미지는 네이버 및 다음을 통해 음식이름을 검색하여 가져온 이미지입니다.

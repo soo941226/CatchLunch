@@ -30,7 +30,7 @@ final class ConfigurationViewController: UIViewController {
         setUpCopyrightButton()
         setUpCautionButton()
         setUpButtonStackView()
-        setUpCommentStackView()
+        setUpLowerStackView()
         setUpStyle(ofButtons: copyrightButton, cautionButton)
     }
 
@@ -41,11 +41,11 @@ final class ConfigurationViewController: UIViewController {
         lowerStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             upperStackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            upperStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: .pi),
-            upperStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: .pi),
+            upperStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: .headInset),
+            upperStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: .tailInset),
             lowerStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-            lowerStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: .pi),
-            lowerStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: .pi)
+            lowerStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: .headInset),
+            lowerStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: .tailInset)
         ])
     }
 
@@ -54,7 +54,7 @@ final class ConfigurationViewController: UIViewController {
             button.setTitleColor(.label, for: .normal)
             button.layer.borderWidth = 0.5
             button.layer.borderColor = UIColor.systemBlue.cgColor
-            button.layer.cornerRadius = 10.0
+            button.layer.cornerRadius = .cornerRadius
             button.titleLabel?.numberOfLines = .zero
             button.titleLabel?.font = .preferredFont(forTextStyle: .body)
         }
@@ -77,12 +77,12 @@ final class ConfigurationViewController: UIViewController {
     private func setUpButtonStackView() {
         upperStackView.insert(into: self.view)
             .addArrangedSubviews(copyrightButton, cautionButton, UIView())
-            .configure(axis: .horizontal, distribution: .fillEqually, alignment: .fill, spacing: .pi)
+            .configure(axis: .horizontal, distribution: .fillEqually, alignment: .fill, spacing: .headInset)
     }
 
-    private func setUpCommentStackView() {
+    private func setUpLowerStackView() {
         let versionLabel = UILabel()
-        versionLabel.text = "v0.0.2"
+        versionLabel.text = "v0.0.3"
         versionLabel.font = .preferredFont(forTextStyle: .caption2)
         versionLabel.textAlignment = .center
         versionLabel.textColor = .secondaryLabel

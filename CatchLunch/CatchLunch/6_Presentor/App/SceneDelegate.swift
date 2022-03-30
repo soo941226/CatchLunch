@@ -80,11 +80,10 @@ extension SceneDelegate {
     }
 
     private func setUpIndicator() {
-        let basicMargin: CGFloat = -8.0
         indicator.backgroundColor = .darkGray
         indicator.color = .white
-        indicator.frame = indicator.frame.insetBy(dx: basicMargin, dy: basicMargin)
-        indicator.layer.cornerRadius = .pi
+        indicator.frame = indicator.frame.insetBy(dx: .headInset, dy: .headInset)
+        indicator.layer.cornerRadius = .cornerRadius
         indicator.insert(into: window)
     }
 

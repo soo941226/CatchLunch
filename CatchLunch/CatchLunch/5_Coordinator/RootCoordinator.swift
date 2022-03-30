@@ -40,10 +40,9 @@ final class RootCoordinator: Coordinatorable {
         childCoodinator.append(coordinator)
 
         let itemImage = UIImage(named: "yum")?.withRenderingMode(.alwaysOriginal)
-        let insetAmount = 6.0
 
         controller.tabBarItem = .init(title: "맛집", image: itemImage, selectedImage: nil)
-        controller.tabBarItem.imageInsets = .init(dx: insetAmount, dy: insetAmount)
+        controller.tabBarItem.imageInsets = .init(dx: .headInset, dy: .headInset)
         container.append(controller)
     }
 
@@ -55,10 +54,9 @@ final class RootCoordinator: Coordinatorable {
         childCoodinator.append(coordinator)
 
         let itemImage = UIImage(named: "cook")?.withRenderingMode(.alwaysOriginal)
-        let insetAmount = 6.0
 
         controller.tabBarItem = .init(title: "모범식당", image: itemImage, selectedImage: nil)
-        controller.tabBarItem.imageInsets = .init(dx: insetAmount, dy: insetAmount)
+        controller.tabBarItem.imageInsets = .init(dx: .headInset, dy: .headInset)
         container.append(controller)
     }
 

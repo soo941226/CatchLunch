@@ -11,10 +11,9 @@ final class MapRoutingService: NSObject {
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
     private var startPlace: MKMapItem?
-    private let errorHandler: ((Error) -> Void)
+    private var errorHandler: ((Error) -> Void)?
 
-    init(errorHandler: @escaping (Error) -> Void) {
-        self.errorHandler = errorHandler
+    override init() {
         super.init()
         setUpManager()
     }
@@ -28,13 +27,17 @@ final class MapRoutingService: NSObject {
 
 // MARK: - Facade
 extension MapRoutingService {
+    func setUp(errorHandler: @escaping (Error) -> Void) {
+        self.errorHandler = errorHandler
+    }
+
     func requestRouting(
         toY latitude: Double,
         andX longitude: Double,
         completionHandler: @escaping (Result<[MKRoute], Error>) -> Void
     ) {
         guard let startPlace = startPlace else {
-            errorHandler(MapRoutingError.locationsIsEmpty)
+            errorHandler?(MapRoutingError.locationsIsEmpty)
             return
         }
 
@@ -62,7 +65,7 @@ extension MapRoutingService {
 extension MapRoutingService: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         guard status == .authorizedWhenInUse || status == .authorizedAlways else {
-            errorHandler(MapRoutingError.authorityIsInsufficient)
+            errorHandler?(MapRoutingError.authorityIsInsufficient)
             return
         }
 
@@ -70,7 +73,7 @@ extension MapRoutingService: CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        errorHandler(error)
+        errorHandler?(error)
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -80,12 +83,12 @@ extension MapRoutingService: CLLocationManagerDelegate {
             guard let self = self else { return }
 
             if let error = error {
-                self.errorHandler(error)
+                self.errorHandler?(error)
                 return
             }
 
             guard let placemark = placemarks?.first else {
-                self.errorHandler(MapRoutingError.placemarksIsEmpty)
+                self.errorHandler?(MapRoutingError.placemarksIsEmpty)
                 return
             }
 
