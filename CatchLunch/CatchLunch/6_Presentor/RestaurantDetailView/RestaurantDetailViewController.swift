@@ -47,10 +47,10 @@ where ViewModel.Element == RestaurantInformation {
         super.viewDidLoad()
         viewModel.check() { [weak self] in
             guard let self = self else { return }
-            self.refreshBookmarkButton()
 
             DispatchQueue.main.async { [weak self] in
                 self?.setUpContents()
+                self?.refreshBookmarkButton()
             }
         }
     }
@@ -62,9 +62,15 @@ where ViewModel.Element == RestaurantInformation {
 
     private func setUpContents() {
         let summary = viewModel.information.summary
+        let bookmarkButton = UIBarButtonItem(
+            image: nil, style: .plain,
+            target: self, action: #selector(toggleBookmark)
+        )
         navigationItem.title = summary.restaurantName
+        navigationItem.setRightBarButton(bookmarkButton, animated: false)
+
         detailView.configure(with: viewModel.information)
-        routingButton.addTarget(self, action: #selector(showConfirmAlert), for: .touchUpInside)
+        routingButton.addTarget(self, action: #selector(routingStart), for: .touchUpInside)
 
         if let latitude = summary.latitude, let longitude = summary.longitude {
             focusMap(onY: latitude, andX: longitude)
@@ -73,18 +79,12 @@ where ViewModel.Element == RestaurantInformation {
 
     private func refreshBookmarkButton() {
         let buttonImage = viewModel.button
-        let bookmarkButton = UIBarButtonItem(
-            image: buttonImage, style: .plain,
-            target: self, action: #selector(toggleBookmark)
-        )
-
         DispatchQueue.main.async { [weak self] in
-            self?.navigationItem.rightBarButtonItem = nil
-            self?.navigationItem.setRightBarButton(bookmarkButton, animated: false)
+            self?.navigationItem.rightBarButtonItem?.image = buttonImage
         }
     }
 
-    @objc private func showConfirmAlert() {
+    @objc private func routingStart() {
         coordinator?.start()
     }
 
