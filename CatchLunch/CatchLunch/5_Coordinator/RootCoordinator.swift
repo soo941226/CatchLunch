@@ -34,7 +34,7 @@ final class RootCoordinator: Coordinatorable {
 
     private func setUpRestaurantView(into container: inout [UIViewController]) {
         let coordinator = RestaurantCoordinator(on: navigationController)
-        let viewModel = RestaurantsViewModel(service: GyeonggiRestaurantsSearcher())
+        let viewModel = RestaurantListViewModel(service: GyeonggiRestaurantsSearcher())
         let controller = RestaurantsViewController(with: viewModel, under: coordinator)
         coordinator.parent = self
         childCoodinator.append(coordinator)
@@ -49,7 +49,7 @@ final class RootCoordinator: Coordinatorable {
 
     private func setUpParagonRestaurantView(into container: inout [UIViewController]) {
         let coordinator = RestaurantCoordinator(on: navigationController)
-        let viewModel = RestaurantsViewModel(service: GyeonggiParagonRestaurantSearcher())
+        let viewModel = RestaurantListViewModel(service: GyeonggiParagonRestaurantSearcher())
         let controller = RestaurantsViewController(with: viewModel, under: coordinator)
         coordinator.parent = self
         childCoodinator.append(coordinator)

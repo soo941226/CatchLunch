@@ -1,5 +1,5 @@
 //
-//  RestaurantDetailInformationView.swift
+//  RestaurantDetailView.swift
 //  CatchLunch
 //
 //  Created by kjs on 2022/03/08.
@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-final class RestaurantDetailInformationView: UIView {
+final class RestaurantDetailView: UIView {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -94,7 +94,7 @@ final class RestaurantDetailInformationView: UIView {
 }
 
 // MARK: - Facade
-extension RestaurantDetailInformationView {
+extension RestaurantDetailView {
     func configure(with information: RestaurantInformation) {
         let (summary, image) = information
         imageView.image = image

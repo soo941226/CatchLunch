@@ -11,11 +11,12 @@ protocol BookmarkViewModel {
     associatedtype Service
     associatedtype Element
 
-    init(under: Service)
+    init(under: Service, with: Element)
 
+    var information: Element { get }
     var error: Error? { get }
-    var button: (on: UIImage?, off: UIImage?) { get }
+    var button: UIImage? { get }
 
-    func check(about: Element, then: @escaping (_ isBookmarked: Bool) -> Void)
-    func toggle(about: Element)
+    func check(then: @escaping () -> Void)
+    func toggle(then: @escaping () -> Void)
 }

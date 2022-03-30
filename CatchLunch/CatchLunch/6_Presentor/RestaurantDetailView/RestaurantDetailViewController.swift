@@ -8,13 +8,14 @@
 import UIKit
 
 final class RestaurantDetailViewController<ViewModel: BookmarkViewModel>: UIViewController
-where ViewModel.Element == RestaurantSummary {
-    private let detailView = RestaurantDetailInformationView()
+where ViewModel.Element == RestaurantInformation {
+    private let detailView = RestaurantDetailView()
     private let viewModel: ViewModel
-    private var information: RestaurantInformation?
+    private weak var coordinator: Coordinatorable?
 
-    init(with viewModel: ViewModel) {
+    init(with viewModel: ViewModel, coordinator: Coordinatorable? = nil) {
         self.viewModel = viewModel
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -26,42 +27,41 @@ where ViewModel.Element == RestaurantSummary {
         view = detailView
     }
 
-    func configure(with information: RestaurantInformation) {
-        self.information = information
-
-        viewModel.check(about: information.summary) { [weak self] isBookmarked in
-            if isBookmarked != information.summary.isBookmarked {
-                self?.information?.summary.toggledBookmark()
-            }
-
-            self?.toggleButton(on: isBookmarked)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewModel.check() { [weak self] in
+            guard let self = self else { return }
+            self.refreshBookmarkButton()
 
             DispatchQueue.main.async {
-                self?.navigationItem.title = information.summary.restaurantName
-                self?.detailView.configure(with: information)
+                self.initView()
             }
         }
     }
 
-    private func toggleButton(on isBookmarked: Bool) {
-        let image = isBookmarked ? viewModel.button.on : viewModel.button.off
+    private func initView() {
+        navigationItem.title = viewModel.information.summary.restaurantName
+        detailView.configure(with: viewModel.information)
+    }
+
+    private func refreshBookmarkButton() {
+        let buttonImage = viewModel.button
         let bookmarkButton = UIBarButtonItem(
-            image: image,
+            image: buttonImage,
             style: .plain,
             target: self,
             action: #selector(toggleBookmark)
         )
 
         DispatchQueue.main.async { [weak self] in
+            self?.navigationItem.rightBarButtonItem = nil
             self?.navigationItem.setRightBarButton(bookmarkButton, animated: false)
         }
     }
 
     @objc private func toggleBookmark() {
-        self.information?.summary.toggledBookmark()
-
-        guard let information = information else { return }
-        viewModel.toggle(about: information.summary)
-        toggleButton(on: information.summary.isBookmarked)
+        viewModel.toggle { [weak self] in
+            self?.refreshBookmarkButton()
+        }
     }
 }

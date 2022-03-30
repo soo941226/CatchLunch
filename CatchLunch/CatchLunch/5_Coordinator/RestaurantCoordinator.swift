@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 final class RestaurantCoordinator: Coordinatorable {
     private unowned var navigationController: UINavigationController!
     private(set) var childCoodinator = [Coordinatorable]()
@@ -20,9 +21,8 @@ final class RestaurantCoordinator: Coordinatorable {
             return
         }
 
-        let viewModel = RestaurantsBookmarkViewModel(under: RestaurantsBookmarkService.shared)
+        let viewModel = RestaurantDetailViewModel(under: RestaurantsBookmarkService.shared, with: model)
         let nextViewController = RestaurantDetailViewController(with: viewModel)
-        nextViewController.configure(with: model)
         navigationController.pushViewController(nextViewController, animated: false)
     }
 }

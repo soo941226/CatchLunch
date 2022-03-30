@@ -1,5 +1,5 @@
 //
-//  RestaurantsViewModel.swift
+//  RestaurantListViewModel.swift
 //  CatchLunch
 //
 //  Created by kjs on 2022/02/28.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RestaurantsViewModel<Service: PagingSearchService>: PagingSearchViewModelable
+final class RestaurantListViewModel<Service: PagingSearchService>: PagingSearchViewModelable
 where Service.Response == [RestaurantSummary] {
     private let service: Service
     private let imageSearchViewModel = ImageViewModel(service: NaverImageSearcher(), DaumImageSearcher())
@@ -33,7 +33,7 @@ where Service.Response == [RestaurantSummary] {
 }
 
 // MARK: - Facade
-extension RestaurantsViewModel: Notifier {
+extension RestaurantListViewModel: Notifier {
     var nextIndexPaths: [IndexPath] {
         guard let startIndex = itemStartIndex else {
             return []
