@@ -340,13 +340,14 @@
 			path = ConfigurationView;
 			sourceTree = "<group>";
 		};
-		6331916527E89F55004E8ECB /* RestaurantSearcher */ = {
+		6331916527E89F55004E8ECB /* Restaurant */ = {
 			isa = PBXGroup;
 			children = (
 				63DE3E3D27C8A81D00A32868 /* GyeonggiRestaurantsSearcher.swift */,
 				6331916127E89D1B004E8ECB /* GyeonggiParagonRestaurantSearcher.swift */,
+				6332C41C27DDD3B0005F0ED5 /* RestaurantsBookmarkService.swift */,
 			);
-			path = RestaurantSearcher;
+			path = Restaurant;
 			sourceTree = "<group>";
 		};
 		634C229027DB781B0011EDBB /* Common */ = {
@@ -426,9 +427,8 @@
 			children = (
 				6367CED227C7F60F007E0735 /* protocol */,
 				63768F1D27E7048E009E3380 /* ImageSearcher */,
-				6331916527E89F55004E8ECB /* RestaurantSearcher */,
+				6331916527E89F55004E8ECB /* Restaurant */,
 				636DDE3127F2CF5700D35E54 /* MapRouter */,
-				6332C41C27DDD3B0005F0ED5 /* RestaurantsBookmarkService.swift */,
 			);
 			path = 3_Service;
 			sourceTree = "<group>";
