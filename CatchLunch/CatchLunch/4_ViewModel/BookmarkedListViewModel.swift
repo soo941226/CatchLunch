@@ -61,7 +61,7 @@ extension BookmarkedListViewModel: Notifier {
     }
 
     func willDisappear() {
-        postStartTask()
+        postFinishTask()
     }
 
     private func fetchImagesToFinish(
