@@ -17,7 +17,7 @@
 		631BAA2B27DB965B00A59AAA /* DummyURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631BAA2A27DB965B00A59AAA /* DummyURLRequest.swift */; };
 		6325642327DC8C49008D4195 /* DummyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6325642227DC8C49008D4195 /* DummyError.swift */; };
 		6329D66727CAA60300B0E1DC /* DummyText.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6329D66627CAA60300B0E1DC /* DummyText.txt */; };
-		632B2B0C27CF9E9B00B7AB94 /* Coordiantorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632B2B0B27CF9E9B00B7AB94 /* Coordiantorable.swift */; };
+		632B2B0C27CF9E9B00B7AB94 /* Coordinatorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632B2B0B27CF9E9B00B7AB94 /* Coordinatorable.swift */; };
 		632B2D0F27CFC6760018BECC /* GyeonggiRestaurantsAPIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632B2D0E27CFC6760018BECC /* GyeonggiRestaurantsAPIResult.swift */; };
 		632F73B027E88AEC00C24313 /* ConfigurationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632F73AF27E88AEC00C24313 /* ConfigurationCoordinator.swift */; };
 		632F73B327E88C2400C24313 /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632F73B227E88C2400C24313 /* ConfigurationViewController.swift */; };
@@ -124,7 +124,7 @@
 		631BAA2A27DB965B00A59AAA /* DummyURLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyURLRequest.swift; sourceTree = "<group>"; };
 		6325642227DC8C49008D4195 /* DummyError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyError.swift; sourceTree = "<group>"; };
 		6329D66627CAA60300B0E1DC /* DummyText.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DummyText.txt; sourceTree = "<group>"; };
-		632B2B0B27CF9E9B00B7AB94 /* Coordiantorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordiantorable.swift; sourceTree = "<group>"; };
+		632B2B0B27CF9E9B00B7AB94 /* Coordinatorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinatorable.swift; sourceTree = "<group>"; };
 		632B2D0E27CFC6760018BECC /* GyeonggiRestaurantsAPIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyeonggiRestaurantsAPIResult.swift; sourceTree = "<group>"; };
 		632F73AF27E88AEC00C24313 /* ConfigurationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationCoordinator.swift; sourceTree = "<group>"; };
 		632F73B227E88C2400C24313 /* ConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
@@ -311,7 +311,7 @@
 		632B2B0D27CF9E9C00B7AB94 /* protocol */ = {
 			isa = PBXGroup;
 			children = (
-				632B2B0B27CF9E9B00B7AB94 /* Coordiantorable.swift */,
+				632B2B0B27CF9E9B00B7AB94 /* Coordinatorable.swift */,
 			);
 			path = protocol;
 			sourceTree = "<group>";
@@ -973,7 +973,7 @@
 				6367CEDD27C7F60F007E0735 /* Restaurant.swift in Sources */,
 				63768F1A27E70049009E3380 /* DaumImageSearchResult.swift in Sources */,
 				63018DF227C92B6200363F00 /* NaverImageSearcher.swift in Sources */,
-				632B2B0C27CF9E9B00B7AB94 /* Coordiantorable.swift in Sources */,
+				632B2B0C27CF9E9B00B7AB94 /* Coordinatorable.swift in Sources */,
 				632F73B027E88AEC00C24313 /* ConfigurationCoordinator.swift in Sources */,
 				63DE3E3927C898F800A32868 /* NetworkManagable.swift in Sources */,
 				6367CEE027C7F60F007E0735 /* SearchServiceable.swift in Sources */,

@@ -6,9 +6,9 @@
 //
 
 import UIKit
-final class RestaurantCoordinator: Coordiantorable {
+final class RestaurantCoordinator: Coordinatorable {
     private unowned var navigationController: UINavigationController!
-    private(set) var childCoodinator = [Coordiantorable]()
+    private(set) var childCoodinator = [Coordinatorable]()
     weak var parent: ParentCoordinator?
 
     init(on navigationController: UINavigationController) {

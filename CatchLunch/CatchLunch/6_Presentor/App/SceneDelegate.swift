@@ -9,7 +9,7 @@ import UIKit
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let indicator = UIActivityIndicatorView(style: .medium)
-    private var coordinator: Coordiantorable?
+    private var coordinator: Coordinatorable?
     var window: UIWindow?
 
     func scene(

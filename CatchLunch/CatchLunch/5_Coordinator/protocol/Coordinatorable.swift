@@ -1,5 +1,5 @@
 //
-//  Coordiantorable.swift
+//  Coordinatorable.swift
 //  CatchLunch
 //
 //  Created by kjs on 2022/03/02.
@@ -10,8 +10,8 @@ protocol ParentCoordinator: AnyObject {
     var model: RestaurantInformation? { get }
 }
 
-protocol Coordiantorable: AnyObject {
+protocol Coordinatorable: AnyObject {
     init(on navigationController: UINavigationController)
-    var childCoodinator: [Coordiantorable] { get }
+    var childCoodinator: [Coordinatorable] { get }
     func start()
 }

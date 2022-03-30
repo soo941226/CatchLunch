@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class RootCoordinator: Coordiantorable {
+final class RootCoordinator: Coordinatorable {
     private unowned var navigationController: UINavigationController!
-    private(set) var childCoodinator = [Coordiantorable]()
+    private(set) var childCoodinator = [Coordinatorable]()
 
     private let searchBarController = SearchViewController()
     private var observer: NSKeyValueObservation?

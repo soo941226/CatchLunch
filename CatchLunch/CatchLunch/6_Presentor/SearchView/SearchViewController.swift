@@ -8,7 +8,7 @@
 import UIKit
 
 final class SearchViewController: UITabBarController {
-    private weak var coordinator: Coordiantorable?
+    private weak var coordinator: Coordinatorable?
     // TODO: private let searchBar = UISearchBar()
 
     override func viewDidLoad() {

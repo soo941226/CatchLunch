@@ -13,13 +13,13 @@ where ViewModel.Item == RestaurantSummary {
     private let tableView = UITableView()
     private let dataSource = RestaurantsViewDataSource<ViewModel>()
     private let delegate = RestaurantsViewDelegate()
-    private weak var coordinator: Coordiantorable?
+    private weak var coordinator: Coordinatorable?
 
     required init?(coder: NSCoder) {
         fatalError(.meesageAboutInterfaceBuilder)
     }
 
-    init(viewModel: ViewModel, under coordinator: Coordiantorable) {
+    init(viewModel: ViewModel, under coordinator: Coordinatorable) {
         self.viewModel = viewModel
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
