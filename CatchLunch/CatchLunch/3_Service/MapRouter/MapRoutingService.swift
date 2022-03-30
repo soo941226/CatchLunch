@@ -19,6 +19,15 @@ final class MapRoutingService: NSObject {
         setUpManager()
     }
 
+    private func setUpManager() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.requestWhenInUseAuthorization()
+    }
+}
+
+// MARK: - Facade
+extension MapRoutingService {
     func requestRouting(
         toY latitude: Double,
         andX longitude: Double,
@@ -47,14 +56,9 @@ final class MapRoutingService: NSObject {
             }
         }
     }
-
-    private func setUpManager() {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        locationManager.requestWhenInUseAuthorization()
-    }
 }
 
+// MARK: - CLLocationManagerDelegate
 extension MapRoutingService: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         guard status == .authorizedWhenInUse || status == .authorizedAlways else {
