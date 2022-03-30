@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol BookmarkViewModel {
+protocol BookmarkableViewModel {
     associatedtype Service
     associatedtype Element
 

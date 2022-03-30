@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RestaurantDetailViewModel<Service: BookmarkService>: BookmarkViewModel
+final class RestaurantDetailViewModel<Service: BookmarkService>: BookmarkableViewModel
 where Service.Response == RestaurantSummary {
     private let service: Service
     private var nowUpdate = false

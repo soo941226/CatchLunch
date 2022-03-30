@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RestaurantDetailViewController<ViewModel: BookmarkViewModel>: UIViewController
+final class RestaurantDetailViewController<ViewModel: BookmarkableViewModel>: UIViewController
 where ViewModel.Element == RestaurantInformation {
     private let detailView = RestaurantDetailView()
     private let viewModel: ViewModel
