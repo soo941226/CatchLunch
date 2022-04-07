@@ -10,7 +10,7 @@ import UIKit
 final class ConfigurationCoordinator: Coordinatorable {
     private unowned var navigationController: UINavigationController!
     private unowned var viewController: ConfigurationViewController!
-    private(set) var childCoodinator = [Coordinatorable]()
+    private(set) var children = [Coordinatorable]()
 
     init(on navigationController: UINavigationController) {
         self.navigationController = navigationController

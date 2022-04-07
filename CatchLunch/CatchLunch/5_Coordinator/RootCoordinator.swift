@@ -9,7 +9,7 @@ import UIKit
 
 final class RootCoordinator: Coordinatorable {
     private unowned var navigationController: UINavigationController!
-    private(set) var childCoodinator = [Coordinatorable]()
+    private(set) var children = [Coordinatorable]()
 
     private let searchBarController = SearchViewController()
     private var observer: NSKeyValueObservation?
@@ -37,7 +37,7 @@ final class RootCoordinator: Coordinatorable {
         let viewModel = RestaurantListViewModel(service: GyeonggiRestaurantsSearcher())
         let controller = RestaurantsViewController(with: viewModel, under: coordinator)
         coordinator.parent = self
-        childCoodinator.append(coordinator)
+        children.append(coordinator)
 
         let itemImage = UIImage(named: "yum")?.withRenderingMode(.alwaysOriginal)
 
@@ -51,7 +51,7 @@ final class RootCoordinator: Coordinatorable {
         let viewModel = RestaurantListViewModel(service: GyeonggiParagonRestaurantSearcher())
         let controller = RestaurantsViewController(with: viewModel, under: coordinator)
         coordinator.parent = self
-        childCoodinator.append(coordinator)
+        children.append(coordinator)
 
         let itemImage = UIImage(named: "cook")?.withRenderingMode(.alwaysOriginal)
 
@@ -65,7 +65,7 @@ final class RootCoordinator: Coordinatorable {
         let viewModel = BookmarkedListViewModel(service: RestaurantsBookmarkService.shared)
         let controller = BookmarkdListViewController(viewModel: viewModel, under: coordinator)
         coordinator.parent = self
-        childCoodinator.append(coordinator)
+        children.append(coordinator)
 
         let itemImage = UIImage(systemName: "star.fill")?.filled(with: .systemYellow)
 
@@ -77,7 +77,7 @@ final class RootCoordinator: Coordinatorable {
         let coordinator = ConfigurationCoordinator(on: navigationController)
         let controller = ConfigurationViewController(under: coordinator)
         coordinator.take(controller)
-        childCoodinator.append(coordinator)
+        children.append(coordinator)
 
         let itemImage = UIImage(systemName: "gearshape.fill")?.filled(with: .lightGray)
         let selectedImage = UIImage(systemName: "gearshape.fill")?.filled(with: .systemBlue)

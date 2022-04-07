@@ -12,6 +12,6 @@ protocol ParentCoordinator: AnyObject {
 
 protocol Coordinatorable: AnyObject {
     init(on navigationController: UINavigationController)
-    var childCoodinator: [Coordinatorable] { get }
+    var children: [Coordinatorable] { get }
     func start()
 }

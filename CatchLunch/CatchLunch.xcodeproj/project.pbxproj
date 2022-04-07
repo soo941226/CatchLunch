@@ -50,7 +50,7 @@
 		6369AC9D27D7298D0076719E /* RestaurantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6369AC9C27D7298D0076719E /* RestaurantDetailViewController.swift */; };
 		6369ACA027D7389F0076719E /* RestaurantDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6369AC9F27D7389F0076719E /* RestaurantDetailView.swift */; };
 		6369B44927F4A528008F9106 /* CGFloat+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6369B44827F4A528008F9106 /* CGFloat+.swift */; };
-		6369B44C27F4AD94008F9106 /* RoutingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6369B44B27F4AD94008F9106 /* RoutingCoordinator.swift */; };
+		6369B44C27F4AD94008F9106 /* MapRoutingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6369B44B27F4AD94008F9106 /* MapRoutingCoordinator.swift */; };
 		636A7C2927D62B11000EA2FE /* Notification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A7C2827D62B11000EA2FE /* Notification.Name+.swift */; };
 		636A7C2C27D64157000EA2FE /* RestaurantsViewModelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A7C2B27D64157000EA2FE /* RestaurantsViewModelContainer.swift */; };
 		636A7C2E27D64971000EA2FE /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A7C2D27D64971000EA2FE /* RootCoordinator.swift */; };
@@ -162,7 +162,7 @@
 		6369AC9C27D7298D0076719E /* RestaurantDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailViewController.swift; sourceTree = "<group>"; };
 		6369AC9F27D7389F0076719E /* RestaurantDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailView.swift; sourceTree = "<group>"; };
 		6369B44827F4A528008F9106 /* CGFloat+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+.swift"; sourceTree = "<group>"; };
-		6369B44B27F4AD94008F9106 /* RoutingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingCoordinator.swift; sourceTree = "<group>"; };
+		6369B44B27F4AD94008F9106 /* MapRoutingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRoutingCoordinator.swift; sourceTree = "<group>"; };
 		636A7C2827D62B11000EA2FE /* Notification.Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+.swift"; sourceTree = "<group>"; };
 		636A7C2B27D64157000EA2FE /* RestaurantsViewModelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewModelContainer.swift; sourceTree = "<group>"; };
 		636A7C2D27D64971000EA2FE /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
@@ -313,7 +313,7 @@
 				632B2B0D27CF9E9C00B7AB94 /* protocol */,
 				636A7C2D27D64971000EA2FE /* RootCoordinator.swift */,
 				6369AC9927D725D50076719E /* RestaurantCoordinator.swift */,
-				6369B44B27F4AD94008F9106 /* RoutingCoordinator.swift */,
+				6369B44B27F4AD94008F9106 /* MapRoutingCoordinator.swift */,
 				632F73AF27E88AEC00C24313 /* ConfigurationCoordinator.swift */,
 			);
 			path = 5_Coordinator;
@@ -994,7 +994,7 @@
 				632F73B027E88AEC00C24313 /* ConfigurationCoordinator.swift in Sources */,
 				63DE3E3927C898F800A32868 /* NetworkManagable.swift in Sources */,
 				6367CEE027C7F60F007E0735 /* SearchServiceable.swift in Sources */,
-				6369B44C27F4AD94008F9106 /* RoutingCoordinator.swift in Sources */,
+				6369B44C27F4AD94008F9106 /* MapRoutingCoordinator.swift in Sources */,
 				632F73B327E88C2400C24313 /* ConfigurationViewController.swift in Sources */,
 				6367CED727C7F60F007E0735 /* AppDelegate.swift in Sources */,
 				6331915E27E895E0004E8ECB /* GuideButton.swift in Sources */,

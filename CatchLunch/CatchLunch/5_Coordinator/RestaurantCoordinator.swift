@@ -9,18 +9,18 @@ import UIKit
 
 final class RestaurantCoordinator: Coordinatorable {
     private unowned var navigationController: UINavigationController!
-    private(set) var childCoodinator = [Coordinatorable]()
+    private(set) var children = [Coordinatorable]()
     weak var parent: ParentCoordinator?
 
     init(on navigationController: UINavigationController) {
         self.navigationController = navigationController
-        let nextCoordinator = RoutingCoordinator(on: navigationController)
-        childCoodinator.append(nextCoordinator)
+        let nextCoordinator = MapRoutingCoordinator(on: navigationController)
+        children.append(nextCoordinator)
     }
 
     func start() {
         guard let model = parent?.model,
-            let nextCoordinator = childCoodinator.first else {
+            let nextCoordinator = children.first else {
             return
         }
 

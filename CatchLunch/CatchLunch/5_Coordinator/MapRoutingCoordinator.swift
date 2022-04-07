@@ -1,5 +1,5 @@
 //
-//  RoutingCoordinator.swift
+//  MapRoutingCoordinator.swift
 //  CatchLunch
 //
 //  Created by kjs on 2022/03/31.
@@ -7,9 +7,10 @@
 
 import UIKit
 
-final class RoutingCoordinator: Coordinatorable {
+final class MapRoutingCoordinator: Coordinatorable {
     private unowned var navigationController: UINavigationController!
-    private(set) var childCoodinator = [Coordinatorable]()
+    private(set) var children = [Coordinatorable]()
+    private weak var parent: Coordinatorable?
 
     init(on navigationController: UINavigationController) {
         self.navigationController = navigationController
