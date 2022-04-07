@@ -5,12 +5,11 @@
 //  Created by kjs on 2022/03/30.
 //
 
-import UIKit
 import MapKit
 
 final class MapRouteViewModel {
     private let service: MapRoutingService
-
+    
     init(service: MapRoutingService = MapRoutingService()) {
         self.service = service
     }

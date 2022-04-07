@@ -5,7 +5,6 @@
 //  Created by kjs on 2022/03/08.
 //
 
-import UIKit
 import MapKit
 
 final class RestaurantDetailViewController<ViewModel: BookmarkableViewModel>: UIViewController
