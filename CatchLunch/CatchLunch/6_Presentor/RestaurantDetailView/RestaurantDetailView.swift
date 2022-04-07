@@ -14,7 +14,7 @@ final class RestaurantDetailView: UIView {
         return imageView
     }()
 
-    private let labelContainer = UIStackView()
+    private let labelStackView = UIStackView()
     private let mainFoodsLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
@@ -57,9 +57,9 @@ final class RestaurantDetailView: UIView {
     }
 
     private func setUpLabelContainer() {
-        labelContainer.isLayoutMarginsRelativeArrangement = true
-        labelContainer.directionalLayoutMargins = .init(dx: .headInset, dy: .zero)
-        labelContainer
+        labelStackView.isLayoutMarginsRelativeArrangement = true
+        labelStackView.directionalLayoutMargins = .init(dx: .headInset, dy: .zero)
+        labelStackView
             .addArrangedSubviews(
                 mainFoodsLabel, phoneNumberLabel,
                 roadAddressLabel, locationAddressLabel
@@ -72,12 +72,14 @@ final class RestaurantDetailView: UIView {
         let outerStackView = UIStackView()
 
         outerStackView
-            .addArrangedSubviews(imageView, labelContainer)
+            .addArrangedSubviews(imageView, labelStackView)
             .configure(axis: .vertical, distribution: .fillEqually, alignment: .fill)
             .insert(into: self)
 
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         outerStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            imageView.heightAnchor.constraint(lessThanOrEqualToConstant: .heightLimitOfImage),
             outerStackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             outerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             outerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),

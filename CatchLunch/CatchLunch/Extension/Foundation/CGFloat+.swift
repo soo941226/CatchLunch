@@ -11,4 +11,5 @@ extension CGFloat {
     static let headInset: CGFloat = 10.0
     static let tailInset: CGFloat = -10.0
     static let cornerRadius: CGFloat = 8.0
+    static let heightLimitOfImage: CGFloat = 200.0
 }
