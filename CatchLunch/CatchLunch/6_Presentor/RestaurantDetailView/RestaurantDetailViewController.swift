@@ -14,8 +14,8 @@ where ViewModel.Element == RestaurantInformation {
     private let routingButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("찾아가기", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.backgroundColor = .systemBackground
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemBlue
         button.titleEdgeInsets = .init(dx: .headInset, dy: .zero)
         button.layer.cornerRadius = .cornerRadius
 
