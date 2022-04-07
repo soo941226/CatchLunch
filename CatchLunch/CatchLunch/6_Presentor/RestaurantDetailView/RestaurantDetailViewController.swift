@@ -47,11 +47,9 @@ where ViewModel.Element == RestaurantInformation {
         viewModel.check() { [weak self] in
             guard let self = self else { return }
 
-            DispatchQueue.main.async { [weak self] in
-                self?.setUpNavigation()
-                self?.setUpContents()
-                self?.refreshBookmarkButton()
-            }
+            self.setUpNavigation()
+            self.setUpContents()
+            self.refreshBookmarkButton()
         }
     }
 
@@ -122,9 +120,7 @@ private extension RestaurantDetailViewController {
 
     func refreshBookmarkButton() {
         let buttonImage = viewModel.button
-        DispatchQueue.main.async { [weak self] in
-            self?.navigationItem.rightBarButtonItem?.image = buttonImage
-        }
+        navigationItem.rightBarButtonItem?.image = buttonImage
     }
 
     func focusMap(onY latitude: Double, andX longitude: Double) {

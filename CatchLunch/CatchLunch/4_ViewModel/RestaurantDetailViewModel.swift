@@ -38,7 +38,9 @@ where Service.Response == RestaurantSummary {
                 self?.information.summary.toggledBookmark()
             }
 
-            completionHandler()
+            DispatchQueue.main.async {
+                completionHandler()
+            }
         }
     }
 
@@ -52,7 +54,9 @@ where Service.Response == RestaurantSummary {
             self?.information.summary.toggledBookmark()
             self?.nowUpdate = false
 
-            completionHandler()
+            DispatchQueue.main.async {
+                completionHandler()
+            }
         }
     }
 }

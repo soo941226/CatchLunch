@@ -55,7 +55,9 @@ extension BookmarkedListViewModel: Notifier {
                 self?.fetchImagesToFinish(from: restaurants, with: completionHandler)
             case .failure(let error):
                 self?.error = error
-                completionHandler(false)
+                DispatchQueue.main.async {
+                    completionHandler(false)
+                }
             }
         }
     }
@@ -88,8 +90,10 @@ extension BookmarkedListViewModel: Notifier {
         dispatchGroup.notify(queue: .main) { [weak self] in
             self?.error = nil
             self?.asset = restaurants
-            completionHandler(true)
-            self?.postFinishTask()
+            DispatchQueue.main.async {
+                completionHandler(true)
+                self?.postFinishTask()
+            }
         }
     }
 }

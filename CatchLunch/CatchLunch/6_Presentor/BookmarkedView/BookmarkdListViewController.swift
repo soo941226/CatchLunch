@@ -61,9 +61,7 @@ where ViewModel.Item == RestaurantSummary {
         super.viewWillAppear(animated)
         viewModel.fetch { [weak self] isSuccess in
             if isSuccess {
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
+                self?.tableView.reloadData()
             }
         }
     }
