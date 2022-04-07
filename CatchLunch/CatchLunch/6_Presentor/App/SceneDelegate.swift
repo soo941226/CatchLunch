@@ -82,7 +82,7 @@ extension SceneDelegate {
     private func setUpIndicator() {
         indicator.backgroundColor = .darkGray
         indicator.color = .white
-        indicator.frame = indicator.frame.insetBy(dx: .headInset, dy: .headInset)
+        indicator.frame = indicator.frame.insetBy(dx: .tailInset, dy: .tailInset)
         indicator.layer.cornerRadius = .cornerRadius
         indicator.insert(into: window)
     }
