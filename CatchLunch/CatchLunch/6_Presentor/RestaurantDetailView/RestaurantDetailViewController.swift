@@ -48,18 +48,19 @@ where ViewModel.Element == RestaurantInformation {
             guard let self = self else { return }
 
             DispatchQueue.main.async { [weak self] in
+                self?.setUpNavigation()
                 self?.setUpContents()
                 self?.refreshBookmarkButton()
             }
         }
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         layoutSubviews()
     }
 
-    private func setUpContents() {
+    private func setUpNavigation() {
         let summary = viewModel.information.summary
         let bookmarkButton = UIBarButtonItem(
             image: nil, style: .plain,
@@ -67,20 +68,17 @@ where ViewModel.Element == RestaurantInformation {
         )
         navigationItem.title = summary.restaurantName
         navigationItem.setRightBarButton(bookmarkButton, animated: false)
+    }
 
-        detailView.configure(with: viewModel.information)
-        routingButton.addTarget(self, action: #selector(routingStart), for: .touchUpInside)
+    private func setUpContents() {
+        let summary = viewModel.information.summary
 
         if let latitude = summary.latitude, let longitude = summary.longitude {
             focusMap(onY: latitude, andX: longitude)
         }
-    }
 
-    private func refreshBookmarkButton() {
-        let buttonImage = viewModel.button
-        DispatchQueue.main.async { [weak self] in
-            self?.navigationItem.rightBarButtonItem?.image = buttonImage
-        }
+        detailView.configure(with: viewModel.information)
+        routingButton.addTarget(self, action: #selector(routingStart), for: .touchUpInside)
     }
 
     @objc private func routingStart() {
@@ -122,7 +120,14 @@ private extension RestaurantDetailViewController {
         ])
     }
 
-    private func focusMap(onY latitude: Double, andX longitude: Double) {
+    func refreshBookmarkButton() {
+        let buttonImage = viewModel.button
+        DispatchQueue.main.async { [weak self] in
+            self?.navigationItem.rightBarButtonItem?.image = buttonImage
+        }
+    }
+
+    func focusMap(onY latitude: Double, andX longitude: Double) {
         let placeHolder = 2000.0
         mapView.isRotateEnabled = false
         mapView.isPitchEnabled = false
