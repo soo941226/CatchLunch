@@ -17,6 +17,8 @@ final class MapRoutingCoordinator: Coordinatorable {
     }
 
     func start() {
-        print("야호")
+        let targetViewModel = MapRouteViewModel()
+        let targetViewController = MapRoutingViewController(viewModel: targetViewModel)
+        navigationController.pushViewController(targetViewController, animated: false)
     }
 }
