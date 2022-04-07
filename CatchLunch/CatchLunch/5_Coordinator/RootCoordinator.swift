@@ -11,7 +11,6 @@ final class RootCoordinator: Coordinatorable {
     private unowned var navigationController: UINavigationController!
     private(set) var children = [Coordinatorable]()
 
-    private let searchBarController = SearchViewController()
     private var observer: NSKeyValueObservation?
 
     init(on navigationController: UINavigationController) {
@@ -19,6 +18,7 @@ final class RootCoordinator: Coordinatorable {
     }
 
     func start() {
+        let searchBarController = SearchViewController()
         var container = [UIViewController]()
 
         setUpRestaurantView(into: &container)
@@ -29,10 +29,27 @@ final class RootCoordinator: Coordinatorable {
         searchBarController.title = "맛집"
         searchBarController.setViewControllers(container, animated: false)
         navigationController.pushViewController(searchBarController, animated: false)
-        addObserverToChangeTitle(on: searchBarController)
+        setObserverToChangeTitle(on: searchBarController)
     }
+}
 
-    private func setUpRestaurantView(into container: inout [UIViewController]) {
+extension RootCoordinator: ParentCoordinator {
+    var model: RestaurantInformation? {
+        guard let searchBarController = navigationController.children.first as? SearchViewController,
+              let viewController = searchBarController.selectedViewController else {
+            return nil
+        }
+
+        guard let restaurantsViewController = viewController as? RestaurantsViewModelContainer else {
+            return nil
+        }
+
+        return restaurantsViewController.selectedModel
+    }
+}
+
+private extension RootCoordinator {
+    func setUpRestaurantView(into container: inout [UIViewController]) {
         let coordinator = RestaurantCoordinator(on: navigationController)
         let viewModel = RestaurantListViewModel(service: GyeonggiRestaurantsSearcher())
         let controller = RestaurantsViewController(with: viewModel, under: coordinator)
@@ -46,7 +63,7 @@ final class RootCoordinator: Coordinatorable {
         container.append(controller)
     }
 
-    private func setUpParagonRestaurantView(into container: inout [UIViewController]) {
+    func setUpParagonRestaurantView(into container: inout [UIViewController]) {
         let coordinator = RestaurantCoordinator(on: navigationController)
         let viewModel = RestaurantListViewModel(service: GyeonggiParagonRestaurantSearcher())
         let controller = RestaurantsViewController(with: viewModel, under: coordinator)
@@ -60,7 +77,7 @@ final class RootCoordinator: Coordinatorable {
         container.append(controller)
     }
 
-    private func setUpBookmarkView(into container: inout [UIViewController]) {
+    func setUpBookmarkView(into container: inout [UIViewController]) {
         let coordinator = RestaurantCoordinator(on: navigationController)
         let viewModel = BookmarkedListViewModel(service: RestaurantsBookmarkService.shared)
         let controller = BookmarkdListViewController(viewModel: viewModel, under: coordinator)
@@ -73,7 +90,7 @@ final class RootCoordinator: Coordinatorable {
         container.append(controller)
     }
 
-    private func setUpConfigurationView(into container: inout [UIViewController]) {
+    func setUpConfigurationView(into container: inout [UIViewController]) {
         let coordinator = ConfigurationCoordinator(on: navigationController)
         let controller = ConfigurationViewController(under: coordinator)
         coordinator.take(controller)
@@ -85,36 +102,28 @@ final class RootCoordinator: Coordinatorable {
         container.append(controller)
     }
 
-    private func addObserverToChangeTitle(on controller: SearchViewController) {
-        observer = controller.observe(\.selectedItemIndex, options: .new) { [weak self] _, value in
-            guard let controllerIndex = value.newValue else {
-                return
-            }
+    func setObserverToChangeTitle(on controller: SearchViewController) {
+        observer = controller.observe(
+            \.selectedItemIndex,
+             options: .new,
+             changeHandler: { [weak self] _, value in
+                 guard let navigationController = self?.navigationController,
+                       let searchBarController = navigationController.children.first as? SearchViewController,
+                       let controllerIndex = value.newValue else {
+                     return
+                 }
 
-            switch controllerIndex {
-            case 1:
-                self?.searchBarController.title = "모범식당"
-            case 2:
-                self?.searchBarController.title = "즐겨찾기"
-            case 3:
-                self?.searchBarController.title = "설정"
-            default:
-                self?.searchBarController.title = "맛집"
-            }
-        }
-    }
-}
-
-extension RootCoordinator: ParentCoordinator {
-    var model: RestaurantInformation? {
-        guard let viewController = searchBarController.selectedViewController else {
-            return nil
-        }
-
-        guard let restaurantsViewController = viewController as? RestaurantsViewModelContainer else {
-            return nil
-        }
-
-        return restaurantsViewController.selectedModel
+                 switch controllerIndex {
+                 case 1:
+                     searchBarController.title = "모범식당"
+                 case 2:
+                     searchBarController.title = "즐겨찾기"
+                 case 3:
+                     searchBarController.title = "설정"
+                 default:
+                     searchBarController.title = "맛집"
+                 }
+             }
+        )
     }
 }
