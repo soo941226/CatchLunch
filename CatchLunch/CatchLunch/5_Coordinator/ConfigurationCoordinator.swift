@@ -16,7 +16,7 @@ final class ConfigurationCoordinator: Coordinatorable {
         self.navigationController = navigationController
     }
 
-    func take(_ viewController: ConfigurationViewController) {
+    func viewController(is viewController: ConfigurationViewController) {
         self.viewController = viewController
     }
 

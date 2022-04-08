@@ -93,7 +93,7 @@ private extension RootCoordinator {
     func setUpConfigurationView(into container: inout [UIViewController]) {
         let coordinator = ConfigurationCoordinator(on: navigationController)
         let controller = ConfigurationViewController(under: coordinator)
-        coordinator.take(controller)
+        coordinator.viewController(is: controller)
         children.append(coordinator)
 
         let itemImage = UIImage(systemName: "gearshape.fill")?.filled(with: .lightGray)
