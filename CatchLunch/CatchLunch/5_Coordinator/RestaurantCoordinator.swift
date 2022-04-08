@@ -14,15 +14,14 @@ final class RestaurantCoordinator: Coordinatorable {
 
     init(on navigationController: UINavigationController) {
         self.navigationController = navigationController
-        let nextCoordinator = MapRoutingCoordinator(on: navigationController)
-        children.append(nextCoordinator)
     }
 
     func start() {
-        guard let model = parent?.model,
-            let nextCoordinator = children.first else {
+        guard let model = parent?.model else {
             return
         }
+        let nextCoordinator = MapRoutingCoordinator(on: navigationController)
+        children = [nextCoordinator]
 
         let viewModel = RestaurantDetailViewModel(under: RestaurantsBookmarkService.shared, with: model)
         let nextViewController = RestaurantDetailViewController(with: viewModel, coordinator: nextCoordinator)
