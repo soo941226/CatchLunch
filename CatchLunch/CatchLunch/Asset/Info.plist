@@ -2,10 +2,31 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>식당까지의 경로를 구하기 위해 권한이 필요합니다</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>MKDirectionsRequest</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.apple.maps.directionsrequest</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleIconName</key>
 	<string>AppIcon</string>
+	<key>MKDirectionsApplicationSupportedModes</key>
+	<array>
+		<string>MKDirectionsModeBike</string>
+		<string>MKDirectionsModeBus</string>
+		<string>MKDirectionsModeCar</string>
+		<string>MKDirectionsModePedestrian</string>
+		<string>MKDirectionsModeRideShare</string>
+		<string>MKDirectionsModeStreetCar</string>
+		<string>MKDirectionsModeSubway</string>
+		<string>MKDirectionsModeTaxi</string>
+		<string>MKDirectionsModeTrain</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
