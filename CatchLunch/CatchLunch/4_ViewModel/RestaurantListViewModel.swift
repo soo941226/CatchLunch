@@ -7,6 +7,8 @@
 
 import UIKit
 
+// TODO: - 이미지 뷰모델 안가지고 있게 분리하기 컨트롤러에서 각각 가지고 있도록 바꾸기
+
 final class RestaurantListViewModel<Service: PagingSearchService>: PagingSearchViewModelable
 where Service.Response == [RestaurantSummary] {
     private let service: Service
