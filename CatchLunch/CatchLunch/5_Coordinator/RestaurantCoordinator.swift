@@ -21,10 +21,17 @@ final class RestaurantCoordinator: Coordinatorable {
             return
         }
         let nextCoordinator = MapRoutingCoordinator(on: navigationController)
+        nextCoordinator.parent = self
         children = [nextCoordinator]
 
         let viewModel = RestaurantDetailViewModel(under: RestaurantsBookmarkService.shared, with: model)
         let nextViewController = RestaurantDetailViewController(with: viewModel, coordinator: nextCoordinator)
         navigationController.pushViewController(nextViewController, animated: false)
+    }
+}
+
+extension RestaurantCoordinator: ParentCoordinator {
+    var model: RestaurantInformation? {
+        return parent?.model
     }
 }
