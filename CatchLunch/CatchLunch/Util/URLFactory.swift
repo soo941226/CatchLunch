@@ -21,7 +21,7 @@ enum URLFactory {
 
         for unwantedPrefix in unwantedPrefixes {
             guard let range = link.range(of: unwantedPrefix) else {
-                return URL(string: link)
+                continue
             }
 
             var link = link
@@ -29,6 +29,6 @@ enum URLFactory {
             return URL(string: link)
         }
 
-        return nil
+        return URL(string: link)
     }
 }
