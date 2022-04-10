@@ -73,7 +73,9 @@ extension BookmarkedListViewModel: Notifier {
         guard restaurants.count > .zero else {
             asset = []
             postFinishTask()
-            completionHandler(true)
+            DispatchQueue.main.async {
+                completionHandler(true)
+            }
             return
         }
 
