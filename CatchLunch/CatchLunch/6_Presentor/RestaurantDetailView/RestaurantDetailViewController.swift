@@ -10,7 +10,13 @@ import MapKit
 final class RestaurantDetailViewController<ViewModel: BookmarkableViewModel>: UIViewController
 where ViewModel.Element == RestaurantInformation {
     private let detailView = RestaurantDetailView()
-    private let mapView = MKMapView()
+    private let mapView: MKMapView = {
+        let mapView = MKMapView()
+        mapView.isRotateEnabled = false
+        mapView.isPitchEnabled = false
+        mapView.showsTraffic = false
+        return mapView
+    }()
     private let routingButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("찾아가기", for: .normal)
