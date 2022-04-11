@@ -1,13 +1,13 @@
 //
-//  GyeonggiRestaurantsSearcher.swift
+//  GyeonggiParagonRestaurantSearcher.swift
 //  CatchLunch
 //
-//  Created by kjs on 2022/02/25.
+//  Created by kjs on 2022/03/21.
 //
 
 import Foundation
 
-struct GyeonggiRestaurantsSearcher: PagingSearchService {
+struct GyeonggiParagonRestaurantSearcher: PagingSearchService {
     typealias Response = [RestaurantSummary]
     private let decoder = JSONDecoder()
     private let manager: NetworkManagable
@@ -33,7 +33,7 @@ struct GyeonggiRestaurantsSearcher: PagingSearchService {
         completionHandler: @escaping CompletionHandler
     ) {
         let request = nextRequest(
-            itemPageIndex: itemPageIndex, requestItemAmount: requestItemAmount
+            itemPageIndex: itemPageIndex+1, requestItemAmount: requestItemAmount
         )
         manager.setUpRequest(with: request)
         manager.dataTask { result in
@@ -41,8 +41,11 @@ struct GyeonggiRestaurantsSearcher: PagingSearchService {
             case .success(let data):
                 do {
                     let result = try self.decoder
-                        .decode(GyeonggiRestaurantsAPIResult.self, from: data).place?.last?
-                        .row
+                        .decode(GyeonggiParagonRestaurantsAPIResult.self, from: data).place?.last?
+                        .row?
+                        .compactMap { restaurant in
+                            RestaurantSummary(from: restaurant)
+                        }
 
                     if let result = result {
                         completionHandler(.success(result))
@@ -60,5 +63,5 @@ struct GyeonggiRestaurantsSearcher: PagingSearchService {
 }
 
 private enum GyeonggiAPIConfigs {
-    static let httpURL = "https://openapi.gg.go.kr/PlaceThatDoATasteyFoodSt"
+    static let httpURL = "https://openapi.gg.go.kr/ParagonRestaurant"
 }
