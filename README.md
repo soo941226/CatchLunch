@@ -4,7 +4,9 @@
 |:---:|:---:|
 | [Plan](https://soo941226.notion.site/CatchLunch-4614ba8f91844695b8cb80124b234138) | [App Store Link](https://apps.apple.com/kr/app/catchlunch/id1614336988) |
 
-![App](./Chore/app.gif)
+| Basic concept | Routing |
+|:---:|:---:|
+| ![App](./Chore/app.gif) | ![Routing](./Chore/routing.gif) |
 
 ---
 ## 사용한 기술
