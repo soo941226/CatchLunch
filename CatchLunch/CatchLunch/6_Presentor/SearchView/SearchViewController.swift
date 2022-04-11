@@ -9,7 +9,17 @@ import UIKit
 
 final class SearchViewController: UITabBarController {
     private weak var coordinator: Coordinatorable?
+    let imageViewModel: ImageViewModel
     // TODO: private let searchBar = UISearchBar()
+
+    init(imageViewModel: ImageViewModel) {
+        self.imageViewModel = imageViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError(.meesageAboutInterfaceBuilder)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

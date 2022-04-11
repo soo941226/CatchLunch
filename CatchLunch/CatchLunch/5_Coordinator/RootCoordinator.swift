@@ -18,12 +18,13 @@ final class RootCoordinator: Coordinatorable {
     }
 
     func start() {
-        let searchBarController = SearchViewController()
+        let imageViewModel = ImageViewModel(service: NaverImageSearcher(), DaumImageSearcher())
+        let searchBarController = SearchViewController(imageViewModel: imageViewModel)
         var container = [UIViewController]()
 
-        setUpRestaurantView(into: &container)
-        setUpParagonRestaurantView(into: &container)
-        setUpBookmarkView(into: &container)
+        setUpRestaurantView(into: &container, with: imageViewModel)
+        setUpParagonRestaurantView(into: &container, with: imageViewModel)
+        setUpBookmarkView(into: &container, with: imageViewModel)
         setUpConfigurationView(into: &container)
 
         searchBarController.title = "맛집"
@@ -49,42 +50,60 @@ extension RootCoordinator: ParentCoordinator {
 }
 
 private extension RootCoordinator {
-    func setUpRestaurantView(into container: inout [UIViewController]) {
+    func setUpRestaurantView(
+        into container: inout [UIViewController],
+        with imageViewModel: ImageViewModel
+    ) {
         let coordinator = RestaurantCoordinator(on: navigationController)
-        let viewModel = RestaurantListViewModel(service: GyeonggiRestaurantsSearcher())
+        let viewModel = RestaurantsViewModel(
+            service: GyeonggiRestaurantsSearcher(),
+            imageViewModel: imageViewModel
+        )
         let controller = RestaurantsViewController(with: viewModel, under: coordinator)
         coordinator.parent = self
         children.append(coordinator)
 
-        let itemImage = UIImage(named: "yum")?.withRenderingMode(.alwaysOriginal)
+        let itemImage = UIImage.yum.withRenderingMode(.alwaysOriginal)
 
         controller.tabBarItem = .init(title: "맛집", image: itemImage, selectedImage: nil)
         controller.tabBarItem.imageInsets = .init(dx: .headInset, dy: .headInset)
         container.append(controller)
     }
 
-    func setUpParagonRestaurantView(into container: inout [UIViewController]) {
+    func setUpParagonRestaurantView(
+        into container: inout [UIViewController],
+        with imageViewModel: ImageViewModel
+    ) {
         let coordinator = RestaurantCoordinator(on: navigationController)
-        let viewModel = RestaurantListViewModel(service: GyeonggiParagonRestaurantSearcher())
+        let viewModel = RestaurantsViewModel(
+            service: GyeonggiParagonRestaurantSearcher(),
+            imageViewModel: imageViewModel
+        )
         let controller = RestaurantsViewController(with: viewModel, under: coordinator)
         coordinator.parent = self
         children.append(coordinator)
 
-        let itemImage = UIImage(named: "cook")?.withRenderingMode(.alwaysOriginal)
+        let itemImage = UIImage.cook.withRenderingMode(.alwaysOriginal)
 
         controller.tabBarItem = .init(title: "모범식당", image: itemImage, selectedImage: nil)
         controller.tabBarItem.imageInsets = .init(dx: .headInset, dy: .headInset)
         container.append(controller)
     }
 
-    func setUpBookmarkView(into container: inout [UIViewController]) {
+    func setUpBookmarkView(
+        into container: inout [UIViewController],
+        with imageViewModel: ImageViewModel
+    ) {
         let coordinator = RestaurantCoordinator(on: navigationController)
-        let viewModel = BookmarkedListViewModel(service: RestaurantsBookmarkService.shared)
+        let viewModel = BookmarkedListViewModel(
+            service: RestaurantsBookmarkService.shared,
+            imageViewModel: imageViewModel
+        )
         let controller = BookmarkdListViewController(viewModel: viewModel, under: coordinator)
         coordinator.parent = self
         children.append(coordinator)
 
-        let itemImage = UIImage(systemName: "star.fill")?.filled(with: .systemYellow)
+        let itemImage = UIImage.starFill.filled(with: .systemYellow)
 
         controller.tabBarItem = .init(title: "즐겨찾기", image: itemImage, selectedImage: nil)
         container.append(controller)
@@ -96,8 +115,8 @@ private extension RootCoordinator {
         coordinator.viewController(is: controller)
         children.append(coordinator)
 
-        let itemImage = UIImage(systemName: "gearshape.fill")?.filled(with: .lightGray)
-        let selectedImage = UIImage(systemName: "gearshape.fill")?.filled(with: .systemBlue)
+        let itemImage = UIImage.gearshapeFill.filled(with: .lightGray)
+        let selectedImage = UIImage.gearshapeFill.filled(with: .systemBlue)
         controller.tabBarItem = .init(title: "설정", image: itemImage, selectedImage: selectedImage)
         container.append(controller)
     }

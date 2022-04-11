@@ -1,5 +1,5 @@
 //
-//  RestaurantListViewModel.swift
+//  RestaurantsViewModel.swift
 //  CatchLunch
 //
 //  Created by kjs on 2022/02/28.
@@ -7,60 +7,55 @@
 
 import UIKit
 
-// TODO: - 이미지 뷰모델 안가지고 있게 분리하기 컨트롤러에서 각각 가지고 있도록 바꾸기
-
-final class RestaurantListViewModel<Service: PagingSearchService>: PagingSearchViewModelable
+final class RestaurantsViewModel<Service: PagingSearchService>: PagingSearchViewModelable
 where Service.Response == [RestaurantSummary] {
     private let service: Service
-    private let imageSearchViewModel = ImageViewModel(service: NaverImageSearcher(), DaumImageSearcher())
-    private let imagePlaceHolder = UIImage(systemName: "fork.knife.circle")!
-    private var asset = [RestaurantSummary]()
-    private let amount = 10
-    private var pageIndex = 1
+    private weak var restaurantsViewModel: RestaurantsViewModel<Service>?
+    private weak var imageViewModel: ImageViewModel?
+    private let imagePlaceHolder = UIImage.forkKnifeCircle
+
     private var nowLoading = false
     private var thereIsNoMoreItem = false
     private(set) var error: Error?
-    private var itemStartIndex: Int? {
-        let index = pageIndex - 2
-        if index < 0 {
-            return nil
-        } else {
-            return index
-        }
-    }
 
-    init(service: Service) {
+    private var sourtOfTruth = [RestaurantSummary]()
+    private var pageIndex = 0
+    private let itemRequestAmount = 10
+
+    init(service: Service, imageViewModel: ImageViewModel) {
         self.service = service
+        self.imageViewModel = imageViewModel
     }
 }
 
 // MARK: - Facade
-extension RestaurantListViewModel: Notifier {
+extension RestaurantsViewModel: Notifier {
     var nextIndexPaths: [IndexPath] {
-        guard let startIndex = itemStartIndex else {
+        let startIndex = pageIndex - 1
+        guard startIndex >= .zero else {
             return []
         }
-        let nextIndices = startIndex*amount..<asset.count
+        let nextIndices = startIndex*itemRequestAmount..<sourtOfTruth.count
         return nextIndices.map { index in
             return IndexPath(row: index, section: .zero)
         }
     }
 
     var count: Int {
-        return asset.count
+        return sourtOfTruth.count
     }
 
     subscript(_ index: Int) -> RestaurantInformation? {
-        guard asset.indices ~= index else {
+        guard sourtOfTruth.indices ~= index else {
             return nil
         }
 
-        let image = asset[index].mainFoodNames?.first
+        let image = sourtOfTruth[index].mainFoodNames?.first
             .flatMap({ name in
-                imageSearchViewModel[name]
+                imageViewModel?[name]
             })
 
-        return (asset[index], image ?? imagePlaceHolder)
+        return (sourtOfTruth[index], image ?? imagePlaceHolder)
     }
 
     func fetch(completionHandler: @escaping (Bool) -> Void) {
@@ -70,7 +65,7 @@ extension RestaurantListViewModel: Notifier {
 
         postStartTask()
 
-        service.fetch(itemPageIndex: pageIndex, requestItemAmount: amount) { [weak self] result in
+        service.fetch(itemPageIndex: pageIndex, requestItemAmount: itemRequestAmount) { [weak self] result in
             guard let self = self else { return }
             self.nowLoading = false
 
@@ -94,8 +89,10 @@ extension RestaurantListViewModel: Notifier {
     func willDisappear() {
         postFinishTask()
     }
+}
 
-    private func fetchImages(
+private extension RestaurantsViewModel {
+    func fetchImages(
         from restaurants: [RestaurantSummary],
         with completionHandler: @escaping (Bool) -> Void
     ) {
@@ -104,7 +101,7 @@ extension RestaurantListViewModel: Notifier {
         restaurants.forEach { model in
             dispatchGroup.enter()
             let foodName = model.mainFoodNames?.first ?? ""
-            imageSearchViewModel.fetch(about: foodName) { _ in
+            imageViewModel?.fetch(about: foodName) { _ in
                 dispatchGroup.leave()
             }
         }
@@ -112,7 +109,7 @@ extension RestaurantListViewModel: Notifier {
         dispatchGroup.notify(queue: .main) { [weak self] in
             self?.error = nil
             self?.pageIndex += 1
-            self?.asset += restaurants
+            self?.sourtOfTruth += restaurants
             completionHandler(true)
             self?.postFinishTask()
         }

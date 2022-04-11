@@ -9,10 +9,10 @@ import XCTest
 @testable import CatchLunch
 
 final class TestRestaurantViewModel: XCTestCase {
-    private var viewModelUnderTest: RestaurantListViewModel<MockGyeonggiRestaurantSearcher>!
+    private var viewModelUnderTest: RestaurantsViewModel<MockGyeonggiRestaurantSearcher>!
 
     override func setUp() {
-        viewModelUnderTest = RestaurantListViewModel(service: MockGyeonggiRestaurantSearcher())
+        viewModelUnderTest = RestaurantsViewModel(service: MockGyeonggiRestaurantSearcher())
     }
 
     override func tearDown() {

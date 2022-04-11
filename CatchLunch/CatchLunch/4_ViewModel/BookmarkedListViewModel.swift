@@ -10,35 +10,36 @@ import UIKit
 final class BookmarkedListViewModel<Service: BookmarkService>: JustSearchViewModelable
 where Service.Response == RestaurantSummary {
     private let service: Service
-    private let imageSearchViewModel = ImageViewModel(service: NaverImageSearcher())
-    private let imagePlaceHolder = UIImage(systemName: "fork.knife.circle")!
-    private var asset = [RestaurantSummary]()
+    private let imageViewModel: ImageViewModel
+    private let imagePlaceHolder = UIImage.forkKnifeCircle
+    private var sourceOfTruth = [RestaurantSummary]()
     private var nowLoading = false
 
     private(set) var error: Error?
 
-    init(service: Service) {
+    init(service: Service, imageViewModel: ImageViewModel) {
         self.service = service
+        self.imageViewModel = imageViewModel
     }
 }
 
 // MARK: - Facade
 extension BookmarkedListViewModel: Notifier {
     var count: Int {
-        return asset.count
+        return sourceOfTruth.count
     }
 
     subscript(_ index: Int) -> RestaurantInformation? {
-        guard asset.indices ~= index else {
+        guard sourceOfTruth.indices ~= index else {
             return nil
         }
 
-        let image = asset[index].mainFoodNames?.first
+        let image = sourceOfTruth[index].mainFoodNames?.first
             .flatMap({ name in
-                imageSearchViewModel[name]
+                imageViewModel[name]
             })
 
-        return (asset[index], image ?? imagePlaceHolder)
+        return (sourceOfTruth[index], image ?? imagePlaceHolder)
     }
 
     func fetch(completionHandler: @escaping (Bool) -> Void) {
@@ -71,7 +72,7 @@ extension BookmarkedListViewModel: Notifier {
         with completionHandler: @escaping (Bool) -> Void
     ) {
         guard restaurants.count > .zero else {
-            asset = []
+            sourceOfTruth = []
             postFinishTask()
             DispatchQueue.main.async {
                 completionHandler(true)
@@ -84,14 +85,14 @@ extension BookmarkedListViewModel: Notifier {
         restaurants.forEach { model in
             dispatchGroup.enter()
             let foodName = model.mainFoodNames?.first ?? ""
-            imageSearchViewModel.fetch(about: foodName) { _ in
+            imageViewModel.fetch(about: foodName) { _ in
                 dispatchGroup.leave()
             }
         }
 
         dispatchGroup.notify(queue: .main) { [weak self] in
             self?.error = nil
-            self?.asset = restaurants
+            self?.sourceOfTruth = restaurants
             DispatchQueue.main.async {
                 completionHandler(true)
                 self?.postFinishTask()

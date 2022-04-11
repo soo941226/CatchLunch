@@ -16,8 +16,8 @@ where Service.Response == RestaurantSummary {
     private(set) var error: Error?
 
     private let buttonImage = (
-        on: UIImage(systemName: "star.fill"),
-        off: UIImage(systemName: "star")
+        on: UIImage.starFill,
+        off: UIImage.star
     )
     var button: UIImage? {
         if information.summary.isBookmarked {
