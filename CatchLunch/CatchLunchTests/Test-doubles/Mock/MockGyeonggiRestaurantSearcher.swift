@@ -29,12 +29,12 @@ final class MockGyeonggiRestaurantSearcher: PagingSearchService {
     }
 
     func fetch(
-        itemPageIndex: Int,
+        pageIndex: Int,
         requestItemAmount: Int,
         completionHandler: @escaping CompletionHandler
     ) {
         let request = nextRequest(
-            itemPageIndex: itemPageIndex, requestItemAmount: requestItemAmount
+            itemPageIndex: pageIndex, requestItemAmount: requestItemAmount
         )
         manager.setUpRequest(with: request)
         manager.dataTask { result in

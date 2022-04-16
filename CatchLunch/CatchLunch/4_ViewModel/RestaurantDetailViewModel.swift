@@ -12,7 +12,7 @@ where Service.Response == RestaurantSummary {
     private let service: Service
     private var nowUpdate = false
 
-    private(set) var information: RestaurantInformation
+    private(set) var element: RestaurantSummary
     private(set) var error: Error?
 
     private let buttonImage = (
@@ -20,22 +20,22 @@ where Service.Response == RestaurantSummary {
         off: UIImage.star
     )
     var button: UIImage? {
-        if information.summary.isBookmarked {
+        if element.isBookmarked {
             return buttonImage.on
         } else {
             return buttonImage.off
         }
     }
 
-    init(under service: Service, with element: RestaurantInformation) {
+    init(under service: Service, with summary: RestaurantSummary) {
         self.service = service
-        self.information = element
+        self.element = summary
     }
 
     func check(then completionHandler: @escaping () -> Void) {
-        service.checkBookmark(about: information.summary) { [weak self] isBookmarked in
-            if isBookmarked != self?.information.summary.isBookmarked {
-                self?.information.summary.toggledBookmark()
+        service.checkBookmark(about: element) { [weak self] isBookmarked in
+            if isBookmarked != self?.element.isBookmarked {
+                self?.element.toggledBookmark()
             }
 
             DispatchQueue.main.async {
@@ -47,11 +47,11 @@ where Service.Response == RestaurantSummary {
     func toggle(then completionHandler: @escaping () -> Void) {
         if nowUpdate { return }
         nowUpdate = true
-        service.toggleBookmark(about: information.summary) { [weak self] error in
+        service.toggleBookmark(about: element) { [weak self] error in
             if let error = error {
                 self?.error = error
             }
-            self?.information.summary.toggledBookmark()
+            self?.element.toggledBookmark()
             self?.nowUpdate = false
 
             DispatchQueue.main.async {

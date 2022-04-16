@@ -8,7 +8,7 @@
 import MapKit
 
 final class RestaurantDetailViewController<ViewModel: BookmarkableViewModel>: UIViewController
-where ViewModel.Element == RestaurantInformation {
+where ViewModel.Element == RestaurantSummary {
     private let detailView = RestaurantDetailView()
     private let mapView: MKMapView = {
         let mapView = MKMapView()
@@ -65,7 +65,7 @@ where ViewModel.Element == RestaurantInformation {
     }
 
     private func setUpNavigation() {
-        let summary = viewModel.information.summary
+        let summary = viewModel.element
         let bookmarkButton = UIBarButtonItem(
             image: nil, style: .plain,
             target: self, action: #selector(toggleBookmark)
@@ -75,13 +75,13 @@ where ViewModel.Element == RestaurantInformation {
     }
 
     private func setUpContents() {
-        let summary = viewModel.information.summary
+        let summary = viewModel.element
 
         if let latitude = summary.latitude, let longitude = summary.longitude {
             focusMap(onY: latitude, andX: longitude)
         }
 
-        detailView.configure(with: viewModel.information)
+        detailView.configure(with: viewModel.element)
         routingButton.addTarget(self, action: #selector(routingStart), for: .touchUpInside)
     }
 

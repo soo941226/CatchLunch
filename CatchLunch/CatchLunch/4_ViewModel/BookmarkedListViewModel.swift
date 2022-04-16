@@ -29,17 +29,12 @@ extension BookmarkedListViewModel: Notifier {
         return sourceOfTruth.count
     }
 
-    subscript(_ index: Int) -> RestaurantInformation? {
+    subscript(_ index: Int) -> RestaurantSummary? {
         guard sourceOfTruth.indices ~= index else {
             return nil
         }
 
-        let image = sourceOfTruth[index].mainFoodNames?.first
-            .flatMap({ name in
-                imageViewModel[name]
-            })
-
-        return (sourceOfTruth[index], image ?? imagePlaceHolder)
+        return sourceOfTruth[index]
     }
 
     func fetch(completionHandler: @escaping (Bool) -> Void) {

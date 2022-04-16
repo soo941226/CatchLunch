@@ -5,14 +5,13 @@
 //  Created by kjs on 2022/02/27.
 //
 
-import UIKit
+import Foundation
 
 protocol JustSearchViewModelable: AnyObject {
     associatedtype Item
-    typealias ItemInformation = (summary: Item, image: UIImage)
 
     var count: Int { get }
-    subscript(_ index: Int) -> ItemInformation? { get }
+    subscript(_ index: Int) -> Item? { get }
     func fetch(completionHandler: @escaping (Bool) -> Void)
     func willDisappear()
 }

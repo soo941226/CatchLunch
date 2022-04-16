@@ -61,7 +61,7 @@ where ViewModel.Item == RestaurantSummary {
 }
 
 extension RestaurantsViewController: RestaurantsViewModelContainer {
-    var selectedModel: RestaurantInformation? {
+    var selectedModel: RestaurantSummary? {
         guard let indexPath = tableView.indexPathForSelectedRow else {
             return nil
         }

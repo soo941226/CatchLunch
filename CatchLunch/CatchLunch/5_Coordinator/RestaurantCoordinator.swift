@@ -31,7 +31,7 @@ final class RestaurantCoordinator: Coordinatorable {
 }
 
 extension RestaurantCoordinator: ParentCoordinator {
-    var model: RestaurantInformation? {
+    var model: RestaurantSummary? {
         return parent?.model
     }
 }

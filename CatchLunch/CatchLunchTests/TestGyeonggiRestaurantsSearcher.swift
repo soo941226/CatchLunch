@@ -27,7 +27,7 @@ final class TestGyeonggiRestaurantsSearcher: XCTestCase {
 
         // when
         restaurantSearcherUnderTest.fetch(
-            itemPageIndex: -1, requestItemAmount: 10
+            pageIndex: -1, requestItemAmount: 10
         ) { result in
             switch result {
             case .success(let result):
@@ -57,7 +57,7 @@ final class TestGyeonggiRestaurantsSearcher: XCTestCase {
 
         // when
         restaurantSearcherUnderTest.fetch(
-            itemPageIndex: 0, requestItemAmount: 10
+            pageIndex: 0, requestItemAmount: 10
         ) { result in
             switch result {
             case .success(let result):
@@ -87,7 +87,7 @@ final class TestGyeonggiRestaurantsSearcher: XCTestCase {
 
         // when
         restaurantSearcherUnderTest.fetch(
-            itemPageIndex: 1, requestItemAmount: 0
+            pageIndex: 1, requestItemAmount: 0
         ) { result in
             switch result {
             case .success(let result):
@@ -114,7 +114,7 @@ final class TestGyeonggiRestaurantsSearcher: XCTestCase {
 
         // when
         restaurantSearcherUnderTest.fetch(
-            itemPageIndex: .max, requestItemAmount: .max
+            pageIndex: .max, requestItemAmount: .max
         ) { result in
             switch result {
             case .success:
@@ -135,7 +135,7 @@ final class TestGyeonggiRestaurantsSearcher: XCTestCase {
         var resultToExpeect: DecodingError?
         // when
         restaurantSearcherUnderTest.fetch(
-            itemPageIndex: .max, requestItemAmount: .max
+            pageIndex: .max, requestItemAmount: .max
         ) { result in
             switch result {
             case .success:
@@ -163,7 +163,7 @@ final class TestGyeonggiRestaurantsSearcher: XCTestCase {
 
         // when
         restaurantSearcherUnderTest.fetch(
-            itemPageIndex: 1, requestItemAmount: 10
+            pageIndex: 1, requestItemAmount: 10
         ) { result in
             switch result {
             case .success(let result):

@@ -17,7 +17,7 @@ protocol SingleItemSearchService: SearchServiceable {
 
 protocol PagingSearchService: SearchServiceable {
     func fetch(
-        itemPageIndex: Int,
+        pageIndex: Int,
         requestItemAmount: Int,
         completionHandler: @escaping CompletionHandler
     )

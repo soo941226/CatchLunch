@@ -13,7 +13,7 @@ protocol BookmarkableViewModel {
 
     init(under: Service, with: Element)
 
-    var information: Element { get }
+    var element: Element { get }
     var error: Error? { get }
     var button: UIImage? { get }
 

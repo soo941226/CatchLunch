@@ -1,13 +1,11 @@
 //
-//  RestaurantInformation.swift
+//  RestaurantSummary.swift
 //  CatchLunch
 //
 //  Created by kjs on 2022/02/24.
 //
 
 import UIKit
-
-typealias RestaurantInformation = (summary: RestaurantSummary, image: UIImage)
 
 struct RestaurantSummary: Restaurant, Coordinate2D, Bookmarkable, Decodable {
     private(set) var isBookmarked: Bool = false

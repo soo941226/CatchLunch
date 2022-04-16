@@ -35,7 +35,7 @@ final class RootCoordinator: Coordinatorable {
 }
 
 extension RootCoordinator: ParentCoordinator {
-    var model: RestaurantInformation? {
+    var model: RestaurantSummary? {
         guard let searchBarController = navigationController.children.first as? SearchViewController,
               let viewController = searchBarController.selectedViewController else {
             return nil
@@ -55,10 +55,7 @@ private extension RootCoordinator {
         with imageViewModel: ImageViewModel
     ) {
         let coordinator = RestaurantCoordinator(on: navigationController)
-        let viewModel = RestaurantsViewModel(
-            service: GyeonggiRestaurantsSearcher(),
-            imageViewModel: imageViewModel
-        )
+        let viewModel = RestaurantsViewModel(service: GyeonggiRestaurantsSearcher())
         let controller = RestaurantsViewController(with: viewModel, under: coordinator)
         coordinator.parent = self
         children.append(coordinator)
@@ -75,10 +72,7 @@ private extension RootCoordinator {
         with imageViewModel: ImageViewModel
     ) {
         let coordinator = RestaurantCoordinator(on: navigationController)
-        let viewModel = RestaurantsViewModel(
-            service: GyeonggiParagonRestaurantSearcher(),
-            imageViewModel: imageViewModel
-        )
+        let viewModel = RestaurantsViewModel(service: GyeonggiParagonRestaurantSearcher())
         let controller = RestaurantsViewController(with: viewModel, under: coordinator)
         coordinator.parent = self
         children.append(coordinator)

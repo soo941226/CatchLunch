@@ -68,7 +68,7 @@ where ViewModel.Item == RestaurantSummary {
 }
 
 extension BookmarkdListViewController: RestaurantsViewModelContainer {
-    var selectedModel: RestaurantInformation? {
+    var selectedModel: RestaurantSummary? {
         guard let selectedIndex = tableView.indexPathForSelectedRow?.row else {
             return nil
         }

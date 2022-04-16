@@ -7,7 +7,7 @@
 import UIKit
 
 protocol ParentCoordinator: AnyObject {
-    var model: RestaurantInformation? { get }
+    var model: RestaurantSummary? { get }
 }
 
 protocol Coordinatorable: AnyObject {
