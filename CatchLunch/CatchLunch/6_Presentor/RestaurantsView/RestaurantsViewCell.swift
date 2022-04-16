@@ -118,6 +118,19 @@ final class RestaurantsViewCell: UITableViewCell {
 
 // MARK: - Facade
 extension RestaurantsViewCell {
+    var mainFood: String? {
+        foodNamesLabel.accessibilityIdentifier
+    }
+
+    var image: UIImage? {
+        get {
+            foodImageView.image
+        }
+        set {
+            foodImageView.image = newValue
+        }
+    }
+
     func configure(with restaurant: RestaurantSummary?) {
         guard let restaurant = restaurant else {
             return
@@ -126,6 +139,7 @@ extension RestaurantsViewCell {
         titleLabel.text = restaurant.restaurantName
         locationLabel.text = restaurant.cityName?.prepended(locationLabelPrefix)
         foodNamesLabel.text = restaurant.descriptionOfMainFoodNames?.prepended(foodNamesLabelPrefix)
+        foodNamesLabel.accessibilityIdentifier = restaurant.mainFoodNames?.first
         setUpAccessbilityMessage(with: restaurant)
     }
 }

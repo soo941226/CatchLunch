@@ -54,7 +54,7 @@
 		6369B44C27F4AD94008F9106 /* MapRoutingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6369B44B27F4AD94008F9106 /* MapRoutingCoordinator.swift */; };
 		636A347727FF22B00084B456 /* MapRoutingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A347627FF22B00084B456 /* MapRoutingViewController.swift */; };
 		636A7C2927D62B11000EA2FE /* Notification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A7C2827D62B11000EA2FE /* Notification.Name+.swift */; };
-		636A7C2C27D64157000EA2FE /* RestaurantsViewModelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A7C2B27D64157000EA2FE /* RestaurantsViewModelContainer.swift */; };
+		636A7C2C27D64157000EA2FE /* RestaurantsViewModelAdopter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A7C2B27D64157000EA2FE /* RestaurantsViewModelAdopter.swift */; };
 		636A7C2E27D64971000EA2FE /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A7C2D27D64971000EA2FE /* RootCoordinator.swift */; };
 		636DDE2E27F2BC6200D35E54 /* MapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636DDE2D27F2BC6200D35E54 /* MapRouter.swift */; };
 		636DDE3027F2BE2900D35E54 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636DDE2F27F2BE2900D35E54 /* Notifier.swift */; };
@@ -170,7 +170,7 @@
 		6369B44B27F4AD94008F9106 /* MapRoutingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRoutingCoordinator.swift; sourceTree = "<group>"; };
 		636A347627FF22B00084B456 /* MapRoutingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRoutingViewController.swift; sourceTree = "<group>"; };
 		636A7C2827D62B11000EA2FE /* Notification.Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+.swift"; sourceTree = "<group>"; };
-		636A7C2B27D64157000EA2FE /* RestaurantsViewModelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewModelContainer.swift; sourceTree = "<group>"; };
+		636A7C2B27D64157000EA2FE /* RestaurantsViewModelAdopter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewModelAdopter.swift; sourceTree = "<group>"; };
 		636A7C2D27D64971000EA2FE /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		636DDE2D27F2BC6200D35E54 /* MapRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRouter.swift; sourceTree = "<group>"; };
 		636DDE2F27F2BE2900D35E54 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
@@ -404,6 +404,14 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
+		6362602C280B08E6001F024C /* delegate */ = {
+			isa = PBXGroup;
+			children = (
+				636A7C2B27D64157000EA2FE /* RestaurantsViewModelAdopter.swift */,
+			);
+			path = delegate;
+			sourceTree = "<group>";
+		};
 		6367CEC027C7F60F007E0735 /* CatchLunch */ = {
 			isa = PBXGroup;
 			children = (
@@ -500,6 +508,7 @@
 		6375C8C127CA85A500F1D60F /* 4_ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				6362602C280B08E6001F024C /* delegate */,
 				63E0347427CCA79800CB7613 /* protocol */,
 				63E0347227CCA5E700CB7613 /* RestaurantsViewModel.swift */,
 				63852DDA27D1E6AB004D90C6 /* ImageViewModel.swift */,
@@ -652,7 +661,6 @@
 		63E0347427CCA79800CB7613 /* protocol */ = {
 			isa = PBXGroup;
 			children = (
-				636A7C2B27D64157000EA2FE /* RestaurantsViewModelContainer.swift */,
 				6375C8C227CA880700F1D60F /* ViewModelable.swift */,
 				63F3D15027DE0A6200A18554 /* BookmarkableViewModel.swift */,
 			);
@@ -993,7 +1001,7 @@
 				6367CEDA27C7F60F007E0735 /* RestaurantsViewController.swift in Sources */,
 				636DDE2E27F2BC6200D35E54 /* MapRouter.swift in Sources */,
 				63DE3E3C27C8996000A32868 /* NetworkManager.swift in Sources */,
-				636A7C2C27D64157000EA2FE /* RestaurantsViewModelContainer.swift in Sources */,
+				636A7C2C27D64157000EA2FE /* RestaurantsViewModelAdopter.swift in Sources */,
 				63CB89B327D5C9AA007300C8 /* RestaurantsViewCell.swift in Sources */,
 				63768F1C27E7048A009E3380 /* AbstarctImageSearcher.swift in Sources */,
 				63137BA027E9910500874F73 /* CautionViewController.swift in Sources */,

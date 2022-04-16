@@ -35,7 +35,7 @@ final class TestRestaurantViewModel: XCTestCase {
         let dispatch = XCTestExpectation()
 
         //when
-        viewModelUnderTest.fetch { isSuccess in
+        viewModelUnderTest.search { isSuccess in
             if isSuccess {
                 dispatch.fulfill()
             } else {
@@ -59,7 +59,7 @@ final class TestRestaurantViewModel: XCTestCase {
 
         //when
         for _ in 0..<10 {
-            viewModelUnderTest.fetch { isSuccess in
+            viewModelUnderTest.search { isSuccess in
                 if isSuccess {
                     dispatch.fulfill()
                 } else {
@@ -82,7 +82,7 @@ final class TestRestaurantViewModel: XCTestCase {
         setUpHandler(data: Data(), code: 400)
         let dispatch = XCTestExpectation()
         var resultToExpect: Error?
-        viewModelUnderTest.fetch { isSuccess in
+        viewModelUnderTest.search { isSuccess in
             if isSuccess {
                 XCTFail(self.viewModelUnderTest.debugDescription)
             } else {
@@ -104,7 +104,7 @@ final class TestRestaurantViewModel: XCTestCase {
         let dispatch = XCTestExpectation()
         var resultToExpect: Error?
 
-        viewModelUnderTest.fetch { isSuccess in
+        viewModelUnderTest.search { isSuccess in
             if isSuccess {
                 XCTFail(self.viewModelUnderTest.debugDescription)
             } else {
@@ -118,7 +118,7 @@ final class TestRestaurantViewModel: XCTestCase {
 
         // then
         XCTAssertNil(resultToExpect)
-        viewModelUnderTest.fetch { _ in
+        viewModelUnderTest.search { _ in
             XCTFail("failed")
         }
     }

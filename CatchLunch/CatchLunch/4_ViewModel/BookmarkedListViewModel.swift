@@ -10,16 +10,13 @@ import UIKit
 final class BookmarkedListViewModel<Service: BookmarkService>: JustSearchViewModelable
 where Service.Response == RestaurantSummary {
     private let service: Service
-    private let imageViewModel: ImageViewModel
-    private let imagePlaceHolder = UIImage.forkKnifeCircle
     private var sourceOfTruth = [RestaurantSummary]()
     private var nowLoading = false
 
     private(set) var error: Error?
 
-    init(service: Service, imageViewModel: ImageViewModel) {
+    init(service: Service) {
         self.service = service
-        self.imageViewModel = imageViewModel
     }
 }
 
@@ -37,23 +34,21 @@ extension BookmarkedListViewModel: Notifier {
         return sourceOfTruth[index]
     }
 
-    func fetch(completionHandler: @escaping (Bool) -> Void) {
+    func search(completionHandler: @escaping (Bool) -> Void) {
         if nowLoading { return }
         nowLoading = true
 
         postStartTask()
 
         service.fetch(whereBookmarkedIs: true) { [weak self] result in
-            self?.nowLoading = false
+            guard let self = self else { return }
+            self.nowLoading = false
 
             switch result {
             case .success(let restaurants):
-                self?.fetchImagesToFinish(from: restaurants, with: completionHandler)
+                self.success(with: restaurants, by: completionHandler)
             case .failure(let error):
-                self?.error = error
-                DispatchQueue.main.async {
-                    completionHandler(false)
-                }
+                self.failure(with: error, by: completionHandler)
             }
         }
     }
@@ -61,37 +56,23 @@ extension BookmarkedListViewModel: Notifier {
     func willDisappear() {
         postFinishTask()
     }
+}
 
-    private func fetchImagesToFinish(
-        from restaurants: [RestaurantSummary],
-        with completionHandler: @escaping (Bool) -> Void
-    ) {
-        guard restaurants.count > .zero else {
-            sourceOfTruth = []
-            postFinishTask()
-            DispatchQueue.main.async {
-                completionHandler(true)
-            }
-            return
+// MARK: - components of fetch
+private extension BookmarkedListViewModel {
+    func success(with restaurants: [RestaurantSummary], by completionHandler: @escaping (Bool) -> Void) {
+        error = nil
+        sourceOfTruth = restaurants
+        DispatchQueue.main.async {
+            completionHandler(true)
+            self.postFinishTask()
         }
+    }
 
-        let dispatchGroup = DispatchGroup()
-
-        restaurants.forEach { model in
-            dispatchGroup.enter()
-            let foodName = model.mainFoodNames?.first ?? ""
-            imageViewModel.fetch(about: foodName) { _ in
-                dispatchGroup.leave()
-            }
-        }
-
-        dispatchGroup.notify(queue: .main) { [weak self] in
-            self?.error = nil
-            self?.sourceOfTruth = restaurants
-            DispatchQueue.main.async {
-                completionHandler(true)
-                self?.postFinishTask()
-            }
+    func failure(with error: Error, by completionHandler: @escaping (Bool) -> Void) {
+        self.error = error
+        DispatchQueue.main.async {
+            completionHandler(false)
         }
     }
 }

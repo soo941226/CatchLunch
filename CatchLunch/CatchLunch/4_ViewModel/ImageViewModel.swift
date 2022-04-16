@@ -11,17 +11,18 @@ final class ImageViewModel: NameSearchViewModelable {
     private let services: [AbstarctImageSearcher]
     private(set) var error: Error?
     private let cachedImages: NSCache<NSString, UIImage>
+    private(set) var placeHolder = UIImage.forkKnifeCircle
 
     init(service: AbstarctImageSearcher...) {
         self.services = service
         cachedImages = NSCache()
     }
 
-    subscript(_ name: String) -> UIImage? {
-        return cachedImages.object(forKey: name as NSString)
+    subscript(_ name: String) -> UIImage {
+        return cachedImages.object(forKey: name as NSString) ?? placeHolder
     }
 
-    func fetch(about name: String, completionHandler: @escaping (Bool) -> Void) {
+    func search(about name: String, completionHandler: @escaping (Bool) -> Void) {
         let nsName = name as NSString
 
         if cachedImages.object(forKey: nsName) != nil {
@@ -39,7 +40,9 @@ final class ImageViewModel: NameSearchViewModelable {
         var services = services
         guard let service = services.next() else {
             error = ImageSearchError.itemsIsNotExists
-            completionHandler(false)
+            DispatchQueue.main.async {
+                completionHandler(false)
+            }
             return
         }
 
@@ -50,9 +53,11 @@ final class ImageViewModel: NameSearchViewModelable {
             case .success(let response):
                 let nsName = name as NSString
                 self.cachedImages.setObject(response, forKey: nsName)
-                completionHandler(true)
+                DispatchQueue.main.async {
+                    completionHandler(true)
+                }
             case .failure:
-                self.fetch(about: name, under: services.makeIterator(), completionHandler: completionHandler)
+                self.fetch(about: name, under: services, completionHandler: completionHandler)
             }
         }
     }

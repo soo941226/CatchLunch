@@ -9,8 +9,9 @@ import UIKit
 
 final class RootCoordinator: Coordinatorable {
     private unowned var navigationController: UINavigationController!
-    private(set) var children = [Coordinatorable]()
+    private unowned var searchBarController: SearchViewController!
 
+    private(set) var children = [Coordinatorable]()
     private var observer: NSKeyValueObservation?
 
     init(on navigationController: UINavigationController) {
@@ -30,18 +31,20 @@ final class RootCoordinator: Coordinatorable {
         searchBarController.title = "맛집"
         searchBarController.setViewControllers(container, animated: false)
         navigationController.pushViewController(searchBarController, animated: false)
-        setObserverToChangeTitle(on: searchBarController)
+
+        self.searchBarController = searchBarController
+
+        setObserverToChangeTitle()
     }
 }
 
 extension RootCoordinator: ParentCoordinator {
     var model: RestaurantSummary? {
-        guard let searchBarController = navigationController.children.first as? SearchViewController,
-              let viewController = searchBarController.selectedViewController else {
+        guard let viewController = searchBarController.selectedViewController else {
             return nil
         }
 
-        guard let restaurantsViewController = viewController as? RestaurantsViewModelContainer else {
+        guard let restaurantsViewController = viewController as? RestaurantsViewModelAdopter else {
             return nil
         }
 
@@ -56,7 +59,11 @@ private extension RootCoordinator {
     ) {
         let coordinator = RestaurantCoordinator(on: navigationController)
         let viewModel = RestaurantsViewModel(service: GyeonggiRestaurantsSearcher())
-        let controller = RestaurantsViewController(with: viewModel, under: coordinator)
+        let controller = RestaurantsViewController(
+            with: viewModel,
+            and: imageViewModel,
+            under: coordinator
+        )
         coordinator.parent = self
         children.append(coordinator)
 
@@ -73,7 +80,11 @@ private extension RootCoordinator {
     ) {
         let coordinator = RestaurantCoordinator(on: navigationController)
         let viewModel = RestaurantsViewModel(service: GyeonggiParagonRestaurantSearcher())
-        let controller = RestaurantsViewController(with: viewModel, under: coordinator)
+        let controller = RestaurantsViewController(
+            with: viewModel,
+            and: imageViewModel,
+            under: coordinator
+        )
         coordinator.parent = self
         children.append(coordinator)
 
@@ -89,11 +100,12 @@ private extension RootCoordinator {
         with imageViewModel: ImageViewModel
     ) {
         let coordinator = RestaurantCoordinator(on: navigationController)
-        let viewModel = BookmarkedListViewModel(
-            service: RestaurantsBookmarkService.shared,
-            imageViewModel: imageViewModel
+        let viewModel = BookmarkedListViewModel(service: RestaurantsBookmarkService.shared)
+        let controller = BookmarkdListViewController(
+            with: viewModel,
+            and: imageViewModel,
+            under: coordinator
         )
-        let controller = BookmarkdListViewController(viewModel: viewModel, under: coordinator)
         coordinator.parent = self
         children.append(coordinator)
 
@@ -115,26 +127,24 @@ private extension RootCoordinator {
         container.append(controller)
     }
 
-    func setObserverToChangeTitle(on controller: SearchViewController) {
-        observer = controller.observe(
+    func setObserverToChangeTitle() {
+        observer = searchBarController.observe(
             \.selectedItemIndex,
              options: .new,
              changeHandler: { [weak self] _, value in
-                 guard let navigationController = self?.navigationController,
-                       let searchBarController = navigationController.children.first as? SearchViewController,
-                       let controllerIndex = value.newValue else {
+                 guard let controllerIndex = value.newValue else {
                      return
                  }
 
                  switch controllerIndex {
                  case 1:
-                     searchBarController.title = "모범식당"
+                     self?.searchBarController.title = "모범식당"
                  case 2:
-                     searchBarController.title = "즐겨찾기"
+                     self?.searchBarController.title = "즐겨찾기"
                  case 3:
-                     searchBarController.title = "설정"
+                     self?.searchBarController.title = "설정"
                  default:
-                     searchBarController.title = "맛집"
+                     self?.searchBarController.title = "맛집"
                  }
              }
         )

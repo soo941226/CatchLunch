@@ -13,11 +13,16 @@ where ViewModel.Item == RestaurantSummary {
     private let tableView = UITableView()
     private let dataSource = RestaurantsViewDataSource<ViewModel>()
     private let delegate = RestaurantsViewDelegate()
+
+    private weak var imageViewModel: ImageViewModel?
     private weak var coordinator: Coordinatorable?
 
-    init(with viewModel: ViewModel, under coordinator: Coordinatorable) {
+    private var isLoad = true
+
+    init(with viewModel: ViewModel, and imageViewModel: ImageViewModel, under coordinator: Coordinatorable) {
         self.viewModel = viewModel
         self.coordinator = coordinator
+        delegate.configure(imageViewModel: imageViewModel)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -27,10 +32,17 @@ where ViewModel.Item == RestaurantSummary {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        requestNextItems()
 
         tableViewConfiguration()
         setUpTableViewLayout()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        guard isLoad else { return }
+        requestNextItems()
+        isLoad = false
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -60,7 +72,7 @@ where ViewModel.Item == RestaurantSummary {
     }
 }
 
-extension RestaurantsViewController: RestaurantsViewModelContainer {
+extension RestaurantsViewController: RestaurantsViewModelAdopter {
     var selectedModel: RestaurantSummary? {
         guard let indexPath = tableView.indexPathForSelectedRow else {
             return nil
@@ -74,7 +86,7 @@ extension RestaurantsViewController: RestaurantsViewModelContainer {
     }
 
     func requestNextItems() {
-        viewModel.fetch { [weak self] isSuccess in
+        viewModel.search { [weak self] isSuccess in
             guard let self = self else { return }
             if isSuccess {
                 let indexPathsToRefresh = self.viewModel.nextIndexPaths

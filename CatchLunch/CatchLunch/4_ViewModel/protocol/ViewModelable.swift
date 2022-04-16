@@ -12,12 +12,12 @@ protocol JustSearchViewModelable: AnyObject {
 
     var count: Int { get }
     subscript(_ index: Int) -> Item? { get }
-    func fetch(completionHandler: @escaping (Bool) -> Void)
+    func search(completionHandler: @escaping (Bool) -> Void)
     func willDisappear()
 }
 
 protocol NameSearchViewModelable: AnyObject {
-    func fetch(about name: String, completionHandler: @escaping (Bool) -> Void)
+    func search(about name: String, completionHandler: @escaping (Bool) -> Void)
 }
 
 protocol PagingSearchViewModelable: JustSearchViewModelable {

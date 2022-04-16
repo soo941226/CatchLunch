@@ -50,7 +50,7 @@ extension RestaurantsViewModel: Notifier {
         return sourtOfTruth[index]
     }
 
-    func fetch(completionHandler: @escaping (Bool) -> Void) {
+    func search(completionHandler: @escaping (Bool) -> Void) {
         if thereIsNoMoreItem { return }
         if nowLoading { return }
         nowLoading = true

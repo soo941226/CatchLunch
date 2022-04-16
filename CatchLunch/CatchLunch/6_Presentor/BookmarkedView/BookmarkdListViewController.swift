@@ -13,15 +13,23 @@ where ViewModel.Item == RestaurantSummary {
     private let tableView = UITableView()
     private let dataSource = RestaurantsViewDataSource<ViewModel>()
     private let delegate = RestaurantsViewDelegate()
+
     private weak var coordinator: Coordinatorable?
+
+    private var isLoad = true
 
     required init?(coder: NSCoder) {
         fatalError(.meesageAboutInterfaceBuilder)
     }
 
-    init(viewModel: ViewModel, under coordinator: Coordinatorable) {
+    init(
+        with viewModel: ViewModel,
+        and imageViewModel: ImageViewModel,
+        under coordinator: Coordinatorable
+    ) {
         self.viewModel = viewModel
         self.coordinator = coordinator
+        delegate.configure(imageViewModel: imageViewModel)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -30,6 +38,11 @@ where ViewModel.Item == RestaurantSummary {
 
         tableViewConfiguration()
         setUpTableViewLayout()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        retrieveItems()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -57,9 +70,8 @@ where ViewModel.Item == RestaurantSummary {
         ])
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.fetch { [weak self] isSuccess in
+    private func retrieveItems() {
+        viewModel.search { [weak self] isSuccess in
             if isSuccess {
                 self?.tableView.reloadData()
             }
@@ -67,7 +79,7 @@ where ViewModel.Item == RestaurantSummary {
     }
 }
 
-extension BookmarkdListViewController: RestaurantsViewModelContainer {
+extension BookmarkdListViewController: RestaurantsViewModelAdopter {
     var selectedModel: RestaurantSummary? {
         guard let selectedIndex = tableView.indexPathForSelectedRow?.row else {
             return nil
@@ -79,5 +91,7 @@ extension BookmarkdListViewController: RestaurantsViewModelContainer {
         coordinator?.start()
     }
 
-    func requestNextItems() { }
+    func requestNextItems() {
+
+    }
 }
