@@ -19,7 +19,7 @@ final class RootCoordinator: Coordinatorable {
     }
 
     func start() {
-        let imageViewModel = ImageViewModel(service: NaverImageSearcher(), DaumImageSearcher())
+        let imageViewModel = ImageViewModelFactory.makeDefault()
         let searchBarController = SearchViewController(imageViewModel: imageViewModel)
         var container = [UIViewController]()
 
