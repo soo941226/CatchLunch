@@ -81,7 +81,7 @@ where ViewModel.Element == RestaurantSummary {
             focusMap(onY: latitude, andX: longitude)
         }
 
-        detailView.configure(with: viewModel.element)
+        detailView.configure(with: summary)
         routingButton.addTarget(self, action: #selector(routingStart), for: .touchUpInside)
     }
 
