@@ -19,9 +19,9 @@ final class TestImageViewModel: XCTestCase {
         viewModelUnderTest = nil
     }
 
-    func test_fetch이전에_viewModel의_subscript로접근하면_nil이_나온다() {
+    func test_fetch이전에_viewModel의_subscript로접근하면_placeHolder가_나온다() {
         // just
-        XCTAssertNil(viewModelUnderTest["goodImage"])
+        XCTAssertEqual(viewModelUnderTest["goodImage"], viewModelUnderTest.placeHolder)
     }
 
     func test_fetch_성공_이후에_viewModel의_subscript로접근하면_이미지가_잘_나온다() {
@@ -31,11 +31,11 @@ final class TestImageViewModel: XCTestCase {
         let findImageName = "goodImage"
 
         // when
-        viewModelUnderTest.fetch(about: findImageName) { isSuccess in
+        viewModelUnderTest.search(about: findImageName) { isSuccess in
             if isSuccess {
                 // then
                 XCTAssertNotNil(self.viewModelUnderTest[findImageName])
-                XCTAssertTrue(true, self.viewModelUnderTest[findImageName]!.description)
+                XCTAssertTrue(true, self.viewModelUnderTest[findImageName].description)
             } else {
                 XCTFail(self.viewModelUnderTest.error!.localizedDescription)
             }
@@ -52,7 +52,7 @@ final class TestImageViewModel: XCTestCase {
         let wrongImageName = "notAnImage"
 
         // when
-        viewModelUnderTest.fetch(about: wrongImageName) { isSuccess in
+        viewModelUnderTest.search(about: wrongImageName) { isSuccess in
             if isSuccess {
                 XCTFail("성공하면안됨")
             } else {
@@ -70,12 +70,12 @@ final class TestImageViewModel: XCTestCase {
         // given
         setUpHandler(data: StubImageSearchResult().goodObject, code: 200)
         let dispatch = XCTestExpectation()
-        let findImageName = "goodImage"
+        let findImageName = "DummyImage"
         var expectation: UIImage?
         var resultToExpect: UIImage?
 
         // when
-        viewModelUnderTest.fetch(about: findImageName) { isSuccess in
+        viewModelUnderTest.search(about: findImageName) { isSuccess in
             if isSuccess {
                 expectation = self.viewModelUnderTest[findImageName]
             } else {
@@ -87,7 +87,7 @@ final class TestImageViewModel: XCTestCase {
         wait(for: [dispatch], timeout: 5.0)
 
         // then
-        viewModelUnderTest.fetch(about: findImageName) { isSuccess in
+        viewModelUnderTest.search(about: findImageName) { isSuccess in
             if isSuccess {
                 resultToExpect = self.viewModelUnderTest[findImageName]
             } else {

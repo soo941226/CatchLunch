@@ -28,12 +28,12 @@ struct GyeonggiParagonRestaurantSearcher: PagingSearchService {
     }
 
     func fetch(
-        itemPageIndex: Int,
+        pageIndex: Int,
         requestItemAmount: Int,
         completionHandler: @escaping CompletionHandler
     ) {
         let request = nextRequest(
-            itemPageIndex: itemPageIndex+1, requestItemAmount: requestItemAmount
+            itemPageIndex: pageIndex+1, requestItemAmount: requestItemAmount
         )
         manager.setUpRequest(with: request)
         manager.dataTask { result in

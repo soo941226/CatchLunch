@@ -61,6 +61,14 @@ final class RestaurantsViewCell: UITableViewCell {
         setUpConstraints()
     }
 
+    override func prepareForReuse() {
+        foodImageView.image = nil
+        titleLabel.text = nil
+        locationLabel.text = nil
+        foodNamesLabel.text = nil
+        foodNamesLabel.accessibilityIdentifier = nil
+    }
+
     private func setUpSubviews() {
         labelStackView
             .addArrangedSubviews(titleLabel, locationLabel, foodNamesLabel)
@@ -118,15 +126,28 @@ final class RestaurantsViewCell: UITableViewCell {
 
 // MARK: - Facade
 extension RestaurantsViewCell {
-    func configure(with data: RestaurantInformation?) {
-        guard let (restaurant, image) = data else {
+    var mainFood: String? {
+        foodNamesLabel.accessibilityIdentifier
+    }
+
+    var image: UIImage? {
+        get {
+            foodImageView.image
+        }
+        set {
+            foodImageView.image = newValue
+        }
+    }
+
+    func configure(with restaurant: RestaurantSummary?) {
+        guard let restaurant = restaurant else {
             return
         }
 
-        foodImageView.image = image
         titleLabel.text = restaurant.restaurantName
         locationLabel.text = restaurant.cityName?.prepended(locationLabelPrefix)
         foodNamesLabel.text = restaurant.descriptionOfMainFoodNames?.prepended(foodNamesLabelPrefix)
+        foodNamesLabel.accessibilityIdentifier = restaurant.mainFoodNames?.first
         setUpAccessbilityMessage(with: restaurant)
     }
 }

@@ -13,15 +13,25 @@ where ViewModel.Item == RestaurantSummary {
     private let tableView = UITableView()
     private let dataSource = RestaurantsViewDataSource<ViewModel>()
     private let delegate = RestaurantsViewDelegate()
+
+    private weak var imageViewModel: ImageViewModel?
     private weak var coordinator: Coordinatorable?
+
+    private var isLoad = true
 
     required init?(coder: NSCoder) {
         fatalError(.meesageAboutInterfaceBuilder)
     }
 
-    init(viewModel: ViewModel, under coordinator: Coordinatorable) {
+    init(
+        with viewModel: ViewModel,
+        and imageViewModel: ImageViewModel,
+        under coordinator: Coordinatorable
+    ) {
         self.viewModel = viewModel
         self.coordinator = coordinator
+        self.imageViewModel = imageViewModel
+        delegate.configure(imageViewModel: imageViewModel)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -30,6 +40,11 @@ where ViewModel.Item == RestaurantSummary {
 
         tableViewConfiguration()
         setUpTableViewLayout()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        retrieveItems()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -56,28 +71,39 @@ where ViewModel.Item == RestaurantSummary {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.fetch { [weak self] isSuccess in
-            if isSuccess {
-                self?.tableView.reloadData()
-            }
-        }
-    }
 }
 
-extension BookmarkdListViewController: RestaurantsViewModelContainer {
-    var selectedModel: RestaurantInformation? {
+extension BookmarkdListViewController: RestaurantsViewModelAdopter {
+    var selectedModel: RestaurantSummary? {
         guard let selectedIndex = tableView.indexPathForSelectedRow?.row else {
             return nil
         }
         return viewModel[selectedIndex]
     }
 
+    func retrieve(image completionHandler: @escaping (UIImage?) -> Void) {
+        guard let mainFoodName = selectedModel?.mainFoodNames?.first else {
+            return completionHandler(nil)
+        }
+
+        imageViewModel?.search(about: mainFoodName) { _ in
+            completionHandler(self.imageViewModel?[mainFoodName])
+        }
+    }
+
     func select() {
         coordinator?.start()
     }
 
-    func requestNextItems() { }
+    func requestNextItems() {
+
+    }
+
+    private func retrieveItems() {
+        viewModel.search { [weak self] isSuccess in
+            if isSuccess {
+                self?.tableView.reloadData()
+            }
+        }
+    }
 }

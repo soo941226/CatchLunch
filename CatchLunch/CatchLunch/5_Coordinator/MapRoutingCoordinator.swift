@@ -17,7 +17,7 @@ final class MapRoutingCoordinator: Coordinatorable {
     }
 
     func start() {
-        guard let restaurant = parent?.model?.summary,
+        guard let restaurant = parent?.model,
               let latitude = restaurant.latitude,
               let longitude = restaurant.longitude else {
             return

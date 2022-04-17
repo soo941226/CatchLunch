@@ -11,8 +11,6 @@ final class RestaurantsViewModel<Service: PagingSearchService>: PagingSearchView
 where Service.Response == [RestaurantSummary] {
     private let service: Service
     private weak var restaurantsViewModel: RestaurantsViewModel<Service>?
-    private weak var imageViewModel: ImageViewModel?
-    private let imagePlaceHolder = UIImage.forkKnifeCircle
 
     private var nowLoading = false
     private var thereIsNoMoreItem = false
@@ -20,11 +18,10 @@ where Service.Response == [RestaurantSummary] {
 
     private var sourtOfTruth = [RestaurantSummary]()
     private var pageIndex = 0
-    private let itemRequestAmount = 10
+    private let itemRequestAmount = 100
 
-    init(service: Service, imageViewModel: ImageViewModel) {
+    init(service: Service) {
         self.service = service
-        self.imageViewModel = imageViewModel
     }
 }
 
@@ -45,43 +42,34 @@ extension RestaurantsViewModel: Notifier {
         return sourtOfTruth.count
     }
 
-    subscript(_ index: Int) -> RestaurantInformation? {
+    subscript(_ index: Int) -> RestaurantSummary? {
         guard sourtOfTruth.indices ~= index else {
             return nil
         }
 
-        let image = sourtOfTruth[index].mainFoodNames?.first
-            .flatMap({ name in
-                imageViewModel?[name]
-            })
-
-        return (sourtOfTruth[index], image ?? imagePlaceHolder)
+        return sourtOfTruth[index]
     }
 
-    func fetch(completionHandler: @escaping (Bool) -> Void) {
+    func search(completionHandler: @escaping (Bool) -> Void) {
         if thereIsNoMoreItem { return }
         if nowLoading { return }
         nowLoading = true
 
         postStartTask()
 
-        service.fetch(itemPageIndex: pageIndex, requestItemAmount: itemRequestAmount) { [weak self] result in
+        service.fetch(pageIndex: pageIndex, requestItemAmount: itemRequestAmount) { [weak self] result in
             guard let self = self else { return }
             self.nowLoading = false
 
             switch result {
             case .success(let restaurants):
                 if restaurants.count > 0 {
-                    self.fetchImages(from: restaurants, with: completionHandler)
+                    self.success(with: restaurants, by: completionHandler)
                 } else {
-                    self.thereIsNoMoreItem = true
-                    completionHandler(false)
-
-                    self.postFinishTaskWithError(message: "더이상 요청할 수 없습니다")
+                    self.end(by: completionHandler)
                 }
             case .failure(let error):
-                self.error = error
-                completionHandler(false)
+                self.failure(with: error, by: completionHandler)
             }
         }
     }
@@ -89,29 +77,37 @@ extension RestaurantsViewModel: Notifier {
     func willDisappear() {
         postFinishTask()
     }
+
 }
 
+// MARK: - components of fetch
 private extension RestaurantsViewModel {
-    func fetchImages(
-        from restaurants: [RestaurantSummary],
-        with completionHandler: @escaping (Bool) -> Void
-    ) {
-        let dispatchGroup = DispatchGroup()
+    func success(with restaurants: [RestaurantSummary], by completionHandler: @escaping (Bool) -> Void) {
+        error = nil
+        pageIndex += 1
+        sourtOfTruth += restaurants
 
-        restaurants.forEach { model in
-            dispatchGroup.enter()
-            let foodName = model.mainFoodNames?.first ?? ""
-            imageViewModel?.fetch(about: foodName) { _ in
-                dispatchGroup.leave()
-            }
-        }
-
-        dispatchGroup.notify(queue: .main) { [weak self] in
-            self?.error = nil
-            self?.pageIndex += 1
-            self?.sourtOfTruth += restaurants
+        DispatchQueue.main.async {
             completionHandler(true)
-            self?.postFinishTask()
+
+            self.postFinishTask()
+        }
+    }
+
+    func end(by completionHandler: @escaping (Bool) -> Void) {
+        thereIsNoMoreItem = true
+
+        DispatchQueue.main.async {
+            completionHandler(false)
+
+            self.postFinishTaskWithError(message: "더이상 요청할 수 없습니다")
+        }
+    }
+
+    func failure(with error: Error, by completionHandler: @escaping (Bool) -> Void) {
+        self.error = error
+        DispatchQueue.main.async {
+            completionHandler(false)
         }
     }
 }

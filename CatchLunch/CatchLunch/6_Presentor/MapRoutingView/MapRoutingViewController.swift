@@ -19,16 +19,16 @@ final class MapRoutingViewController: UIViewController {
         mapView.showsTraffic = false
         return mapView
     }()
-    private let distanceLabel: UILabel = {
-        let label = UILabel()
+    private let distanceLabel: CircleLabel = {
+        let label = CircleLabel()
         label.textColor = .label
+        label.textAlignment = .center
+        label.font = .preferredFont(forTextStyle: .caption2)
         label.backgroundColor = .systemBackground
-        label.directionalLayoutMargins = .init(dx: .headInset, dy: .headInset)
-        label.layer.cornerRadius = .cornerRadius
         return label
     }()
 
-    private var guideDescriptions = [String]()
+    private var guideDescriptions = [MKRoute.Step]()
 
     init(viewModel: MapRouteViewModel, under coordiantor: Coordinatorable? = nil) {
         self.viewModel = viewModel
@@ -63,35 +63,37 @@ final class MapRoutingViewController: UIViewController {
 
             let distance = route.distance / 1000
             self.distanceLabel.text = distance.rounded().description + "km"
-
-            let array: [String] = route.steps.compactMap { step in
-                if step.instructions.isEmpty { return nil }
-
-                let distanceDescription = step.distance.rounded().description
-                return distanceDescription + "m, " + step.instructions
+            
+            var steps = route.steps
+            if steps.first?.instructions.isEmpty == true {
+                steps.removeFirst()
             }
-            self.guideDescriptions = array
+            self.guideDescriptions = steps
             self.tableView.reloadData()
         }
     }
 
-    private func configureMapView() {
+}
+
+// MARK: - private methods of MapRoutingViewController
+private extension MapRoutingViewController {
+    func configureMapView() {
         mapView.insert(into: view)
         mapView.delegate = self
     }
 
-    private func configureLabel() {
+    func configureLabel() {
         distanceLabel.insert(into: view)
     }
 
-    private func configureTableView() {
+    func configureTableView() {
         tableView.insert(into: view)
         tableView.dataSource = self
         tableView.separatorColor = .label
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CELL")
+        tableView.register(MapRoutingCell.self, forCellReuseIdentifier: MapRoutingCell.identifier)
     }
 
-    private func configureLayout() {
+    func configureLayout() {
         let safeArea = view.safeAreaLayoutGuide
         mapView.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -112,6 +114,7 @@ final class MapRoutingViewController: UIViewController {
     }
 }
 
+// MARK: - MKMapViewDelegate
 extension MapRoutingViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         guard let overlay = overlay as? MKPolyline else { return .init() }
@@ -123,15 +126,18 @@ extension MapRoutingViewController: MKMapViewDelegate {
     }
 }
 
+// MARK: - UITableViewDataSource
 extension MapRoutingViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guideDescriptions.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CELL", for: indexPath)
-        cell.textLabel?.text = guideDescriptions[indexPath.row]
-        cell.textLabel?.numberOfLines = .zero
+        let cell = tableView.dequeueReusableCell(withIdentifier: MapRoutingCell.identifier, for: indexPath)
+
+        guard let cell = cell as? MapRoutingCell else { return MapRoutingCell() }
+
+        cell.configure(with: guideDescriptions[indexPath.row])
         return cell
     }
 }
