@@ -47,8 +47,6 @@ final class TestRestaurantViewModel: XCTestCase {
 
         //then
         XCTAssertNotNil(viewModelUnderTest[0])
-        XCTAssertGreaterThan(viewModelUnderTest[0]!.image.size.width, .zero)
-        XCTAssertGreaterThan(viewModelUnderTest[0]!.image.size.height, .zero)
     }
 
     func test_fetch를_연달아해도_쓰로틀링이_걸려서_한번만_동작한다() {
@@ -73,8 +71,6 @@ final class TestRestaurantViewModel: XCTestCase {
         //then
         XCTAssertNil(viewModelUnderTest[expectaion+1])
         XCTAssertNotNil(self.viewModelUnderTest[0])
-        XCTAssertGreaterThan(self.viewModelUnderTest[0]!.image.size.width, .zero)
-        XCTAssertGreaterThan(self.viewModelUnderTest[0]!.image.size.height, .zero)
     }
 
     func test_viewModel의_fetch중_어떻게든_에러가_나오면_에러를_저장해놓는다() {

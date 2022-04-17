@@ -114,7 +114,7 @@ final class TestGyeonggiRestaurantsSearcher: XCTestCase {
 
         // when
         restaurantSearcherUnderTest.fetch(
-            pageIndex: .max, requestItemAmount: .max
+            pageIndex: .min, requestItemAmount: .max
         ) { result in
             switch result {
             case .success:
@@ -135,7 +135,7 @@ final class TestGyeonggiRestaurantsSearcher: XCTestCase {
         var resultToExpeect: DecodingError?
         // when
         restaurantSearcherUnderTest.fetch(
-            pageIndex: .max, requestItemAmount: .max
+            pageIndex: .min, requestItemAmount: .max
         ) { result in
             switch result {
             case .success:
