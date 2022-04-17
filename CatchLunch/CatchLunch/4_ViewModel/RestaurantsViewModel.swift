@@ -18,7 +18,7 @@ where Service.Response == [RestaurantSummary] {
 
     private var sourtOfTruth = [RestaurantSummary]()
     private var pageIndex = 0
-    private let itemRequestAmount = 10
+    private let itemRequestAmount = 100
 
     init(service: Service) {
         self.service = service
