@@ -45,6 +45,7 @@ where ViewModel.Element == RestaurantSummary {
 
     override func loadView() {
         super.loadView()
+        view.backgroundColor = .systemBackground
         insertViews()
     }
 

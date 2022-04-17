@@ -61,6 +61,14 @@ final class RestaurantsViewCell: UITableViewCell {
         setUpConstraints()
     }
 
+    override func prepareForReuse() {
+        foodImageView.image = nil
+        titleLabel.text = nil
+        locationLabel.text = nil
+        foodNamesLabel.text = nil
+        foodNamesLabel.accessibilityIdentifier = nil
+    }
+
     private func setUpSubviews() {
         labelStackView
             .addArrangedSubviews(titleLabel, locationLabel, foodNamesLabel)

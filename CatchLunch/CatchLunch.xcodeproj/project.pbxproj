@@ -14,6 +14,7 @@
 		63018DF227C92B6200363F00 /* NaverImageSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63018DF127C92B6200363F00 /* NaverImageSearcher.swift */; };
 		63125BE72800152600AB1549 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63125BE62800152600AB1549 /* LocationService.swift */; };
 		63137BA027E9910500874F73 /* CautionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63137B9F27E9910500874F73 /* CautionViewController.swift */; };
+		6318CD0E280C781200BBAA99 /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6318CD0D280C781200BBAA99 /* CircleLabel.swift */; };
 		631BAA2927DB959C00A59AAA /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631BAA2827DB959C00A59AAA /* MockURLProtocol.swift */; };
 		631BAA2B27DB965B00A59AAA /* DummyURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631BAA2A27DB965B00A59AAA /* DummyURLRequest.swift */; };
 		6325642327DC8C49008D4195 /* DummyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6325642227DC8C49008D4195 /* DummyError.swift */; };
@@ -34,6 +35,7 @@
 		634C229227DB78240011EDBB /* MapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634C229127DB78240011EDBB /* MapMarker.swift */; };
 		634C229527DB8B170011EDBB /* CatchLunch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 634C229327DB8B170011EDBB /* CatchLunch.xcdatamodeld */; };
 		634C229927DB8CBC0011EDBB /* CDModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634C229827DB8CBC0011EDBB /* CDModelManager.swift */; };
+		634D5808280BB45D00D99860 /* MapRoutingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634D5807280BB45D00D99860 /* MapRoutingCell.swift */; };
 		63667CF227CDDE71008677C2 /* TestRestaurantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63667CF127CDDE71008677C2 /* TestRestaurantViewModel.swift */; };
 		63667CF427CDDEEE008677C2 /* MockGyeonggiRestaurantSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63667CF327CDDEEE008677C2 /* MockGyeonggiRestaurantSearcher.swift */; };
 		6367CED627C7F60F007E0735 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6367CEC227C7F60F007E0735 /* Assets.xcassets */; };
@@ -78,6 +80,7 @@
 		6386669F27DF51E60060ACE5 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386669E27DF51E60060ACE5 /* UIImage+.swift */; };
 		638666A227DF58C90060ACE5 /* BookmarkedListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638666A127DF58C90060ACE5 /* BookmarkedListViewModel.swift */; };
 		638666A427DF6D6C0060ACE5 /* BookmarkdListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638666A327DF6D6C0060ACE5 /* BookmarkdListViewController.swift */; };
+		638845D2280BE6B600D892E4 /* ImageViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638845D1280BE6B600D892E4 /* ImageViewModelFactory.swift */; };
 		6396388A27DA20C00099C872 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6396388927DA20C00099C872 /* UIView+.swift */; };
 		63A3827D280016C9008BAF42 /* LocationServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3827C280016C9008BAF42 /* LocationServiceError.swift */; };
 		63A6B33B27CCB3F10059C283 /* HiddenConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A6B33A27CCB3F10059C283 /* HiddenConfiguration.swift */; };
@@ -130,6 +133,7 @@
 		63018DF127C92B6200363F00 /* NaverImageSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverImageSearcher.swift; sourceTree = "<group>"; };
 		63125BE62800152600AB1549 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		63137B9F27E9910500874F73 /* CautionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CautionViewController.swift; sourceTree = "<group>"; };
+		6318CD0D280C781200BBAA99 /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
 		631BAA2827DB959C00A59AAA /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
 		631BAA2A27DB965B00A59AAA /* DummyURLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyURLRequest.swift; sourceTree = "<group>"; };
 		6325642227DC8C49008D4195 /* DummyError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyError.swift; sourceTree = "<group>"; };
@@ -150,6 +154,7 @@
 		634C229127DB78240011EDBB /* MapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarker.swift; sourceTree = "<group>"; };
 		634C229427DB8B170011EDBB /* Restaurants.xcdatamodel */ = {isa = PBXFileReference; explicitFileType = wrapper.xcdatamodel; path = Restaurants.xcdatamodel; sourceTree = "<group>"; };
 		634C229827DB8CBC0011EDBB /* CDModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDModelManager.swift; sourceTree = "<group>"; };
+		634D5807280BB45D00D99860 /* MapRoutingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRoutingCell.swift; sourceTree = "<group>"; };
 		63667CF127CDDE71008677C2 /* TestRestaurantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRestaurantViewModel.swift; sourceTree = "<group>"; };
 		63667CF327CDDEEE008677C2 /* MockGyeonggiRestaurantSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGyeonggiRestaurantSearcher.swift; sourceTree = "<group>"; };
 		6367CEC227C7F60F007E0735 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -194,6 +199,7 @@
 		6386669E27DF51E60060ACE5 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		638666A127DF58C90060ACE5 /* BookmarkedListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkedListViewModel.swift; sourceTree = "<group>"; };
 		638666A327DF6D6C0060ACE5 /* BookmarkdListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkdListViewController.swift; sourceTree = "<group>"; };
+		638845D1280BE6B600D892E4 /* ImageViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewModelFactory.swift; sourceTree = "<group>"; };
 		6396388927DA20C00099C872 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		63A3827C280016C9008BAF42 /* LocationServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceError.swift; sourceTree = "<group>"; };
 		63A6B33A27CCB3F10059C283 /* HiddenConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenConfiguration.swift; sourceTree = "<group>"; };
@@ -383,6 +389,7 @@
 			children = (
 				634C229127DB78240011EDBB /* MapMarker.swift */,
 				6331915D27E895E0004E8ECB /* GuideButton.swift */,
+				6318CD0D280C781200BBAA99 /* CircleLabel.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -492,6 +499,7 @@
 			isa = PBXGroup;
 			children = (
 				636A347627FF22B00084B456 /* MapRoutingViewController.swift */,
+				634D5807280BB45D00D99860 /* MapRoutingCell.swift */,
 			);
 			path = MapRoutingView;
 			sourceTree = "<group>";
@@ -508,6 +516,7 @@
 		6375C8C127CA85A500F1D60F /* 4_ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				638845D0280BE6AE00D892E4 /* factory */,
 				6362602C280B08E6001F024C /* delegate */,
 				63E0347427CCA79800CB7613 /* protocol */,
 				63E0347227CCA5E700CB7613 /* RestaurantsViewModel.swift */,
@@ -553,6 +562,14 @@
 				638666A327DF6D6C0060ACE5 /* BookmarkdListViewController.swift */,
 			);
 			path = BookmarkedView;
+			sourceTree = "<group>";
+		};
+		638845D0280BE6AE00D892E4 /* factory */ = {
+			isa = PBXGroup;
+			children = (
+				638845D1280BE6B600D892E4 /* ImageViewModelFactory.swift */,
+			);
+			path = factory;
 			sourceTree = "<group>";
 		};
 		6396388B27DA275B0099C872 /* Foundation */ = {
@@ -1000,6 +1017,7 @@
 				6379AFBB27C8E48300F84A91 /* NetworkError.swift in Sources */,
 				6367CEDA27C7F60F007E0735 /* RestaurantsViewController.swift in Sources */,
 				636DDE2E27F2BC6200D35E54 /* MapRouter.swift in Sources */,
+				638845D2280BE6B600D892E4 /* ImageViewModelFactory.swift in Sources */,
 				63DE3E3C27C8996000A32868 /* NetworkManager.swift in Sources */,
 				636A7C2C27D64157000EA2FE /* RestaurantsViewModelAdopter.swift in Sources */,
 				63CB89B327D5C9AA007300C8 /* RestaurantsViewCell.swift in Sources */,
@@ -1017,6 +1035,7 @@
 				6367CEDE27C7F60F007E0735 /* RestaurantSummary.swift in Sources */,
 				636A347727FF22B00084B456 /* MapRoutingViewController.swift in Sources */,
 				6331916227E89D1B004E8ECB /* GyeonggiParagonRestaurantSearcher.swift in Sources */,
+				634D5808280BB45D00D99860 /* MapRoutingCell.swift in Sources */,
 				6367CEDD27C7F60F007E0735 /* Restaurant.swift in Sources */,
 				63768F1A27E70049009E3380 /* DaumImageSearchResult.swift in Sources */,
 				63018DF227C92B6200363F00 /* NaverImageSearcher.swift in Sources */,
@@ -1024,6 +1043,7 @@
 				632B2B0C27CF9E9B00B7AB94 /* Coordinatorable.swift in Sources */,
 				632F73B027E88AEC00C24313 /* ConfigurationCoordinator.swift in Sources */,
 				63DE3E3927C898F800A32868 /* NetworkManagable.swift in Sources */,
+				6318CD0E280C781200BBAA99 /* CircleLabel.swift in Sources */,
 				6367CEE027C7F60F007E0735 /* SearchServiceable.swift in Sources */,
 				6369B44C27F4AD94008F9106 /* MapRoutingCoordinator.swift in Sources */,
 				632F73B327E88C2400C24313 /* ConfigurationViewController.swift in Sources */,
