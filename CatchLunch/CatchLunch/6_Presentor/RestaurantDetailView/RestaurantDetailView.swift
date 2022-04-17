@@ -90,6 +90,10 @@ final class RestaurantDetailView: UIView {
 
 // MARK: - Facade
 extension RestaurantDetailView {
+    func configure(image: UIImage?) {
+        imageView.image = image
+    }
+
     func configure(with summary: RestaurantSummary) {
         mainFoodsLabel.text = summary.descriptionOfMainFoodNames?
             .prepended(mainFoodsLabel.accessibilityLabel)

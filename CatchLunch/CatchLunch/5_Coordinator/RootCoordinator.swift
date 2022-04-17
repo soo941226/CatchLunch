@@ -50,6 +50,20 @@ extension RootCoordinator: ParentCoordinator {
 
         return restaurantsViewController.selectedModel
     }
+
+    func retrieve(image completionHandler: @escaping (UIImage?) -> Void) {
+        guard let viewController = searchBarController.selectedViewController else {
+            return completionHandler(nil)
+        }
+
+        guard let restaurantsViewController = viewController as? RestaurantsViewModelAdopter else {
+            return completionHandler(nil)
+        }
+
+        restaurantsViewController.retrieve { image in
+            completionHandler(image)
+        }
+    }
 }
 
 private extension RootCoordinator {

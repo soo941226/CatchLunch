@@ -8,6 +8,7 @@ import UIKit
 
 protocol ParentCoordinator: AnyObject {
     var model: RestaurantSummary? { get }
+    func retrieve(image completionHandler: @escaping (UIImage?) -> Void)
 }
 
 protocol Coordinatorable: AnyObject {

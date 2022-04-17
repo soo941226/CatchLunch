@@ -22,6 +22,7 @@ where ViewModel.Item == RestaurantSummary {
     init(with viewModel: ViewModel, and imageViewModel: ImageViewModel, under coordinator: Coordinatorable) {
         self.viewModel = viewModel
         self.coordinator = coordinator
+        self.imageViewModel = imageViewModel
         delegate.configure(imageViewModel: imageViewModel)
         super.init(nibName: nil, bundle: nil)
     }
@@ -79,6 +80,17 @@ extension RestaurantsViewController: RestaurantsViewModelAdopter {
         }
 
         return viewModel[indexPath.row]
+    }
+
+    func retrieve(image completionHandler: @escaping (UIImage?) -> Void) {
+        guard let mainFoodName = selectedModel?.mainFoodNames?.first else {
+            completionHandler(nil)
+            return
+        }
+
+        imageViewModel?.search(about: mainFoodName) { _ in
+            completionHandler(self.imageViewModel?[mainFoodName])
+        }
     }
 
     func select() {

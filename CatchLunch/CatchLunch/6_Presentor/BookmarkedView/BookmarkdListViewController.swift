@@ -14,6 +14,7 @@ where ViewModel.Item == RestaurantSummary {
     private let dataSource = RestaurantsViewDataSource<ViewModel>()
     private let delegate = RestaurantsViewDelegate()
 
+    private weak var imageViewModel: ImageViewModel?
     private weak var coordinator: Coordinatorable?
 
     private var isLoad = true
@@ -29,6 +30,7 @@ where ViewModel.Item == RestaurantSummary {
     ) {
         self.viewModel = viewModel
         self.coordinator = coordinator
+        self.imageViewModel = imageViewModel
         delegate.configure(imageViewModel: imageViewModel)
         super.init(nibName: nil, bundle: nil)
     }
@@ -69,14 +71,6 @@ where ViewModel.Item == RestaurantSummary {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
-
-    private func retrieveItems() {
-        viewModel.search { [weak self] isSuccess in
-            if isSuccess {
-                self?.tableView.reloadData()
-            }
-        }
-    }
 }
 
 extension BookmarkdListViewController: RestaurantsViewModelAdopter {
@@ -87,11 +81,29 @@ extension BookmarkdListViewController: RestaurantsViewModelAdopter {
         return viewModel[selectedIndex]
     }
 
+    func retrieve(image completionHandler: @escaping (UIImage?) -> Void) {
+        guard let mainFoodName = selectedModel?.mainFoodNames?.first else {
+            return completionHandler(nil)
+        }
+
+        imageViewModel?.search(about: mainFoodName) { _ in
+            completionHandler(self.imageViewModel?[mainFoodName])
+        }
+    }
+
     func select() {
         coordinator?.start()
     }
 
     func requestNextItems() {
 
+    }
+
+    private func retrieveItems() {
+        viewModel.search { [weak self] isSuccess in
+            if isSuccess {
+                self?.tableView.reloadData()
+            }
+        }
     }
 }

@@ -96,6 +96,13 @@ where ViewModel.Element == RestaurantSummary {
     }
 }
 
+// MARK: - Facade
+extension RestaurantDetailViewController {
+    func image(is image: UIImage?) {
+        detailView.configure(image: image)
+    }
+}
+
 // MARK: - set up views
 private extension RestaurantDetailViewController {
     func insertViews() {
