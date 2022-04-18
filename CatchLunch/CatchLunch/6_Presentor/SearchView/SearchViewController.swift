@@ -21,10 +21,9 @@ final class SearchViewController: UITabBarController {
         fatalError(.meesageAboutInterfaceBuilder)
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tabBar.layer.borderColor = UIColor.lightGray.cgColor
-        tabBar.layer.borderWidth = 0.5
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setUpTabBarBorder()
     }
 
     override var selectedViewController: UIViewController? {
@@ -34,4 +33,14 @@ final class SearchViewController: UITabBarController {
     }
 
     @objc dynamic var selectedItemIndex = Int.zero
+
+    private func setUpTabBarBorder() {
+        let layer = tabBar.layer
+        let basis: CGFloat = 0.5
+        let edgeInset = UIEdgeInsets(top: basis, left: -basis, bottom: -basis, right: -basis)
+
+        layer.frame = layer.frame.inset(by: edgeInset)
+        layer.borderColor = UIColor.secondarySystemFill.cgColor
+        layer.borderWidth = basis
+    }
 }
