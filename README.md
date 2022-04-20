@@ -31,6 +31,7 @@
 ## 사용한 디자인패턴
 
  - Observer pattern
+ - Facade pattern
  - Coordiantor pattern
  - Delegation pattern
  - Factory pattern
