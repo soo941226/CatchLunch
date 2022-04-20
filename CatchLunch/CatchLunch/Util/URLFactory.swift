@@ -12,9 +12,7 @@ enum URLFactory {
         "https://search.pstatic.net/sunny/?src="
     ]
 
-    static func make(
-        from link: String
-    ) -> URL? {
+    static func make(from link: String) -> URL? {
         guard link.firstIndex(of: "*") != nil else {
             return URL(string: link)
         }

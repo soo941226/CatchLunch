@@ -67,9 +67,22 @@ struct RestaurantSummary: Restaurant, Coordinate2D, Bookmarkable, Decodable {
         return isBookmarked
     }
 
-    private mutating func setUpRestaurant(
-        with container: KeyedDecodingContainer<CodingKeys>
-    ) {
+    enum CodingKeys: String, CodingKey {
+        case isBookmarked
+        case cityName = "SIGUN_NM"
+        case restaurantName = "RESTRT_NM"
+        case phoneNumber = "TASTFDPLC_TELNO"
+        case refinedZipCode = "REFINE_ZIPNO"
+        case roadNameAddress = "REFINE_ROADNM_ADDR"
+        case locationNameAddress = "REFINE_LOTNO_ADDR"
+        case mainFoodNames = "REPRSNT_FOOD_NM"
+        case latitude = "REFINE_WGS84_LAT"
+        case longitude = "REFINE_WGS84_LOGT"
+    }
+}
+
+private extension RestaurantSummary {
+    mutating func setUpRestaurant(with container: KeyedDecodingContainer<CodingKeys>) {
         let cityName = try? container.decode(String.self, forKey: .cityName)
         let restaurantName = try? container.decode(String.self, forKey: .restaurantName)
         let phoneNumber = try? container.decode(String.self, forKey: .phoneNumber)
@@ -92,16 +105,12 @@ struct RestaurantSummary: Restaurant, Coordinate2D, Bookmarkable, Decodable {
         self.mainFoodNames = mainFoodNames
     }
 
-    private mutating func setUpBookmarkable(
-        with container: KeyedDecodingContainer<CodingKeys>
-    ) {
+    mutating func setUpBookmarkable(with container: KeyedDecodingContainer<CodingKeys>) {
         let isBookmarked = try? container.decode(Bool.self, forKey: .isBookmarked)
         self.isBookmarked = isBookmarked == true ? true : false
     }
 
-    private mutating func setUpPoint(
-        with container: KeyedDecodingContainer<CodingKeys>
-    ) {
+    mutating func setUpPoint(with container: KeyedDecodingContainer<CodingKeys>) {
         if let latitude = try? container.decode(String.self, forKey: .latitude) {
             self.latitude = Double(latitude)
         } else if let latitude = try? container.decode(Double.self, forKey: .latitude) {
@@ -113,18 +122,5 @@ struct RestaurantSummary: Restaurant, Coordinate2D, Bookmarkable, Decodable {
         } else if let longitude = try? container.decode(Double.self, forKey: .longitude) {
             self.longitude = longitude
         }
-    }
-
-    enum CodingKeys: String, CodingKey {
-        case isBookmarked
-        case cityName = "SIGUN_NM"
-        case restaurantName = "RESTRT_NM"
-        case phoneNumber = "TASTFDPLC_TELNO"
-        case refinedZipCode = "REFINE_ZIPNO"
-        case roadNameAddress = "REFINE_ROADNM_ADDR"
-        case locationNameAddress = "REFINE_LOTNO_ADDR"
-        case mainFoodNames = "REPRSNT_FOOD_NM"
-        case latitude = "REFINE_WGS84_LAT"
-        case longitude = "REFINE_WGS84_LOGT"
     }
 }

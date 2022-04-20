@@ -63,7 +63,7 @@ final class MapRoutingViewController: UIViewController {
 
             let distance = route.distance / 1000
             self.distanceLabel.text = distance.rounded().description + "km"
-            
+
             var steps = route.steps
             if steps.first?.instructions.isEmpty == true {
                 steps.removeFirst()

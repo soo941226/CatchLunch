@@ -57,7 +57,10 @@ extension RestaurantsViewModel: Notifier {
 
         postStartTask()
 
-        service.fetch(pageIndex: pageIndex, requestItemAmount: itemRequestAmount) { [weak self] result in
+        service.fetch(
+            pageIndex: pageIndex,
+            requestItemAmount: itemRequestAmount
+        ) { [weak self] result in
             guard let self = self else { return }
             self.nowLoading = false
 
@@ -82,7 +85,10 @@ extension RestaurantsViewModel: Notifier {
 
 // MARK: - components of fetch
 private extension RestaurantsViewModel {
-    func success(with restaurants: [RestaurantSummary], by completionHandler: @escaping (Bool) -> Void) {
+    func success(
+        with restaurants: [RestaurantSummary],
+        by completionHandler: @escaping (Bool) -> Void
+    ) {
         error = nil
         pageIndex += 1
         sourtOfTruth += restaurants
