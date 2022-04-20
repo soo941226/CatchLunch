@@ -82,7 +82,7 @@ final class ConfigurationViewController: UIViewController {
 
     private func setUpLowerStackView() {
         let versionLabel = UILabel()
-        versionLabel.text = "v0.0.3"
+        versionLabel.text = "v0.0.4"
         versionLabel.font = .preferredFont(forTextStyle: .caption2)
         versionLabel.textAlignment = .center
         versionLabel.textColor = .secondaryLabel
