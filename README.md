@@ -35,7 +35,7 @@
  - Coordiantor pattern
  - Delegation pattern
  - Factory pattern
- - MVVM(with comletion handler)
+ - MVVM(with completion handler)
  
 <br> 
 
